@@ -111,6 +111,7 @@ I start by exploring the data **NLSWORK** (National Longitudinal Survey.  Young 
 setwd("/Users/miguelportela/Documents/GitHub/prjs/logs")
 
 library(haven)
+library(ggplot2)
 
 nlswork <- read_dta("/Users/miguelportela/Documents/GitHub/prjs/data/nlswork.dta")
 
@@ -123,7 +124,7 @@ head(nlswork)
 library(stargazer)
 stargazer(nls, 
           title = "Summary statistics",
-          label="tab:tab1nls", 
+          label="tab1", 
           table.placement = "ht", 
           header=FALSE)
 
@@ -134,6 +135,7 @@ stargazer(nls,
 ```{r echo=FALSE, message=FALSE}
 library(dplyr)
 library(dlookr)
+library(ggplot2)
 
 ##eda_report(nlswork,output_dir = "/Users/miguelportela/Documents/GitHub/prjs/reports/",output_file = "eda_report.pdf")
 
@@ -174,21 +176,11 @@ ggplot(nlswork,
 geom_miss_point() +
 facet_wrap(race)
 
-library("skimr")
+stats <- summary(nlswork$age)
 
-  summary(nlswork$ln_wage)
-  skimr::skim(nlswork$ln_wage)
-  str(nlswork$ln_wage)
-
-  
-dplyr::n_distinct(nlswork)
-dplyr::n_distinct(ln_wage)
-n_miss(union)
-n_complete(union)
-
-
-  
 ```
+
+The average age in our data is `r round(mean(nlswork$age,na.rm=TRUE),1)`.
 
 # Tables {#sec:tables}
 Producing good tables and referencing these tables within a R Markdown PDF has been a hassle but got much better. Examples that you may use are shown below. The way you reference tables is slightly different, e.g., for `stargazer` the label is contained in the function, for `kable` it's contained in the chunk name.
@@ -273,7 +265,7 @@ orca(p, "plotly-plot.pdf")
 
 ## API data download using Python
 
-```{python eval=TRUE,echo=TRUE}
+```{python py,eval=TRUE,echo=TRUE}
 import sys
 print(sys.version)
 
@@ -316,7 +308,17 @@ valor
 
 ```
 
+The criminal rate is `r py$valor`\%o.
+
+\vspace{0.3cm}
 ## Import data from PDF files
+
+```{bash,eval=FALSE}
+  cd /Users/miguelportela/Documents/GitHub/prjs/pdfs
+	find . -name '*.pdf' -print0 | xargs -0 -n1 pdfsandwich -gray
+	find . -name '*ocr.pdf' -print0 | xargs -0 -n1 pdftotext
+```
+
 
 ```{python eval=TRUE,echo=FALSE}
 import os
@@ -453,6 +455,24 @@ df.to_stata('data/PE.dta', write_index = False)
 
 ```
 
+
+
+```{python,eval=FALSE,echo=FALSE}
+import os
+import pandas as pd
+import re
+
+# Create list with .txt files for the specified folder
+files_list = list()
+for (dirpath, dirnames, filenames) in os.walk('/Users/miguelportela/Documents/GitHub/prjs/pdfs'):
+    files_list += [os.path.join(dirpath, file) for file in filenames if file.endswith('.txt')]
+    
+
+nipc = []
+
+```
+
+
 And now we use Stata to explore the data.
 
 ```{stata, echo=TRUE,message=FALSE}
@@ -460,8 +480,28 @@ And now we use Stata to explore the data.
 quiet cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
 quiet import delimited "/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv", encoding(ISO-8859-2) clear 
 tab source
+
 ```
 
+```{stata}
+
+quietly{
+cd /Users/miguelportela/Documents/GitHub/prjs/chunks
+
+use nipcs, clear
+compress
+contract nipc
+drop _freq
+drop if nipc == .
+format %12.0f nipc
+}
+
+codebook nipc
+
+tab nipc
+
+
+```
 
 # Julia experiments
 
@@ -494,6 +534,12 @@ regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("logs/hdfe_ou
 
 ```
 
+\vspace{0.3cm}
+
+The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model has an $R^2$ of `r round(r2,4)`. 
+
+\vspace{0.3cm}
+
 ## Grab results in R
 
 ```{r , echo=FALSE}
@@ -507,9 +553,28 @@ betas <- julia_eval("coef(results_hdfe2)")
 r2 <- julia_eval("r2(results_hdfe2)")
 ```
 
-\vspace{0.3cm}
+```{stata}
+use /Users/miguelportela/Documents/GitHub/prjs/data/data_short, clear
 
-The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model has an $R^2$ of `r round(r2,4)`. 
+timer on 1
+
+	reghdfe lnrealwage education lnsales,absorb(workerid firmid year)
+
+timer off 1
+timer list 1
+timer clear 1
+```
+
+```{r,eval=FALSE}
+library(lfe)
+data_short <- read_dta("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")
+
+system.time(est_hdfe <- felm(data_short$lnrealwage ~ data_short$education + data_short$lnsales | data_short$workerid + data_short$firmid + data_short$year))
+
+summary(est_hdfe)
+```
+
+
 
 ## Output Julia's table for HDFE
 
@@ -520,16 +585,6 @@ The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model ha
 
 
 # Miguel's tests
-
-## Tasks
-
-*Produzir um relatório com base no NLSWORK, desde estatística descritiva, com os valores inseridos automaticamente no texto, gráficos e regressões. Com o Python corremos o EDA, Julia o REGHDFE for speed, com R o RMarkdown + functions & Stata ??? functions???*
-
-WORKSHOP: fazer uma acta do evento no formato de um 'package' com a replicabilidade, markdown, ...
-
-
-Python: explorar o Pandas e o Numpy
-
 
 ## R
 
@@ -646,8 +701,6 @@ sum price
 
 tab rep78
 
-global xx = r(N)
-
 quiet cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
 
 quiet use ../data/nlswork, clear
@@ -695,10 +748,11 @@ outreg, clear
 				*/ ctitle("","Full model") /*
 				*/ nodisplay varlabels bdec(1) se starlevels(10 5 1) starloc(1) summstat(r2\rmse \ N) summtitle("R2"\"RMSE" \ "N")
 
-
+sum lngdp
+global mean_lngdp = r(mean)
 ```
 
-The mean is `s $xx` ...
+The mean log GDP is `r $mean_lngdp`.
 
 ![Wage density](logs/density.pdf)
 
@@ -773,15 +827,6 @@ gen first = substr(country,1,1)
 ```
 
 
-```{r}
-x = 5  # radius of a circle
-```
-
-For a circle with the radius `r x`,
-its area is `r pi * x^2`.
-
-
-
 
 See Figure \@ref(fig:fig-tmp).
 
@@ -794,7 +839,7 @@ plot(x = mpg, y = price,
 
 # Final remarks
 
-Check: https://github.com/tlamadon/blm-replicate
+Check the replication package for Bonhomme, Lamadon and Manresa (2019): https://github.com/tlamadon/blm-replicate
 
 \newpage
 
