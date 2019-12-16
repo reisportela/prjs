@@ -168,11 +168,11 @@ I start by exploring the data \textbf{NLSWORK} (National Longitudinal Survey. Yo
     
     \CommentTok{## type ExPanD() in the Console}
 
-\KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/"}\NormalTok{)}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}\NormalTok{)}
 
 \KeywordTok{library}\NormalTok{(haven)}
 
-\NormalTok{nlswork <-}\StringTok{ }\KeywordTok{read_dta}\NormalTok{(}\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/nlswork.dta"}\NormalTok{)}
+\NormalTok{nlswork <-}\StringTok{ }\KeywordTok{read_dta}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/nlswork.dta"}\NormalTok{)}
 
 \NormalTok{nls<-}\KeywordTok{data.frame}\NormalTok{(nlswork)}
 
@@ -241,37 +241,75 @@ ln\_wage & 28,534 & 1.675 & 0.478 & 0.000 & 1.361 & 1.964 & 5.264 \\
 \end{tabular} 
 \end{table}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(cars, }
-          \DataTypeTok{title =} \StringTok{"Summary table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
-          \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+ [1] "idcode"   "year"     "birth_yr" "age"      "race"     "msp"     
+ [7] "nev_mar"  "grade"    "collgrad" "not_smsa" "c_city"   "south"   
+[13] "ind_code" "occ_code" "union"    "wks_ue"   "ttl_exp"  "tenure"  
+[19] "hours"    "wks_work" "ln_wage" 
+\end{verbatim}
 
-\begin{table}[H] \centering 
-  \caption{Summary table with stargazer} 
-  \label{tab1} 
-\begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Pctl(25)} & \multicolumn{1}{c}{Pctl(75)} & \multicolumn{1}{c}{Max} \\ 
-\hline \\[-1.8ex] 
-speed & 50 & 15.400 & 5.288 & 4 & 12 & 19 & 25 \\ 
-dist & 50 & 42.980 & 25.769 & 2 & 26 & 56 & 120 \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table}
-
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-1.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-2.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-3.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-4.pdf}
+\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-1.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-2.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-3.pdf}
 
 \begin{verbatim}
  num [1:28534] 1.45 1.03 1.59 1.78 1.78 ...
  - attr(*, "label")= chr "ln(wage/GNP deflator)"
  - attr(*, "format.stata")= chr "%9.0g"
+\end{verbatim}
+
+\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-4.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-5.pdf}
+
+\begin{verbatim}
+Error in ggplot(nlswork, aes(x = hours, y = year)): could not find function "ggplot"
+\end{verbatim}
+
+\begin{verbatim}
+Error in ggplot(nlswork, aes(x = hours, y = year)): could not find function "ggplot"
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   1.361   1.641   1.675   1.964   5.264 
+\end{verbatim}
+
+\begin{verbatim}
+
+Skim summary statistics
+
+-- Variable type:numeric -----------------------------------------------------------------
+        variable missing complete     n mean   sd p0  p25  p50  p75 p100
+ nlswork$ln_wage       0    28534 28534 1.67 0.48  0 1.36 1.64 1.96 5.26
+     hist
+ ▁▃▇▃▁▁▁▁
+\end{verbatim}
+
+\begin{verbatim}
+ num [1:28534] 1.45 1.03 1.59 1.78 1.78 ...
+ - attr(*, "label")= chr "ln(wage/GNP deflator)"
+ - attr(*, "format.stata")= chr "%9.0g"
+\end{verbatim}
+
+\begin{verbatim}
+[1] 28534
+\end{verbatim}
+
+\begin{verbatim}
+[1] 8173
+\end{verbatim}
+
+\begin{verbatim}
+Warning in is.na(x): is.na() applied to non-(list or vector) of type 'closure'
+\end{verbatim}
+
+\begin{verbatim}
+[1] 0
+\end{verbatim}
+
+\begin{verbatim}
+Warning in is.na(x): is.na() applied to non-(list or vector) of type 'closure'
+\end{verbatim}
+
+\begin{verbatim}
+[1] 1
 \end{verbatim}
 
 \hypertarget{sec:tables}{%
@@ -289,7 +327,7 @@ Table \ref{tab1} shows summary stats of your data.\footnote{To reference the tab
 \KeywordTok{library}\NormalTok{(stargazer)}
 \KeywordTok{stargazer}\NormalTok{(cars, }
           \DataTypeTok{title =} \StringTok{"Summary table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab1cars"}\NormalTok{, }
           \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
@@ -297,7 +335,7 @@ Table \ref{tab1} shows summary stats of your data.\footnote{To reference the tab
 
 \begin{table}[H] \centering 
   \caption{Summary table with stargazer} 
-  \label{tab1} 
+  \label{tab1cars} 
 \begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
@@ -597,7 +635,7 @@ The estimated return to education is 0.2\%. The model has an \(R^2\) of 0.9782.
 
 \begin{table}[ht]
 \label{tab:hdfe}
-  \input{hdfe_output}
+  \input{logs/hdfe_output}
 \end{table}
 
 \hypertarget{miguels-tests}{%
@@ -708,7 +746,7 @@ F Statistic & 14.740$^{***}$ (df = 2; 71) & 12.437$^{***}$ (df = 3; 65) & 9.654$
 \end{tabular} 
 \end{table}
 
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -801,7 +839,7 @@ The mean is \texttt{s\ \$xx} \ldots{}
 \begin{table}[ht]
 \caption{Regression analysis}
 \label{tab:stata}
-  \input{growth_analysis_frag}
+  \input{logs/growth_analysis_frag}
 \end{table}
 
 We now export a set of statistics to an Excel file.
@@ -810,6 +848,13 @@ We now export a set of statistics to an Excel file.
  command window is unrecognized
 r(199);
 
+
+version 15.1
+
+/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado
+
+Checksum for /Users/miguelportela/Library/Application Support/Stata/ado/plus/x/
+> xtabond2.ado = 616966544, size = 39434
 
 /Users/miguelportela/Documents/GitHub/prjs/logs
 
@@ -1003,6 +1048,8 @@ See Figure \ref{fig:fig-tmp}.
 \hypertarget{final-remarks}{%
 \section{Final remarks}\label{final-remarks}}
 
+Check: \url{https://github.com/tlamadon/blm-replicate}
+
 \newpage
 
 \hypertarget{appendix}{%
@@ -1034,17 +1081,17 @@ See Figure \ref{fig:fig-tmp}.
 #  
 # other attached packages: 
 #  [1] JuliaCall_0.17.1    plotly_4.9.1        ggplot2_3.2.1       
-#  [4] dlookr_0.3.12       mice_3.6.0          lattice_0.20-38     
-#  [7] dplyr_0.8.3         naniar_0.4.2        visdat_0.5.3        
-# [10] haven_2.1.1         ExPanDaR_0.4.0      Statamarkdown_0.3.9 
-# [13] stargazer_5.2.2     reticulate_1.13     
+#  [4] skimr_1.0.7         naniar_0.4.2        visdat_0.5.3        
+#  [7] dlookr_0.3.12       mice_3.6.0          lattice_0.20-38     
+# [10] dplyr_0.8.3         haven_2.1.1         ExPanDaR_0.4.0      
+# [13] Statamarkdown_0.3.9 stargazer_5.2.2     reticulate_1.13     
 #  
 # loaded via a namespace (and not attached): 
 #   [1] readxl_1.3.1          backports_1.1.5       Hmisc_4.2-0           
 #   [4] corrplot_0.84         plyr_1.8.4            lazyeval_0.2.2        
 #   [7] splines_3.6.1         crosstalk_1.0.0       digest_0.6.20         
 #  [10] htmltools_0.4.0       gdata_2.18.0          fansi_0.4.0           
-#  [13] memoise_1.1.0         magrittr_1.5          checkmate_1.9.4       
+#  [13] magrittr_1.5          checkmate_1.9.4       memoise_1.1.0         
 #  [16] cluster_2.1.0         ROCR_1.0-7            openxlsx_4.1.0.1      
 #  [19] readr_1.3.1           xts_0.11-2            sandwich_2.5-1        
 #  [22] askpass_1.1           colorspace_1.4-1      blob_1.2.0            
@@ -1053,22 +1100,22 @@ See Figure \ref{fig:fig-tmp}.
 #  [31] jsonlite_1.6          lme4_1.1-21           zeallot_0.1.0         
 #  [34] survival_2.44-1.1     zoo_1.8-6             glue_1.3.1            
 #  [37] kableExtra_1.1.0      smbinning_0.9         gtable_0.3.0          
-#  [40] webshot_0.5.1         UpSetR_1.4.0          car_3.0-4             
+#  [40] UpSetR_1.4.0          webshot_0.5.1         car_3.0-4             
 #  [43] quantmod_0.4-15       jomo_2.6-9            abind_1.4-5           
 #  [46] scales_1.0.0          mvtnorm_1.0-11        DBI_1.0.0             
 #  [49] Rcpp_1.0.3            viridisLite_0.3.0     xtable_1.8-4          
-#  [52] htmlTable_1.13.2      bit_1.1-14            foreign_0.8-72        
+#  [52] htmlTable_1.13.2      foreign_0.8-72        bit_1.1-14            
 #  [55] Formula_1.2-3         sqldf_0.4-11          DT_0.9                
 #  [58] htmlwidgets_1.5.1     httr_1.4.1            gplots_3.0.1.1        
 #  [61] RColorBrewer_1.1-2    acepack_1.4.1         ellipsis_0.3.0        
 #  [64] pkgconfig_2.0.3       nnet_7.3-12           utf8_1.1.4            
-#  [67] tidyselect_0.2.5      labeling_0.3          rlang_0.4.0           
+#  [67] labeling_0.3          tidyselect_0.2.5      rlang_0.4.0           
 #  [70] later_1.0.0           munsell_0.5.0         cellranger_1.1.0      
 #  [73] tools_3.6.1           cli_1.1.0             gsubfn_0.7            
 #  [76] generics_0.0.2        moments_0.14          RSQLite_2.1.2         
 #  [79] broom_0.5.2           evaluate_0.14         stringr_1.4.0         
 #  [82] fastmap_1.0.1         yaml_2.2.0            processx_3.4.1        
-#  [85] bit64_0.9-7           knitr_1.26            shinycssloaders_0.2.0 
+#  [85] knitr_1.26            bit64_0.9-7           shinycssloaders_0.2.0 
 #  [88] zip_2.0.4             caTools_1.17.1.2      purrr_0.3.3           
 #  [91] mitml_0.3-7           nlme_3.1-141          mime_0.7              
 #  [94] tictoc_1.0            xml2_1.2.2            compiler_3.6.1        
@@ -1146,11 +1193,11 @@ To simply attach all the code you used in the PDF file in the appendix see the R
     
     \CommentTok{## type ExPanD() in the Console}
 
-\KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/"}\NormalTok{)}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}\NormalTok{)}
 
 \KeywordTok{library}\NormalTok{(haven)}
 
-\NormalTok{nlswork <-}\StringTok{ }\KeywordTok{read_dta}\NormalTok{(}\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/nlswork.dta"}\NormalTok{)}
+\NormalTok{nlswork <-}\StringTok{ }\KeywordTok{read_dta}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/nlswork.dta"}\NormalTok{)}
 
 \NormalTok{nls<-}\KeywordTok{data.frame}\NormalTok{(nlswork)}
 
@@ -1165,47 +1212,66 @@ To simply attach all the code you used in the PDF file in the appendix see the R
           \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 
-\KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(cars, }
-          \DataTypeTok{title =} \StringTok{"Summary table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
-          \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
-    
-\KeywordTok{library}\NormalTok{(}\StringTok{"visdat"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(dlookr)}
 
-\KeywordTok{vis_dat}\NormalTok{(nlswork)}
+\CommentTok{##eda_report(nlswork,output_dir = "/Users/miguelportela/Documents/GitHub/prjs/reports/",output_file = "eda_report.pdf")}
 
+\CommentTok{## The data}
 
-\NormalTok{d <-}\StringTok{ }\KeywordTok{density}\NormalTok{(ln_wage)}
-\KeywordTok{plot}\NormalTok{(d)}
+\KeywordTok{names}\NormalTok{(nlswork)}
+\CommentTok{##summary(nlswork)}
 
 \CommentTok{## Missing values}
 
-\KeywordTok{library}\NormalTok{(naniar)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"visdat"}\NormalTok{)}
+
+  \KeywordTok{vis_dat}\NormalTok{(nlswork)}
 
 \CommentTok{## https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html}
 
-\KeywordTok{vis_miss}\NormalTok{(nlswork)}
+\KeywordTok{library}\NormalTok{(naniar)}
 
-\KeywordTok{gg_miss_upset}\NormalTok{(nlswork)}
+  \KeywordTok{vis_miss}\NormalTok{(nlswork)}
 
-\KeywordTok{library}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
+  \KeywordTok{gg_miss_upset}\NormalTok{(nlswork)}
+
+\CommentTok{## GRAPHS}
 \NormalTok{dplyr}\OperatorTok{::}\KeywordTok{glimpse}\NormalTok{(nlswork}\OperatorTok{$}\NormalTok{ln_wage)}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{density}\NormalTok{(ln_wage)}
+\KeywordTok{plot}\NormalTok{(d)}
+
+\KeywordTok{plot}\NormalTok{(nls}\OperatorTok{$}\NormalTok{ln_wage,nls}\OperatorTok{$}\NormalTok{ttl_exp)}
+
+\KeywordTok{ggplot}\NormalTok{(nlswork,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ hours,}
+           \DataTypeTok{y =}\NormalTok{ year)) }\OperatorTok{+}
+\KeywordTok{geom_miss_point}\NormalTok{()}
+
+\KeywordTok{ggplot}\NormalTok{(nlswork,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ hours,}
+           \DataTypeTok{y =}\NormalTok{ year)) }\OperatorTok{+}
+\KeywordTok{geom_miss_point}\NormalTok{() }\OperatorTok{+}
+\KeywordTok{facet_wrap}\NormalTok{(race)}
+
+\KeywordTok{library}\NormalTok{(}\StringTok{"skimr"}\NormalTok{)}
+
+  \KeywordTok{summary}\NormalTok{(nlswork}\OperatorTok{$}\NormalTok{ln_wage)}
+\NormalTok{  skimr}\OperatorTok{::}\KeywordTok{skim}\NormalTok{(nlswork}\OperatorTok{$}\NormalTok{ln_wage)}
+  \KeywordTok{str}\NormalTok{(nlswork}\OperatorTok{$}\NormalTok{ln_wage)}
+
+  
+\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{n_distinct}\NormalTok{(nlswork)}
+\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{n_distinct}\NormalTok{(ln_wage)}
+\KeywordTok{n_miss}\NormalTok{(union)}
+\KeywordTok{n_complete}\NormalTok{(union)}
 
 
-
-\CommentTok{###########}
-
-\KeywordTok{library}\NormalTok{(dlookr)}
-\KeywordTok{library}\NormalTok{(dplyr)}
-
-\CommentTok{##eda_report(nlswork,output_dir = "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/reports/",output_file = "eda_report.pdf")}
-
+  
 \KeywordTok{library}\NormalTok{(stargazer)}
 \KeywordTok{stargazer}\NormalTok{(cars, }
           \DataTypeTok{title =} \StringTok{"Summary table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab1cars"}\NormalTok{, }
           \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \KeywordTok{library}\NormalTok{(stargazer)}
@@ -1429,7 +1495,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 
 \NormalTok{using RegressionTables}
-\KeywordTok{regtable}\NormalTok{(results_hdfe1,results_hdfe2; }\DataTypeTok{renderSettings =} \KeywordTok{latexOutput}\NormalTok{(}\StringTok{"hdfe_output.tex"}\NormalTok{))}
+\KeywordTok{regtable}\NormalTok{(results_hdfe1,results_hdfe2; }\DataTypeTok{renderSettings =} \KeywordTok{latexOutput}\NormalTok{(}\StringTok{"logs/hdfe_output.tex"}\NormalTok{))}
 
 \KeywordTok{library}\NormalTok{(JuliaCall)}
 
@@ -1552,6 +1618,11 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \StringTok{                }\ErrorTok{*/}\StringTok{ }\NormalTok{nodisplay varlabels }\KeywordTok{bdec}\NormalTok{(}\DecValTok{1}\NormalTok{) se }\KeywordTok{starlevels}\NormalTok{(}\DecValTok{10} \DecValTok{5} \DecValTok{1}\NormalTok{) }\KeywordTok{starloc}\NormalTok{(}\DecValTok{1}\NormalTok{) }\KeywordTok{summstat}\NormalTok{(r2\textbackslash{}rmse \textbackslash{} N) }\KeywordTok{summtitle}\NormalTok{(}\StringTok{"R2"}\NormalTok{\textbackslash{}}\StringTok{"RMSE"}\NormalTok{ \textbackslash{} }\StringTok{"N"}\NormalTok{)}
 
 
+\NormalTok{version}
+\OperatorTok{/}\ErrorTok{/}\NormalTok{ado describe}
+
+\NormalTok{findfile xtabond2.ado}
+\NormalTok{checksum }\StringTok{"/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"}
 
 \NormalTok{cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
 
@@ -1616,8 +1687,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 \hypertarget{exploratory-data-analysis-report}{%
 \subsection{Exploratory data analysis report}\label{exploratory-data-analysis-report}}
-
-\includepdf[pages=-]{/Users/miguelportela/Documents/GitHub/prjs/reports/eda_report.pdf}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

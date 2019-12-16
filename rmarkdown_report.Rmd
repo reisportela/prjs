@@ -108,11 +108,11 @@ I start by exploring the data **NLSWORK** (National Longitudinal Survey.  Young 
     
     ## type ExPanD() in the Console
 
-setwd("/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/")
+setwd("/Users/miguelportela/Documents/GitHub/prjs/logs")
 
 library(haven)
 
-nlswork <- read_dta("/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/nlswork.dta")
+nlswork <- read_dta("/Users/miguelportela/Documents/GitHub/prjs/data/nlswork.dta")
 
 nls<-data.frame(nlswork)
 
@@ -130,50 +130,64 @@ stargazer(nls,
 ```
 
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
-library(stargazer)
-stargazer(cars, 
-          title = "Summary table with stargazer",
-          label="tab1", 
-          table.placement = "H", 
-          header=FALSE)
-```
-
-
-
 
 ```{r echo=FALSE, message=FALSE}
-    
-library("visdat")
+library(dplyr)
+library(dlookr)
 
-vis_dat(nlswork)
+##eda_report(nlswork,output_dir = "/Users/miguelportela/Documents/GitHub/prjs/reports/",output_file = "eda_report.pdf")
 
+## The data
 
-d <- density(ln_wage)
-plot(d)
+names(nlswork)
+##summary(nlswork)
 
 ## Missing values
 
-library(naniar)
+library("visdat")
+
+  vis_dat(nlswork)
 
 ## https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html
 
-vis_miss(nlswork)
+library(naniar)
 
-gg_miss_upset(nlswork)
+  vis_miss(nlswork)
 
-library("dplyr")
+  gg_miss_upset(nlswork)
+
+## GRAPHS
 dplyr::glimpse(nlswork$ln_wage)
+d <- density(ln_wage)
+plot(d)
+
+plot(nls$ln_wage,nls$ttl_exp)
+
+ggplot(nlswork,
+       aes(x = hours,
+           y = year)) +
+geom_miss_point()
+
+ggplot(nlswork,
+       aes(x = hours,
+           y = year)) +
+geom_miss_point() +
+facet_wrap(race)
+
+library("skimr")
+
+  summary(nlswork$ln_wage)
+  skimr::skim(nlswork$ln_wage)
+  str(nlswork$ln_wage)
+
+  
+dplyr::n_distinct(nlswork)
+dplyr::n_distinct(ln_wage)
+n_miss(union)
+n_complete(union)
 
 
-
-###########
-
-library(dlookr)
-library(dplyr)
-
-##eda_report(nlswork,output_dir = "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/reports/",output_file = "eda_report.pdf")
-
+  
 ```
 
 # Tables {#sec:tables}
@@ -188,7 +202,7 @@ Table \@ref(tab1) shows summary stats of your data.^[To reference the table wher
 library(stargazer)
 stargazer(cars, 
           title = "Summary table with stargazer",
-          label="tab1", 
+          label="tab1cars", 
           table.placement = "H", 
           header=FALSE)
 ```
@@ -476,7 +490,7 @@ using FixedEffectModels
 
 
 using RegressionTables
-regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("hdfe_output.tex"))
+regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("logs/hdfe_output.tex"))
 
 ```
 
@@ -501,7 +515,7 @@ The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model ha
 
 \begin{table}[ht]
 \label{tab:hdfe}
-  \input{hdfe_output}
+  \input{logs/hdfe_output}
 \end{table}
 
 
@@ -692,12 +706,17 @@ The mean is `s $xx` ...
 \begin{table}[ht]
 \caption{Regression analysis}
 \label{tab:stata}
-  \input{growth_analysis_frag}
+  \input{logs/growth_analysis_frag}
 \end{table}
 
 We now export a set of statistics to an Excel file.
 
 ```{stata, echo=FALSE,message=FALSE}
+version
+//ado describe
+
+findfile xtabond2.ado
+checksum "/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"
 
 cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
 
@@ -775,7 +794,7 @@ plot(x = mpg, y = price,
 
 # Final remarks
 
-
+Check: https://github.com/tlamadon/blm-replicate
 
 \newpage
 
@@ -797,6 +816,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 ## Exploratory data analysis report
 
-\includepdf[pages=-]{/Users/miguelportela/Documents/GitHub/prjs/reports/eda_report.pdf}
+[//]: # \includepdf[pages=-]{/Users/miguelportela/Documents/GitHub/prjs/reports/eda_report.pdf}
 
 # References
