@@ -69,6 +69,13 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 }
 ```
 
+```{r,echo=FALSE}
+Sys.setenv(RETICULATE_PYTHON = "/usr/local/bin/python3")
+library(reticulate)
+use_virtualenv("/Users/miguelportela/.pyenv/version")
+```
+
+
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
@@ -116,7 +123,7 @@ head(nlswork)
 library(stargazer)
 stargazer(nls, 
           title = "Summary statistics",
-          label="tab:tab1", 
+          label="tab:tab1nls", 
           table.placement = "ht", 
           header=FALSE)
 
@@ -303,7 +310,11 @@ import numpy as np
 import pandas as pd
 import re
 
-##os.chdir('/Users/miguelportela/Dropbox/1.miguel/bdp/1.BDs/zonafranca/python_tests/')
+## CHECK PyPDF2
+
+## wget -A pdf -m -p -E -k -K -np https://joram.madeira.gov.pt/joram/4serie/
+## find . -name '*.pdf' -print0 | xargs -0 -n1 pdfsandwich -gray
+## find . -name '*ocr.pdf' -print0 | xargs -0 -n1 pdftotext
 
 # Create list with .txt files for the specified folder
 files_list = list()
@@ -432,8 +443,8 @@ And now we use Stata to explore the data.
 
 ```{stata, echo=TRUE,message=FALSE}
 
-quiet cd "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/logs"
-quiet import delimited "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/data/PE.csv", encoding(ISO-8859-2) clear 
+quiet cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
+quiet import delimited "/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv", encoding(ISO-8859-2) clear 
 tab source
 ```
 
@@ -458,9 +469,9 @@ using StatsBase
 using DataFrames
 using FixedEffectModels
 
-@time results_hdfe1 = reg(DataFrame(load("/Users/miguelportela/Dropbox/1.miguel/1.formacao/julia/benchmark_reghdfe/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(year)));
+@time results_hdfe1 = reg(DataFrame(load("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(year)));
 
-@time results_hdfe2 = reg(DataFrame(load("/Users/miguelportela/Dropbox/1.miguel/1.formacao/julia/benchmark_reghdfe/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(firmid) + fe(year)));
+@time results_hdfe2 = reg(DataFrame(load("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(firmid) + fe(year)));
 
 
 
@@ -548,11 +559,10 @@ library(Statamarkdown)
 stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
-setwd("/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/logs")
+setwd("/Users/miguelportela/Documents/GitHub/prjs/logs")
 rm(list = ls())
 library(haven)
 nlswork <- read_dta("../data/nlswork.dta")
-nlswork <- read.csv("../data/nlswork.csv")
 
 auto <- read_dta("../data/auto.dta")
 
@@ -571,7 +581,9 @@ regs6 <- lm(ln_wage ~ union + collgrad + age)
 
 ## https://www.jakeruss.com/cheatsheets/stargazer/
 
-stargazer(nlswork, summary.stat = c("n", "p75", "sd"), summary.logical = FALSE, 
+nls<-data.frame(nlswork)
+
+stargazer(nls, summary.stat = c("n", "p75", "sd"), summary.logical = FALSE, 
           title = "Summary table",
           label="tab23", 
           table.placement = "ht", 
@@ -622,13 +634,13 @@ tab rep78
 
 global xx = r(N)
 
-quiet cd "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs"
+quiet cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
 
 quiet use ../data/nlswork, clear
 
 twoway (kdensity ln_wage if collgrad == 0) || (kdensity ln_wage if collgrad == 1), scheme(sj) graphregion(color(white)) legend(label(1 "No College") label(2 "College")) legend(region(lwidth(none))) ytitle("Density")
 
-graph export "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs/density.pdf", replace
+graph export "/Users/miguelportela/Documents/GitHub/prjs/logs/density.pdf", replace
 
 use ../data/data_full, clear
 		quiet generate lngdp = ln(rgdpwok)
@@ -687,7 +699,7 @@ We now export a set of statistics to an Excel file.
 
 ```{stata, echo=FALSE,message=FALSE}
 
-cd "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs"
+cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
 
 quiet use ../data/graph_data, clear
 	codebook, compact
@@ -785,6 +797,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 ## Exploratory data analysis report
 
-\includepdf[pages=-]{/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/reports/eda_report.pdf}
+\includepdf[pages=-]{/Users/miguelportela/Documents/GitHub/prjs/reports/eda_report.pdf}
 
 # References

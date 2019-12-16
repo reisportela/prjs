@@ -202,7 +202,7 @@ idcode year birth\_yr age race msp nev\_mar grade collgrad not\_smsa
 \KeywordTok{library}\NormalTok{(stargazer)}
 \KeywordTok{stargazer}\NormalTok{(nls, }
           \DataTypeTok{title =} \StringTok{"Summary statistics"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab:tab1"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab:tab1nls"}\NormalTok{, }
           \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
@@ -210,7 +210,7 @@ idcode year birth\_yr age race msp nev\_mar grade collgrad not\_smsa
 
 \begin{table}[ht] \centering 
   \caption{Summary statistics} 
-  \label{tab:tab1} 
+  \label{tab:tab1nls} 
 \begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
@@ -266,7 +266,7 @@ dist & 50 & 42.980 & 25.769 & 2 & 26 & 56 & 120 \\
 \end{tabular} 
 \end{table}
 
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-1.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-2.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-3.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-4.pdf}
+\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-1.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-2.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-3.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-5-4.pdf}
 
 \begin{verbatim}
  num [1:28534] 1.45 1.03 1.59 1.78 1.78 ...
@@ -447,8 +447,8 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 \end{Shaded}
 
 \begin{verbatim}
-2.7.16 (default, Nov  9 2019, 05:55:08) 
-[GCC 4.2.1 Compatible Apple LLVM 11.0.0 (clang-1100.0.32.4) (-macos10.15-objc-s
+3.8.0 (v3.8.0:fa919fdf25, Oct 14 2019, 10:23:27) 
+[Clang 6.0 (clang-600.0.57)]
 \end{verbatim}
 
 \begin{Shaded}
@@ -456,18 +456,6 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 \ImportTok{import}\NormalTok{ json}
 \CommentTok{##from json.decoder import JSONDecodeError}
 \ImportTok{import}\NormalTok{ requests}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): ImportError: No module named requests
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
 \ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
 
@@ -475,18 +463,7 @@ Detailed traceback:
 \CommentTok{## op=2&varcd=0008074&Dim1=S7A2015&Dim2=200&Dim3=3&lang=PT}
 
 \CommentTok{# api-endpoint }
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): ImportError: No module named pandas
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{URL }\OperatorTok{=} \StringTok{"https://www.ine.pt/ine/json_indicador/pindica.jsp"}
   
 \CommentTok{# define parameters}
@@ -506,100 +483,52 @@ Detailed traceback:
 \NormalTok{r }\OperatorTok{=}\NormalTok{ requests.get(url }\OperatorTok{=}\NormalTok{ URL,params}\OperatorTok{=}\NormalTok{PARAMS) }
   
 \CommentTok{# extracting data in json format }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name 'requests' is not defined
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{data }\OperatorTok{=}\NormalTok{ r.json() }
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): RuntimeError: Evaluation error: object 'json' not found.
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-  File "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/reticulate/python/rpytools/call.py", line 21, in python_function
-    raise RuntimeError(res[kErrorKey])
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{valor }\OperatorTok{=}\NormalTok{ data[}\DecValTok{0}\NormalTok{][}\StringTok{'Dados'}\NormalTok{][}\StringTok{'2015'}\NormalTok{][}\DecValTok{0}\NormalTok{][}\StringTok{'valor'}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name 'data' is not defined
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{valor}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name 'valor' is not defined
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
+'1.8'
 \end{verbatim}
 
 \hypertarget{import-data-from-pdf-files}{%
 \subsection{Import data from PDF files}\label{import-data-from-pdf-files}}
 
 \begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): ImportError: No module named pandas
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
+['', 'PORTARIAS 111111111 DE REGULAMENTAGAO DO TRABALHO', 'PORTARIAs de EXTENSAO 444444444', 'PE das alteragdes do CCT entre a aa tt Assoc e a Feder x32PORTARIAs de EXTENSAO 444444444', '', '', 'Marmores e Materiais de Construcado 222222222', '', '', 'PE das alteragdes do CCT entre a aa tt Assoc e a Feder x32PORTARIAs de EXTENSAO 444444444']
+   
+FILE:  sample_text_v4
+match 1
+match 4
+match 1
+match 4
+match 1
+match 4
+match 3
+match 1
+match 4
+['zzzz', 'PE dasalteragoes do, CCTentre a Assoc. Nacional  dos, Opticos e a FETESE -- Feder. dos Sind. dos Trabalhadores', 'XXXXXXXX', 'akjshdkjashjkds', 'askjhdkjsahkjd']
+   
+FILE:  sample_text_v5
+-> match 5
+PE dasalteragoes do, CCTentre a Assoc. Nacional  dos, Opticos e a FETESE -- Feder. dos Sind. dos Trabalhadores
+99999
 \end{verbatim}
 
 \begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: 'encoding' is an invalid keyword argument for this function
+   linha  ...          source
+0      1  ...  sample_text_v4
+1      2  ...  sample_text_v4
+2      3  ...  sample_text_v4
+3      6  ...  sample_text_v4
+4      9  ...  sample_text_v4
+5      1  ...  sample_text_v5
 
-Detailed traceback: 
-  File "<string>", line 3, in <module>
-\end{verbatim}
-
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name 'pd' is not defined
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-\end{verbatim}
-
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name 'df' is not defined
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-\end{verbatim}
-
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name 'df' is not defined
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
-\end{verbatim}
-
-\begin{verbatim}
-Error in py_call_impl(callable, dots$args, dots$keywords): NameError: name 'df' is not defined
-
-Detailed traceback: 
-  File "<string>", line 1, in <module>
+[6 rows x 4 columns]
 \end{verbatim}
 
 And now we use Stata to explore the data.
@@ -607,8 +536,8 @@ And now we use Stata to explore the data.
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/logs"}
-\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/data/PE.csv"}\NormalTok{, encoding(ISO-8859-2) }\KeywordTok{clear} 
+\NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
+\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv"}\NormalTok{, encoding(ISO-8859-2) }\KeywordTok{clear} 
 \KeywordTok{tab}\NormalTok{ source}
 \end{Highlighting}
 \end{Shaded}
@@ -726,6 +655,7 @@ idcode & 28,534 & 3,881 & 1,487.359 \\
 year & 28,534 & 83 & 6.384 \\ 
 birth\_yr & 28,534 & 51 & 3.013 \\ 
 age & 28,510 & 34.000 & 6.701 \\ 
+race & 28,534 & 2 & 0.482 \\ 
 msp & 28,518 & 1.000 & 0.489 \\ 
 nev\_mar & 28,518 & 0.000 & 0.421 \\ 
 grade & 28,532 & 14.000 & 2.324 \\ 
@@ -778,7 +708,7 @@ F Statistic & 14.740$^{***}$ (df = 2; 71) & 12.437$^{***}$ (df = 3; 65) & 9.654$
 \end{tabular} 
 \end{table}
 
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-13-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -833,8 +763,8 @@ Record 1978 |      Freq.     Percent        Cum.
 
 
 
-(file /Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/lo
-> gs/density.pdf written in PDF format)
+(file /Users/miguelportela/Documents/GitHub/prjs/logs/density.pdf written in PD
+> F format)
 
       Source |       SS           df       MS      Number of obs   =       234
 -------------+----------------------------------   F(7, 226)       =     46.99
@@ -881,13 +811,173 @@ We now export a set of statistics to an Excel file.
 r(199);
 
 
-/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs
+/Users/miguelportela/Documents/GitHub/prjs/logs
 
-file ../data/graph_data.dta not found
-r(601);
 
-end of do-file
-r(601);
+
+Variable   Obs Unique      Mean       Min       Max  Label
+-------------------------------------------------------------------------------
+country    839    106         .         .         .  Country name
+year       839      9  1980.906      1960      2000  Year of observation
+education  839    574  4.794076       .04     12.25  Education
+lngdp      839    838  9.308131  5.983335  12.51058  Log Real GDP per Worker
+open       839      2  .4982122         0         1  1 = high degree of open...
+gdp        839    838  20100.66  396.7612  271192.2  GDP level
+-------------------------------------------------------------------------------
+
+
+Note: file will be replaced when the first putexcel command is issued
+
+
+`"a"' `"b"' `"c"' `"d"' `"e"' `"f"' `"g"' `"h"' `"i"' `"j"' `"k"' `"l"' `"m"' `
+> "n"' `"p"' `"r"' `"s"' `"t"' `"u"' `"v"' `"z"'
+
+
+
+
+Country's first letter:     a
+
+    Insufficient number of countries; n countries = 5
+
+
+
+
+Country's first letter:     b
+
+    Number of countries:    11
+
+
+
+
+Country's first letter:     c
+
+    Number of countries:    9
+
+
+
+
+Country's first letter:     d
+
+    Insufficient number of countries; n countries = 2
+
+
+
+
+Country's first letter:     e
+
+    Insufficient number of countries; n countries = 5
+
+
+
+
+Country's first letter:     f
+
+    Insufficient number of countries; n countries = 3
+
+
+
+
+Country's first letter:     g
+
+    Insufficient number of countries; n countries = 4
+
+
+
+
+Country's first letter:     h
+
+    Insufficient number of countries; n countries = 4
+
+
+
+
+Country's first letter:     i
+
+    Number of countries:    7
+
+
+
+
+Country's first letter:     j
+
+    Insufficient number of countries; n countries = 3
+
+
+
+
+Country's first letter:     k
+
+    Insufficient number of countries; n countries = 2
+
+
+
+
+Country's first letter:     l
+
+    Insufficient number of countries; n countries = 2
+
+
+
+
+Country's first letter:     m
+
+    Number of countries:    8
+
+
+
+
+Country's first letter:     n
+
+    Number of countries:    6
+
+
+
+
+Country's first letter:     p
+
+    Number of countries:    7
+
+
+
+
+Country's first letter:     r
+
+    Insufficient number of countries; n countries = 2
+
+
+
+
+Country's first letter:     s
+
+    Number of countries:    14
+
+
+
+
+Country's first letter:     t
+
+    Insufficient number of countries; n countries = 5
+
+
+
+
+Country's first letter:     u
+
+    Insufficient number of countries; n countries = 4
+
+
+
+
+Country's first letter:     v
+
+    Insufficient number of countries; n countries = 1
+
+
+
+
+Country's first letter:     z
+
+    Insufficient number of countries; n countries = 2
 \end{verbatim}
 
 \begin{Shaded}
@@ -947,7 +1037,7 @@ See Figure \ref{fig:fig-tmp}.
 #  [4] dlookr_0.3.12       mice_3.6.0          lattice_0.20-38     
 #  [7] dplyr_0.8.3         naniar_0.4.2        visdat_0.5.3        
 # [10] haven_2.1.1         ExPanDaR_0.4.0      Statamarkdown_0.3.9 
-# [13] stargazer_5.2.2     
+# [13] stargazer_5.2.2     reticulate_1.13     
 #  
 # loaded via a namespace (and not attached): 
 #   [1] readxl_1.3.1          backports_1.1.5       Hmisc_4.2-0           
@@ -959,46 +1049,46 @@ See Figure \ref{fig:fig-tmp}.
 #  [19] readr_1.3.1           xts_0.11-2            sandwich_2.5-1        
 #  [22] askpass_1.1           colorspace_1.4-1      blob_1.2.0            
 #  [25] rvest_0.3.5           pan_1.6               xfun_0.11             
-#  [28] jsonlite_1.6          tcltk_3.6.1           libcoin_1.0-5         
-#  [31] crayon_1.3.4          lme4_1.1-21           zeallot_0.1.0         
+#  [28] tcltk_3.6.1           libcoin_1.0-5         crayon_1.3.4          
+#  [31] jsonlite_1.6          lme4_1.1-21           zeallot_0.1.0         
 #  [34] survival_2.44-1.1     zoo_1.8-6             glue_1.3.1            
 #  [37] kableExtra_1.1.0      smbinning_0.9         gtable_0.3.0          
 #  [40] webshot_0.5.1         UpSetR_1.4.0          car_3.0-4             
 #  [43] quantmod_0.4-15       jomo_2.6-9            abind_1.4-5           
 #  [46] scales_1.0.0          mvtnorm_1.0-11        DBI_1.0.0             
 #  [49] Rcpp_1.0.3            viridisLite_0.3.0     xtable_1.8-4          
-#  [52] htmlTable_1.13.2      reticulate_1.13       foreign_0.8-72        
-#  [55] bit_1.1-14            Formula_1.2-3         sqldf_0.4-11          
-#  [58] DT_0.9                htmlwidgets_1.5.1     httr_1.4.1            
-#  [61] gplots_3.0.1.1        RColorBrewer_1.1-2    acepack_1.4.1         
-#  [64] ellipsis_0.3.0        pkgconfig_2.0.3       nnet_7.3-12           
-#  [67] utf8_1.1.4            tidyselect_0.2.5      labeling_0.3          
-#  [70] rlang_0.4.0           later_1.0.0           munsell_0.5.0         
-#  [73] cellranger_1.1.0      tools_3.6.1           cli_1.1.0             
-#  [76] gsubfn_0.7            generics_0.0.2        moments_0.14          
-#  [79] RSQLite_2.1.2         broom_0.5.2           evaluate_0.14         
-#  [82] stringr_1.4.0         fastmap_1.0.1         yaml_2.2.0            
-#  [85] processx_3.4.1        knitr_1.26            bit64_0.9-7           
-#  [88] shinycssloaders_0.2.0 zip_2.0.4             caTools_1.17.1.2      
-#  [91] purrr_0.3.3           mitml_0.3-7           nlme_3.1-141          
-#  [94] mime_0.7              tictoc_1.0            xml2_1.2.2            
-#  [97] compiler_3.6.1        rstudioapi_0.10       curl_4.2              
-# [100] e1071_1.7-2           tibble_2.1.3          stringi_1.4.3         
-# [103] ps_1.3.0              forcats_0.4.0         Matrix_1.2-17         
-# [106] classInt_0.4-2        nloptr_1.2.1          vctrs_0.2.0           
-# [109] RcmdrMisc_2.5-1       pillar_1.4.2          lifecycle_0.1.0       
-# [112] data.table_1.12.6     bitops_1.0-6          httpuv_1.5.2          
-# [115] R6_2.4.0              latticeExtra_0.6-28   bookdown_0.16         
-# [118] promises_1.1.0        KernSmooth_2.23-16    gridExtra_2.3         
-# [121] rio_0.5.16            boot_1.3-23           MASS_7.3-51.4         
-# [124] gtools_3.8.1          assertthat_0.2.1      chron_2.3-54          
-# [127] proto_1.0.0           openssl_1.4.1         withr_2.1.2           
-# [130] nortest_1.0-4         DMwR_0.4.1            parallel_3.6.1        
-# [133] hms_0.5.1             grid_3.6.1            prettydoc_0.3.0       
-# [136] rpart_4.1-15          tidyr_1.0.0           class_7.3-15          
-# [139] minqa_1.2.4           inum_1.0-1            rmarkdown_2.0         
-# [142] carData_3.0-2         TTR_0.23-5            partykit_1.2-5        
-# [145] shiny_1.4.0           base64enc_0.1-3       tinytex_0.18          
+#  [52] htmlTable_1.13.2      bit_1.1-14            foreign_0.8-72        
+#  [55] Formula_1.2-3         sqldf_0.4-11          DT_0.9                
+#  [58] htmlwidgets_1.5.1     httr_1.4.1            gplots_3.0.1.1        
+#  [61] RColorBrewer_1.1-2    acepack_1.4.1         ellipsis_0.3.0        
+#  [64] pkgconfig_2.0.3       nnet_7.3-12           utf8_1.1.4            
+#  [67] tidyselect_0.2.5      labeling_0.3          rlang_0.4.0           
+#  [70] later_1.0.0           munsell_0.5.0         cellranger_1.1.0      
+#  [73] tools_3.6.1           cli_1.1.0             gsubfn_0.7            
+#  [76] generics_0.0.2        moments_0.14          RSQLite_2.1.2         
+#  [79] broom_0.5.2           evaluate_0.14         stringr_1.4.0         
+#  [82] fastmap_1.0.1         yaml_2.2.0            processx_3.4.1        
+#  [85] bit64_0.9-7           knitr_1.26            shinycssloaders_0.2.0 
+#  [88] zip_2.0.4             caTools_1.17.1.2      purrr_0.3.3           
+#  [91] mitml_0.3-7           nlme_3.1-141          mime_0.7              
+#  [94] tictoc_1.0            xml2_1.2.2            compiler_3.6.1        
+#  [97] rstudioapi_0.10       curl_4.2              e1071_1.7-2           
+# [100] tibble_2.1.3          stringi_1.4.3         ps_1.3.0              
+# [103] forcats_0.4.0         Matrix_1.2-17         classInt_0.4-2        
+# [106] nloptr_1.2.1          vctrs_0.2.0           RcmdrMisc_2.5-1       
+# [109] pillar_1.4.2          lifecycle_0.1.0       data.table_1.12.6     
+# [112] bitops_1.0-6          httpuv_1.5.2          R6_2.4.0              
+# [115] latticeExtra_0.6-28   bookdown_0.16         promises_1.1.0        
+# [118] KernSmooth_2.23-16    gridExtra_2.3         rio_0.5.16            
+# [121] boot_1.3-23           MASS_7.3-51.4         gtools_3.8.1          
+# [124] assertthat_0.2.1      chron_2.3-54          proto_1.0.0           
+# [127] openssl_1.4.1         withr_2.1.2           nortest_1.0-4         
+# [130] DMwR_0.4.1            parallel_3.6.1        hms_0.5.1             
+# [133] grid_3.6.1            prettydoc_0.3.0       rpart_4.1-15          
+# [136] tidyr_1.0.0           class_7.3-15          minqa_1.2.4           
+# [139] inum_1.0-1            rmarkdown_2.0         carData_3.0-2         
+# [142] TTR_0.23-5            partykit_1.2-5        shiny_1.4.0           
+# [145] base64enc_0.1-3       tinytex_0.18          
 \end{verbatim}
 
 \begin{Shaded}
@@ -1041,6 +1131,9 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{engine.path=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{stata=}\NormalTok{stataexe))}
 
 \NormalTok{\}}
+\KeywordTok{Sys.setenv}\NormalTok{(}\DataTypeTok{RETICULATE_PYTHON =} \StringTok{"/usr/local/bin/python3"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(reticulate)}
+\KeywordTok{use_virtualenv}\NormalTok{(}\StringTok{"/Users/miguelportela/.pyenv/version"}\NormalTok{)}
 \KeywordTok{library}\NormalTok{(stargazer)}
 \KeywordTok{library}\NormalTok{(Statamarkdown)}
 \NormalTok{stataexe <-}\StringTok{ "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"}
@@ -1068,7 +1161,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \KeywordTok{library}\NormalTok{(stargazer)}
 \KeywordTok{stargazer}\NormalTok{(nls, }
           \DataTypeTok{title =} \StringTok{"Summary statistics"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab:tab1"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab:tab1nls"}\NormalTok{, }
           \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 
@@ -1183,7 +1276,11 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{import pandas as pd}
 \NormalTok{import re}
 
-\CommentTok{##os.chdir('/Users/miguelportela/Dropbox/1.miguel/bdp/1.BDs/zonafranca/python_tests/')}
+\CommentTok{## CHECK PyPDF2}
+
+\CommentTok{## wget -A pdf -m -p -E -k -K -np https://joram.madeira.gov.pt/joram/4serie/}
+\CommentTok{## find . -name '*.pdf' -print0 | xargs -0 -n1 pdfsandwich -gray}
+\CommentTok{## find . -name '*ocr.pdf' -print0 | xargs -0 -n1 pdftotext}
 
 \CommentTok{# Create list with .txt files for the specified folder}
 \NormalTok{files_list =}\StringTok{ }\KeywordTok{list}\NormalTok{()}
@@ -1307,8 +1404,8 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \KeywordTok{df.to_stata}\NormalTok{(}\StringTok{'data/PE.dta'}\NormalTok{, }\DataTypeTok{write_index =}\NormalTok{ False)}
 
 
-\NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/logs"}
-\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/data/PE.csv"}\NormalTok{, }\KeywordTok{encoding}\NormalTok{(ISO}\DecValTok{-8859-2}\NormalTok{) clear }
+\NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
+\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv"}\NormalTok{, }\KeywordTok{encoding}\NormalTok{(ISO}\DecValTok{-8859-2}\NormalTok{) clear }
 \NormalTok{tab source}
 \CommentTok{## This is a julia language chunk.}
 \CommentTok{## In julia, the command without ending semicolon will trigger the display}
@@ -1325,9 +1422,9 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{using DataFrames}
 \NormalTok{using FixedEffectModels}
 
-\OperatorTok{@}\NormalTok{time results_hdfe1 =}\StringTok{ }\KeywordTok{reg}\NormalTok{(}\KeywordTok{DataFrame}\NormalTok{(}\KeywordTok{load}\NormalTok{(}\StringTok{"/Users/miguelportela/Dropbox/1.miguel/1.formacao/julia/benchmark_reghdfe/data_short.dta"}\NormalTok{)), }\OperatorTok{@}\KeywordTok{formula}\NormalTok{(lnrealwage }\OperatorTok{~}\StringTok{ }\NormalTok{education }\OperatorTok{+}\StringTok{ }\NormalTok{lnsales }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(workerid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(year)));}
+\OperatorTok{@}\NormalTok{time results_hdfe1 =}\StringTok{ }\KeywordTok{reg}\NormalTok{(}\KeywordTok{DataFrame}\NormalTok{(}\KeywordTok{load}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta"}\NormalTok{)), }\OperatorTok{@}\KeywordTok{formula}\NormalTok{(lnrealwage }\OperatorTok{~}\StringTok{ }\NormalTok{education }\OperatorTok{+}\StringTok{ }\NormalTok{lnsales }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(workerid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(year)));}
 
-\OperatorTok{@}\NormalTok{time results_hdfe2 =}\StringTok{ }\KeywordTok{reg}\NormalTok{(}\KeywordTok{DataFrame}\NormalTok{(}\KeywordTok{load}\NormalTok{(}\StringTok{"/Users/miguelportela/Dropbox/1.miguel/1.formacao/julia/benchmark_reghdfe/data_short.dta"}\NormalTok{)), }\OperatorTok{@}\KeywordTok{formula}\NormalTok{(lnrealwage }\OperatorTok{~}\StringTok{ }\NormalTok{education }\OperatorTok{+}\StringTok{ }\NormalTok{lnsales }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(workerid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(firmid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(year)));}
+\OperatorTok{@}\NormalTok{time results_hdfe2 =}\StringTok{ }\KeywordTok{reg}\NormalTok{(}\KeywordTok{DataFrame}\NormalTok{(}\KeywordTok{load}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta"}\NormalTok{)), }\OperatorTok{@}\KeywordTok{formula}\NormalTok{(lnrealwage }\OperatorTok{~}\StringTok{ }\NormalTok{education }\OperatorTok{+}\StringTok{ }\NormalTok{lnsales }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(workerid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(firmid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(year)));}
 
 
 
@@ -1347,11 +1444,10 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{stataexe <-}\StringTok{ "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"}
 \NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{engine.path=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{stata=}\NormalTok{stataexe))}
 
-\KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/logs"}\NormalTok{)}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}\NormalTok{)}
 \KeywordTok{rm}\NormalTok{(}\DataTypeTok{list =} \KeywordTok{ls}\NormalTok{())}
 \KeywordTok{library}\NormalTok{(haven)}
 \NormalTok{nlswork <-}\StringTok{ }\KeywordTok{read_dta}\NormalTok{(}\StringTok{"../data/nlswork.dta"}\NormalTok{)}
-\NormalTok{nlswork <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"../data/nlswork.csv"}\NormalTok{)}
 
 \NormalTok{auto <-}\StringTok{ }\KeywordTok{read_dta}\NormalTok{(}\StringTok{"../data/auto.dta"}\NormalTok{)}
 
@@ -1370,7 +1466,9 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 \CommentTok{## https://www.jakeruss.com/cheatsheets/stargazer/}
 
-\KeywordTok{stargazer}\NormalTok{(nlswork, }\DataTypeTok{summary.stat =} \KeywordTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"p75"}\NormalTok{, }\StringTok{"sd"}\NormalTok{), }\DataTypeTok{summary.logical =} \OtherTok{FALSE}\NormalTok{, }
+\NormalTok{nls<-}\KeywordTok{data.frame}\NormalTok{(nlswork)}
+
+\KeywordTok{stargazer}\NormalTok{(nls, }\DataTypeTok{summary.stat =} \KeywordTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"p75"}\NormalTok{, }\StringTok{"sd"}\NormalTok{), }\DataTypeTok{summary.logical =} \OtherTok{FALSE}\NormalTok{, }
           \DataTypeTok{title =} \StringTok{"Summary table"}\NormalTok{,}
           \DataTypeTok{label=}\StringTok{"tab23"}\NormalTok{, }
           \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
@@ -1406,13 +1504,13 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 \NormalTok{global xx =}\StringTok{ }\KeywordTok{r}\NormalTok{(N)}
 
-\NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs"}
+\NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
 
 \NormalTok{quiet use ..}\OperatorTok{/}\NormalTok{data}\OperatorTok{/}\NormalTok{nlswork, clear}
 
 \KeywordTok{twoway}\NormalTok{ (kdensity ln_wage }\ControlFlowTok{if}\NormalTok{ collgrad }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{||}\StringTok{ }\NormalTok{(kdensity ln_wage }\ControlFlowTok{if}\NormalTok{ collgrad }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{), }\KeywordTok{scheme}\NormalTok{(sj) }\KeywordTok{graphregion}\NormalTok{(}\KeywordTok{color}\NormalTok{(white)) }\KeywordTok{legend}\NormalTok{(}\KeywordTok{label}\NormalTok{(}\DecValTok{1} \StringTok{"No College"}\NormalTok{) }\KeywordTok{label}\NormalTok{(}\DecValTok{2} \StringTok{"College"}\NormalTok{)) }\KeywordTok{legend}\NormalTok{(}\KeywordTok{region}\NormalTok{(}\KeywordTok{lwidth}\NormalTok{(none))) }\KeywordTok{ytitle}\NormalTok{(}\StringTok{"Density"}\NormalTok{)}
 
-\NormalTok{graph export }\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs/density.pdf"}\NormalTok{, replace}
+\NormalTok{graph export }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs/density.pdf"}\NormalTok{, replace}
 
 \NormalTok{use ..}\OperatorTok{/}\NormalTok{data}\OperatorTok{/}\NormalTok{data_full, clear}
 \NormalTok{        quiet generate lngdp =}\StringTok{ }\KeywordTok{ln}\NormalTok{(rgdpwok)}
@@ -1455,7 +1553,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 
 
-\NormalTok{cd }\StringTok{"/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs"}
+\NormalTok{cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
 
 \NormalTok{quiet use ..}\OperatorTok{/}\NormalTok{data}\OperatorTok{/}\NormalTok{graph_data, clear}
 \NormalTok{    codebook, compact}
@@ -1519,7 +1617,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \hypertarget{exploratory-data-analysis-report}{%
 \subsection{Exploratory data analysis report}\label{exploratory-data-analysis-report}}
 
-\includepdf[pages=-]{/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/reports/eda_report.pdf}
+\includepdf[pages=-]{/Users/miguelportela/Documents/GitHub/prjs/reports/eda_report.pdf}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
