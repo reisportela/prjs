@@ -1,0 +1,790 @@
+---
+title: |
+  |
+  | 
+  | \vspace{1cm}Literate programming with Python, R, Julia and Stata*^[*Corresponding address: miguel.portela@eeg.uminho.pt.]\vspace{0.5cm}
+  |
+author: |
+  | Miguel Portela
+  |
+  | Minho University
+  |
+date: |
+  |       
+  |
+  | `r gsub("^0", "", format(Sys.time(), "%d %B, %Y"))`
+  |
+  |
+linestretch: 1.2
+colorlinks: true
+abstract: \noindent\setstretch{1}In this presentation I will discuss how we can enhance the workflow by using literate programming to combine key features of different statistical packages, namely Stata, R, Julia and Python, on the one hand, and Latex as the typesetting system on the other. The goal is to demonstrate and share a template aiming at producing a highly automated report, or research paper, within the same framework. The tasks will run from exploratory data analysis to regression analysis, where the output, from summary to regression tables and figures, is seamlessly included in the final document. Furthermore, important elements of Latex editing, such as automatic referencing, will be highlighted. We aim at freeing the researcher form repetitive tasks to focus on critical and creative writing. Efficiency and replicability will be at the core of the discussion. RStudio will be used to edit and compile R Markdown. The focus will be on producing PDF outputs. In the presentation I will make use of packages such as bookdown, knitr, stargazer, dlookr, ggplot2, plotly, Statamarkdown, reticulate, JuliaCall, pandas, numpy, matplotlib or FixedEffectModels. The current code is an adaptation of the Rmd by Paul C. Bauer, Mannheim Centre for European Social Research, mail@paulcbauer.eu..\vspace{.8cm}
+bibliography: references.bib
+csl: american-sociological-association.csl
+output:
+  bookdown::pdf_document2:
+    includes:
+    toc: no
+    keep_tex: true
+mainfont: Times New Roman
+sansfont: Times New Roman
+fontsize: 12pt
+link-citations: true
+documentclass: article
+geometry: margin=1in
+always_allow_html: yes
+header-includes:
+   - \usepackage{dcolumn}
+   - \usepackage{color}
+   - \usepackage{pdfpages}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = FALSE)
+# Use chache = TRUE if you want to speed up compilation
+
+# A function to allow for showing some of the inline code
+rinline <- function(code){
+  html <- '<code  class="r">``` `r CODE` ```</code>'
+  sub("CODE", code, html)
+
+  ##https://opensource.com/article/19/5/python-3-default-mac
+  
+  Sys.setenv(RETICULATE_PYTHON = "/usr/local/bin/python3")
+  
+##install.packages("reticulate")
+library(reticulate)
+##use_python("/Library/Frameworks/Python.framework/Versions/3.8/bin/python3")
+  
+use_virtualenv("/Users/miguelportela/.pyenv/version")
+  
+##knitr::opts_chunk$set(python.reticulate=FALSE)
+
+library(JuliaCall)
+
+library(Statamarkdown)
+stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+
+}
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+library(stargazer)
+library(Statamarkdown)
+stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+
+```
+
+\clearpage
+
+\renewcommand{\baselinestretch}{0.5}\normalsize
+[//]: # \tableofcontents
+\renewcommand{\baselinestretch}{1.1}\normalsize
+
+\clearpage
+
+
+
+# Exploratory data analysis
+
+I start by exploring the data **NLSWORK** (National Longitudinal Survey.  Young Women 14-26 years of age in 1968).
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+
+## ExPanDaR: Explore Panel Data Interactively
+
+  library(ExPanDaR)
+    
+    ## type ExPanD() in the Console
+
+setwd("/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/")
+
+library(haven)
+
+nlswork <- read_dta("/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/dados_descricao/data_description/nlswork.dta")
+
+nls<-data.frame(nlswork)
+
+attach(nlswork)
+
+head(nlswork)
+
+library(stargazer)
+stargazer(nls, 
+          title = "Summary statistics",
+          label="tab:tab1", 
+          table.placement = "ht", 
+          header=FALSE)
+
+```
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+library(stargazer)
+stargazer(cars, 
+          title = "Summary table with stargazer",
+          label="tab1", 
+          table.placement = "H", 
+          header=FALSE)
+```
+
+
+
+
+```{r echo=FALSE, message=FALSE}
+    
+library("visdat")
+
+vis_dat(nlswork)
+
+
+d <- density(ln_wage)
+plot(d)
+
+## Missing values
+
+library(naniar)
+
+## https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html
+
+vis_miss(nlswork)
+
+gg_miss_upset(nlswork)
+
+library("dplyr")
+dplyr::glimpse(nlswork$ln_wage)
+
+
+
+###########
+
+library(dlookr)
+library(dplyr)
+
+##eda_report(nlswork,output_dir = "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/reports/",output_file = "eda_report.pdf")
+
+```
+
+# Tables {#sec:tables}
+Producing good tables and referencing these tables within a R Markdown PDF has been a hassle but got much better. Examples that you may use are shown below. The way you reference tables is slightly different, e.g., for `stargazer` the label is contained in the function, for `kable` it's contained in the chunk name.
+
+## stargazer(): Summary and regression tables
+
+Table \@ref(tab1) shows summary stats of your data.^[To reference the table where you set the identifier in the stargazer function you only need to use the actual label, i.e., Â´tab1Â´.] I normally use `stargazer()` [@hlavac2013stargazer] which offers extreme flexibility regarding table output (see `?stargazer`). 
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+library(stargazer)
+stargazer(cars, 
+          title = "Summary table with stargazer",
+          label="tab1", 
+          table.placement = "H", 
+          header=FALSE)
+```
+
+Table \@ref(tab2) shows the output for a regression table. Make sure you name all your models and explicitly refer to model names (M1, M2 etc.) in the text.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+library(stargazer)
+model1 <- lm(speed ~ dist, data = cars)
+model2 <- lm(speed ~ dist, data = cars)
+model3 <- lm(dist ~ speed, data = cars)
+stargazer(model1, model2, model3,
+          title = "Regression table with stargazer",
+          label="tab2", 
+          table.placement = "H", 
+          column.labels = c("M1", "M2", "M3"),
+          model.numbers = FALSE,
+          header=FALSE)
+```
+
+# Figures
+
+## R base graphs
+Inserting figures can be slightly more complicated. Ideally, we would produce and insert them directly in the `.rmd` file. It's relatively simple to insert R base graphs as you can see in Figure \@ref(fig:fig-1).
+
+```{r fig-1, fig.align="center", fig.cap="Scatterplot of Speed and Distance", fig.pos="H", message=FALSE, warning=FALSE, paged.print=FALSE}
+plot(cars$speed, cars$dist)
+``` 
+
+But it turns out that it doesn't always work so well. 
+
+## ggplot2 graphs
+Same is true for ggplot2 as you can see in Figure \@ref(fig:fig-2).
+
+```{r fig-2, fig.align="center", fig.cap="Miles per gallon according to the weight", fig.pos="H", fig.width=6, fig.height=3, message=FALSE, warning=FALSE, paged.print=FALSE}
+mtcars$cyl <- as.factor(mtcars$cyl) # Convert cyl to factor
+library(ggplot2)
+ggplot(mtcars, aes(x=wt, y=mpg, shape=cyl)) + geom_point() +
+  labs(x="Weight (lb/1000)", y = "Miles/(US) gallon", 
+       shape="Number of \n Cylinders") + theme_classic()
+``` 
+
+## Plotly graphs
+Plotly is a popular graph engine that let's you also produce interactive graphs that you can embed in html webpages or documents (e.g., see [here](https://paulcbauer.shinyapps.io/visualizing-causal-scenarios/)). I am a big fan. For some time there was no easy, automatic way to insert high resolution Plotly graphs into your R Markdown PDF. However, this changed since Plotly provided Orca, a command line application for generating static images from Plotly graphs. The installation is a bit tricky (see here: https://github.com/plotly/orca#installation) but once you get it running you can produce beautiful graphs and include them in your RMarkdown PDF using some simple latex as shown below in Figure \@ref(fig:fig-3). Potentially, in case you did not install the command line application this part may fail. If so simply exclude the chunk and the latex code. 
+
+```{r fig-3, message=FALSE, warning=FALSE}
+library(plotly)
+p <- plot_ly(cars, type = "scatter", mode="markers",
+        x=~speed, 
+        y=~dist)
+Sys.setenv('MAPBOX_TOKEN' = '12423423') # set arbitrary token
+orca(p, "plotly-plot.pdf")
+```
+
+
+\begin{figure}[ht]
+\centering
+\caption{An plotly plot that was exported as PDF with orca before}\label{fig:fig-3}
+		\includegraphics[width=0.9\linewidth]{plotly-plot.pdf}
+\begin{flushleft}
+\end{flushleft}
+\end{figure}
+\vspace{-1.2cm}
+
+
+
+# Python
+
+## API data download using Python
+
+```{python eval=TRUE,echo=TRUE}
+import sys
+print(sys.version)
+
+
+import json
+##from json.decoder import JSONDecodeError
+import requests
+import numpy as np
+import pandas as pd
+
+## INE: https://www.ine.pt/ine/json_indicador/pindica.jsp?
+## op=2&varcd=0008074&Dim1=S7A2015&Dim2=200&Dim3=3&lang=PT
+
+# api-endpoint 
+
+URL = "https://www.ine.pt/ine/json_indicador/pindica.jsp"
+  
+# define parameters
+
+OP="2"
+VARCD="0008074"
+DIM1="S7A2015"
+DIM2="200"
+DIM3="3"
+LANG="PT"
+
+
+# defining a params dict for the parameters to be sent to the API 
+PARAMS = {'op':OP,'varcd':VARCD,'Dim1':DIM1,'Dim2':DIM2,'Dim3':DIM3,'lang':LANG} 
+  
+# sending get request and saving the response as response object 
+r = requests.get(url = URL,params=PARAMS) 
+  
+# extracting data in json format 
+data = r.json() 
+
+valor = data[0]['Dados']['2015'][0]['valor']
+
+valor
+
+```
+
+## Import data from PDF files
+
+```{python eval=TRUE,echo=FALSE}
+import os
+import numpy as np
+import pandas as pd
+import re
+
+##os.chdir('/Users/miguelportela/Dropbox/1.miguel/bdp/1.BDs/zonafranca/python_tests/')
+
+# Create list with .txt files for the specified folder
+files_list = list()
+for (dirpath, dirnames, filenames) in os.walk('/Users/miguelportela/Documents/bte/pdfs_teste/'):
+    files_list += [os.path.join(dirpath, file)
+                   for file in filenames if file.endswith('.txt')]
+
+
+##print("START:FILES -- list")
+
+##print(files_list)
+
+##print("END:FILES -- list")
+
+p1 = r'PORTARIA'
+p2 = r'EXTENSAO'
+p3 = r'Materiais'
+p5 = r'PE das'
+
+linha = []
+output = []
+other = []
+palavra = []
+source = []
+
+for file in files_list:
+
+    f = open(file, "r", encoding='latin8')
+    data = f.read()
+    f.close()
+
+    line = []
+    nh = 0
+
+    tmp1 = str(data)
+    #print(tmp1)
+    tmp2 = tmp1.splitlines()
+    #print(tmp2)
+    for n,tmp3 in enumerate(tmp2):
+        #print(tmp3)
+        if (tmp3.find("PE das") == 0):
+            tmp4 = tmp3 + tmp2[2]
+            line.append(tmp4)
+            #print(n)
+            nh = 1
+        elif (nh == 1):
+            nh = 0
+            continue
+        elif (nh == 0):
+            line.append(tmp3)
+
+    print(line)
+
+    print("   ")
+    
+    print("FILE: ", file[46:-4])
+
+    for num, word in enumerate(line):
+            if num == 0:
+                continue
+            else:
+                match1 = re.search(p1, word)
+                match2 = re.search(p2, word)
+                match3 = re.search(p3, word)
+                match4 = re.search(r'\d{9}', word)
+                match5 = re.search(p5, word)
+                ##print("   ")
+                ##print("START: ",num)
+
+                if match1:
+                        ##print("   ")
+                        print("match 1")
+                        if match4:
+                            ##print("   ")
+                            print("match 4")
+                            linha.append(num)
+                            output.append(re.search(r'\d{9}', word).group())
+                            other.append("vazio")
+                            palavra.append(p1)
+                            source.append(file[46:-4])
+                elif match2:
+                            ##print("   ")
+                            print("match 2")
+                            linha.append(num)
+                            output.append(re.search(r'\d{9}', word).group())
+                            other.append("vazio")
+                            palavra.append(p2)
+                            source.append(file[46:-4])
+                elif match3:
+                            ##print("   ")
+                            print("match 3")
+                            linha.append(num)
+                            output.append(re.search(r'\d{9}', word).group())
+                            other.append("vazio")
+                            palavra.append(p3)
+                            source.append(file[46:-4])
+                elif match5:
+                            ##print("   ")
+                            print("-> match 5")
+                            ##word.sub(" e o ", " e a ",1)
+                            print(word)
+                            linha.append(num)
+                            
+                            if (word.find(" e o ") > 0):
+                                print("11111")
+                                output.append((word.split("re a", 1)[1]).split(" e o ", -1)[-2])
+                                other.append((word.split("re a", 1)[1]).split(" e o ", 1)[1])
+                            elif (word.find(" e a ") > 0):
+                                print("99999")
+                                output.append((word.split("re a", 1)[1]).split(" e a ", -1)[-2])
+                                other.append((word.split("re a", 1)[1]).split(" e a ", 1)[1])
+
+                            palavra.append(p5)
+                            source.append(file[46:-4])
+## o parágrafo tem de estar na mesma linha e temos de ter 'e a' em vez de 'e o'
+df = pd.DataFrame({'linha': linha, 'output': output,
+                   'outra': other, 'source': source})
+print(df)
+
+df.to_csv('data/PE.csv', index=False)
+df.to_stata('data/PE.dta', write_index = False)
+
+```
+
+And now we use Stata to explore the data.
+
+```{stata, echo=TRUE,message=FALSE}
+
+quiet cd "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/logs"
+quiet import delimited "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/data/PE.csv", encoding(ISO-8859-2) clear 
+tab source
+```
+
+
+# Julia experiments
+
+## Computations
+
+```{julia echo=FALSE}
+## This is a julia language chunk.
+## In julia, the command without ending semicolon will trigger the display
+## so is JuliaCall package.
+## The julia display will follow immediately after the corresponding command
+## just as the R code in R Markdown.
+
+a = sqrt(2);
+a = sqrt(2)
+
+using ReadStat
+using StatFiles
+using StatsBase
+using DataFrames
+using FixedEffectModels
+
+@time results_hdfe1 = reg(DataFrame(load("/Users/miguelportela/Dropbox/1.miguel/1.formacao/julia/benchmark_reghdfe/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(year)));
+
+@time results_hdfe2 = reg(DataFrame(load("/Users/miguelportela/Dropbox/1.miguel/1.formacao/julia/benchmark_reghdfe/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(firmid) + fe(year)));
+
+
+
+using RegressionTables
+regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("hdfe_output.tex"))
+
+```
+
+## Grab results in R
+
+```{r , echo=FALSE}
+library(JuliaCall)
+
+julia_eval("a")
+
+  julia_eval("results_hdfe2")
+
+betas <- julia_eval("coef(results_hdfe2)")
+r2 <- julia_eval("r2(results_hdfe2)")
+```
+
+\vspace{0.3cm}
+
+The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model has an $R^2$ of `r round(r2,4)`. 
+
+## Output Julia's table for HDFE
+
+\begin{table}[ht]
+\label{tab:hdfe}
+  \input{hdfe_output}
+\end{table}
+
+
+# Miguel's tests
+
+## Tasks
+
+*Produzir um relatório com base no NLSWORK, desde estatística descritiva, com os valores inseridos automaticamente no texto, gráficos e regressões. Com o Python corremos o EDA, Julia o REGHDFE for speed, com R o RMarkdown + functions & Stata ??? functions???*
+
+WORKSHOP: fazer uma acta do evento no formato de um 'package' com a replicabilidade, markdown, ...
+
+
+Python: explorar o Pandas e o Numpy
+
+
+## R
+
+Table \@ref(tab3) ... See Section \@ref(sec:stata)
+
+Example of an equation
+
+$$\int_0^{2\pi} \sin x~dx$$
+
+Example of a matrix
+
+
+$$\mathbf{X} = \left[\begin{array}
+{rrr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{array}\right]
+$$
+
+
+\begin{equation}
+f\left(k\right)=\binom{n}{k}p^k\left(1-p\right)^{n-k} \label{eq:binom}
+\end{equation}
+
+$$
+
+See Equation \@ref(eq:binom).
+
+
+
+\begin{align}
+y_{ijt} = \beta x_{ijt} + \eta_i + \gamma_j + \lambda_t + \varepsilon_{ijt}
+\end{align}
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+library(stargazer)
+library(Statamarkdown)
+stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+
+setwd("/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/logs")
+rm(list = ls())
+library(haven)
+nlswork <- read_dta("../data/nlswork.dta")
+nlswork <- read.csv("../data/nlswork.csv")
+
+auto <- read_dta("../data/auto.dta")
+
+attach(nlswork)
+
+regs1 <- lm(auto$price ~ auto$mpg + auto$weight)
+regs2 <- lm(auto$price ~ auto$mpg + auto$weight + auto$rep78)
+regs3 <- lm(auto$price ~ auto$mpg + auto$weight + auto$rep78 + auto$trunk)
+
+regs4 <- lm(ln_wage ~ union)
+regs5 <- lm(ln_wage ~ union + collgrad)
+regs6 <- lm(ln_wage ~ union + collgrad + age)
+
+##summary(auto)
+##summary(regs1)
+
+## https://www.jakeruss.com/cheatsheets/stargazer/
+
+stargazer(nlswork, summary.stat = c("n", "p75", "sd"), summary.logical = FALSE, 
+          title = "Summary table",
+          label="tab23", 
+          table.placement = "ht", 
+          header=FALSE)
+
+
+stargazer(regs1, regs2, regs3,
+          title = "Regression table with stargazer",
+          label="tab3", 
+          table.placement = "ht", 
+          column.labels = c("M1", "M2", "M3"),
+          model.numbers = FALSE,
+          header=FALSE,keep=c(0,1,2,3))
+
+attach(auto)
+
+
+library(naniar)
+vis_miss(nlswork)
+
+# plot(y=price,x=mpg)
+
+```
+
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+library(stargazer)
+stargazer(cars, 
+          title = "Summary 24",
+          label="tab24", 
+          table.placement = "ht", 
+          header=FALSE)
+```
+
+
+
+## Stata {#sec:stata}
+
+This a Stata example, @arellano2003panel. See also @arellano1991some and @bb98. While ... [check @arellano1995another].
+
+
+```{stata, echo=FALSE,message=FALSE}
+quiet sysuse auto
+sum price
+
+tab rep78
+
+global xx = r(N)
+
+quiet cd "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs"
+
+quiet use ../data/nlswork, clear
+
+twoway (kdensity ln_wage if collgrad == 0) || (kdensity ln_wage if collgrad == 1), scheme(sj) graphregion(color(white)) legend(label(1 "No College") label(2 "College")) legend(region(lwidth(none))) ytitle("Density")
+
+graph export "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs/density.pdf", replace
+
+use ../data/data_full, clear
+		quiet generate lngdp = ln(rgdpwok)
+		quiet ge lnk = ln(capital)
+
+		label var rgdpwok "Real GDP per worker"
+		label var education "Education (in years)"
+		label var capital "Capital"
+		label var open "Degree of openness"
+
+// # regression analysis
+
+	quiet reg lngdp education
+		estimates store r1
+
+	quiet reg lngdp education lnk
+		est store r2
+
+	reg lngdp education lnk openk i.year
+		est store r3
+
+outreg, clear
+	quiet estimates restore r1
+		outreg using growth_analysis_frag, tex fragment replace rtitles("Education" \ "" \ "Capital" \ "" \ "Openness degree" \ "")  /*
+				*/ drop(_cons) /*
+				*/ ctitle("","Simple model") /*
+				*/ nodisplay varlabels bdec(4) se starlevels(10 5 1) starloc(1) summstat(r2\rmse \ N) summtitle("R2"\"RMSE" \ "N")
+
+	quiet estimates restore r2
+		outreg using growth_analysis_frag, tex fragment merge rtitles("Education" \ "" \ "Capital" \ "" \ "Openness degree" \ "")  /*
+				*/ drop(_cons) /*
+				*/ ctitle("","Include capital") /*
+				*/ nodisplay varlabels bdec(3) se starlevels(10 5 1) starloc(1) summstat(r2\rmse \ N) summtitle("R2"\"RMSE" \ "N")
+
+	quiet estimates restore r3
+		outreg using growth_analysis_frag, tex fragment merge rtitles("Education" \ "" \ "Capital" \ "" \ "Openness degree" \ "")  /*
+				*/ drop(_cons 1975.year 1980.year 1985.year 1990.year) /*
+				*/ ctitle("","Full model") /*
+				*/ nodisplay varlabels bdec(1) se starlevels(10 5 1) starloc(1) summstat(r2\rmse \ N) summtitle("R2"\"RMSE" \ "N")
+
+
+```
+
+The mean is `s $xx` ...
+
+![Wage density](logs/density.pdf)
+
+
+\begin{table}[ht]
+\caption{Regression analysis}
+\label{tab:stata}
+  \input{growth_analysis_frag}
+\end{table}
+
+We now export a set of statistics to an Excel file.
+
+```{stata, echo=FALSE,message=FALSE}
+
+cd "/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/logs"
+
+quiet use ../data/graph_data, clear
+	codebook, compact
+
+			putexcel clear
+			putexcel set descriptives.xlsx, sheet("Avg. Educ. & desc.") replace
+			
+
+gen first = substr(country,1,1)
+
+	levelsof first,local(ff)
+	
+	foreach vv of local ff {
+	
+		di _new(3) "Country's first letter:	`vv'"
+		
+		preserve
+		quiet keep if first == "`vv'"
+		
+		quiet unique country
+			
+			if r(unique) > 5 {
+			di _new(2) "	Number of countries:	" r(unique) _new(1)
+			quietly {
+				collapse (mean) lngdp education,by(country)
+					putexcel set descriptives.xlsx, sheet("FIRST LETTER `vv'") modify
+					
+					regress lngdp education
+						
+							matrix list r(table)
+						
+						matrix results = r(table)
+							mat l results
+						
+						mat b = results[1,1...]'
+						mat t = results[3,1...]'
+						
+						putexcel C2="Coef." F2="t"
+						putexcel B3 = matrix(b), rownames nformat(number_d2) right
+						putexcel D3 = matrix(t),nformat("0.00")
+				}
+			}
+			
+			if r(unique) <= 5 {
+				di _new(2) "	Insufficient number of countries; n countries = " r(unique) _new(1)
+			}
+			
+		restore
+	
+	}
+
+```
+
+
+```{r}
+x = 5  # radius of a circle
+```
+
+For a circle with the radius `r x`,
+its area is `r pi * x^2`.
+
+
+
+
+See Figure \@ref(fig:fig-tmp).
+
+```{r fig-tmp, echo=FALSE, fig.align="center", fig.cap="Scatterplot test MP", fig.pos="ht", message=FALSE, warning=FALSE, paged.print=FALSE}
+plot(x = mpg, y = price,
+     pch = 16, frame = FALSE,
+     xlab = "wt", ylab = "mpg", col = "#2E9FDF")
+``` 
+
+
+# Final remarks
+
+
+
+\newpage
+
+# Appendix 
+
+## Software versioning
+
+```{r fig-versioning, echo=TRUE}
+cat(paste("#", capture.output(sessionInfo()), "\n", collapse ="")) 
+  # or use message() instead of cat()
+```
+
+## All the code in the paper
+
+To simply attach all the code you used in the PDF file in the appendix see the R chunk in the underlying `.rmd` file:
+
+```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+```
+
+## Exploratory data analysis report
+
+\includepdf[pages=-]{/Users/miguelportela/Dropbox/1.miguel/bdp/4.code_ados/rmarkdown/checks/reports/eda_report.pdf}
+
+# References
