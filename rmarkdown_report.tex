@@ -137,7 +137,7 @@
 \author{Miguel Portela\\
 ~\\
 Minho University\\}
-\date{16 December, 2019\\
+\date{17 December, 2019\\
 ~\\}
 
 \begin{document}
@@ -165,7 +165,7 @@ I start by exploring the data \textbf{NLSWORK} (National Longitudinal Survey. Yo
 \CommentTok{## ExPanDaR: Explore Panel Data Interactively}
 
   \KeywordTok{library}\NormalTok{(ExPanDaR)}
-    
+
     \CommentTok{## type ExPanD() in the Console}
 
 \KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}\NormalTok{)}
@@ -201,10 +201,10 @@ idcode year birth\_yr age race msp nev\_mar grade collgrad not\_smsa
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(nls, }
+\KeywordTok{stargazer}\NormalTok{(nls,}
           \DataTypeTok{title =} \StringTok{"Summary statistics"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -274,10 +274,10 @@ Table \ref{tab1} shows summary stats of your data.\footnote{To reference the tab
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(cars, }
+\KeywordTok{stargazer}\NormalTok{(cars,}
           \DataTypeTok{title =} \StringTok{"Summary table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1cars"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab1cars"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -306,8 +306,8 @@ Table \ref{tab2} shows the output for a regression table. Make sure you name all
 \NormalTok{model3 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(dist }\OperatorTok{~}\StringTok{ }\NormalTok{speed, }\DataTypeTok{data =}\NormalTok{ cars)}
 \KeywordTok{stargazer}\NormalTok{(model1, model2, model3,}
           \DataTypeTok{title =} \StringTok{"Regression table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab2"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab2"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{,}
           \DataTypeTok{column.labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"M1"}\NormalTok{, }\StringTok{"M2"}\NormalTok{, }\StringTok{"M3"}\NormalTok{),}
           \DataTypeTok{model.numbers =} \OtherTok{FALSE}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
@@ -381,7 +381,7 @@ Same is true for ggplot2 as you can see in Figure \ref{fig:fig-2}.
 \NormalTok{mtcars}\OperatorTok{$}\NormalTok{cyl <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{cyl) }\CommentTok{# Convert cyl to factor}
 \KeywordTok{library}\NormalTok{(ggplot2)}
 \KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{wt, }\DataTypeTok{y=}\NormalTok{mpg, }\DataTypeTok{shape=}\NormalTok{cyl)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Weight (lb/1000)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Miles/(US) gallon"}\NormalTok{, }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Weight (lb/1000)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Miles/(US) gallon"}\NormalTok{,}
        \DataTypeTok{shape=}\StringTok{"Number of }\CharTok{\textbackslash{}n}\StringTok{ Cylinders"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_classic}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -404,12 +404,16 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(plotly)}
 \NormalTok{p <-}\StringTok{ }\KeywordTok{plot_ly}\NormalTok{(cars, }\DataTypeTok{type =} \StringTok{"scatter"}\NormalTok{, }\DataTypeTok{mode=}\StringTok{"markers"}\NormalTok{,}
-        \DataTypeTok{x=}\OperatorTok{~}\NormalTok{speed, }
+        \DataTypeTok{x=}\OperatorTok{~}\NormalTok{speed,}
         \DataTypeTok{y=}\OperatorTok{~}\NormalTok{dist)}
 \KeywordTok{Sys.setenv}\NormalTok{(}\StringTok{'MAPBOX_TOKEN'}\NormalTok{ =}\StringTok{ '12423423'}\NormalTok{) }\CommentTok{# set arbitrary token}
 \KeywordTok{orca}\NormalTok{(p, }\StringTok{"plotly-plot.pdf"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+[93721:1217/010113.178151:ERROR:gles2_cmd_decoder.cc(17766)] [.RenderCompositor-0x7f97d301ce00]GL ERROR :GL_INVALID_OPERATION : glBindTexImage2DCHROMIUM: no image found with the given ID
+\end{verbatim}
 
 \begin{figure}[ht]
 \centering
@@ -449,10 +453,10 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 \CommentTok{## INE: https://www.ine.pt/ine/json_indicador/pindica.jsp?}
 \CommentTok{## op=2&varcd=0008074&Dim1=S7A2015&Dim2=200&Dim3=3&lang=PT}
 
-\CommentTok{# api-endpoint }
+\CommentTok{# api-endpoint}
 
 \NormalTok{URL }\OperatorTok{=} \StringTok{"https://www.ine.pt/ine/json_indicador/pindica.jsp"}
-  
+
 \CommentTok{# define parameters}
 
 \NormalTok{OP}\OperatorTok{=}\StringTok{"2"}
@@ -463,14 +467,14 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 \NormalTok{LANG}\OperatorTok{=}\StringTok{"PT"}
 
 
-\CommentTok{# defining a params dict for the parameters to be sent to the API }
-\NormalTok{PARAMS }\OperatorTok{=}\NormalTok{ \{}\StringTok{'op'}\NormalTok{:OP,}\StringTok{'varcd'}\NormalTok{:VARCD,}\StringTok{'Dim1'}\NormalTok{:DIM1,}\StringTok{'Dim2'}\NormalTok{:DIM2,}\StringTok{'Dim3'}\NormalTok{:DIM3,}\StringTok{'lang'}\NormalTok{:LANG\} }
-  
-\CommentTok{# sending get request and saving the response as response object }
-\NormalTok{r }\OperatorTok{=}\NormalTok{ requests.get(url }\OperatorTok{=}\NormalTok{ URL,params}\OperatorTok{=}\NormalTok{PARAMS) }
-  
-\CommentTok{# extracting data in json format }
-\NormalTok{data }\OperatorTok{=}\NormalTok{ r.json() }
+\CommentTok{# defining a params dict for the parameters to be sent to the API}
+\NormalTok{PARAMS }\OperatorTok{=}\NormalTok{ \{}\StringTok{'op'}\NormalTok{:OP,}\StringTok{'varcd'}\NormalTok{:VARCD,}\StringTok{'Dim1'}\NormalTok{:DIM1,}\StringTok{'Dim2'}\NormalTok{:DIM2,}\StringTok{'Dim3'}\NormalTok{:DIM3,}\StringTok{'lang'}\NormalTok{:LANG\}}
+
+\CommentTok{# sending get request and saving the response as response object}
+\NormalTok{r }\OperatorTok{=}\NormalTok{ requests.get(url }\OperatorTok{=}\NormalTok{ URL,params}\OperatorTok{=}\NormalTok{PARAMS)}
+
+\CommentTok{# extracting data in json format}
+\NormalTok{data }\OperatorTok{=}\NormalTok{ r.json()}
 
 \NormalTok{valor }\OperatorTok{=}\NormalTok{ data[}\DecValTok{0}\NormalTok{][}\StringTok{'Dados'}\NormalTok{][}\StringTok{'2015'}\NormalTok{][}\DecValTok{0}\NormalTok{][}\StringTok{'valor'}\NormalTok{]}
 
@@ -482,22 +486,9 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 '1.8'
 \end{verbatim}
 
-The value is 1.8.
+The criminal rate is 1.8\%o.
 
-This works fine and as expected.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OperatorTok{=} \DecValTok{42} \OperatorTok{*} \DecValTok{2}
-\BuiltInTok{print}\NormalTok{(x) }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-84
-\end{verbatim}
-
-The value of \texttt{x} in the Python session is 84.
+\vspace{0.3cm}
 
 \hypertarget{import-data-from-pdf-files}{%
 \subsection{Import data from PDF files}\label{import-data-from-pdf-files}}
@@ -549,7 +540,7 @@ And now we use Stata to explore the data.
 \begin{Highlighting}[]
 
 \NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
-\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv"}\NormalTok{, encoding(ISO-8859-2) }\KeywordTok{clear} 
+\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv"}\NormalTok{, encoding(ISO-8859-2) }\KeywordTok{clear}
 \KeywordTok{tab}\NormalTok{ source}
 \end{Highlighting}
 \end{Shaded}
@@ -642,16 +633,8 @@ nipc                                                                (unlabeled)
 \hypertarget{computations}{%
 \subsection{Computations}\label{computations}}
 
-\begin{verbatim}
-1.4142135623730951
-\end{verbatim}
-
 \hypertarget{grab-results-in-r}{%
 \subsection{Grab results in R}\label{grab-results-in-r}}
-
-\begin{verbatim}
-[1] 1.414214
-\end{verbatim}
 
 \begin{verbatim}
 Julia Object of type FixedEffectModel.
@@ -669,6 +652,12 @@ education  0.00155631 0.000597587 2.60432    0.009 0.000385043 0.00272758
 lnsales    0.00622989 0.000987569 6.30831    0.000  0.00429426 0.00816552
 =========================================================================
 \end{verbatim}
+
+\vspace{0.3cm}
+
+The estimated return to education is 0.2\%. The model has an \(R^2\) of 0.9782.
+
+\vspace{0.3cm}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -721,7 +710,7 @@ Absorbed degrees of freedom:
 ? = number of redundant parameters may be higher
 
 
-   1:     21.26 /        1 =      21.2590
+   1:     15.87 /        1 =      15.8650
 \end{verbatim}
 
 \begin{Shaded}
@@ -735,10 +724,6 @@ Absorbed degrees of freedom:
 \end{Highlighting}
 \end{Shaded}
 
-\vspace{0.3cm}
-
-The estimated return to education is 0.2\%. The model has an \(R^2\) of 0.9782.
-
 \hypertarget{output-julias-table-for-hdfe}{%
 \subsection{Output Julia's table for HDFE}\label{output-julias-table-for-hdfe}}
 
@@ -749,15 +734,6 @@ The estimated return to education is 0.2\%. The model has an \(R^2\) of 0.9782.
 
 \hypertarget{miguels-tests}{%
 \section{Miguel's tests}\label{miguels-tests}}
-
-\hypertarget{tasks}{%
-\subsection{Tasks}\label{tasks}}
-
-\emph{Produzir um relatório com base no NLSWORK, desde estatística descritiva, com os valores inseridos automaticamente no texto, gráficos e regressões. Com o Python corremos o EDA, Julia o REGHDFE for speed, com R o RMarkdown + functions \& Stata ??? functions???}
-
-WORKSHOP: fazer uma acta do evento no formato de um `package' com a replicabilidade, markdown, \ldots{}
-
-Python: explorar o Pandas e o Numpy
 
 \hypertarget{r}{%
 \subsection{R}\label{r}}
@@ -855,15 +831,15 @@ F Statistic & 14.740$^{***}$ (df = 2; 71) & 12.437$^{***}$ (df = 3; 65) & 9.654$
 \end{tabular} 
 \end{table}
 
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(cars, }
+\KeywordTok{stargazer}\NormalTok{(cars,}
           \DataTypeTok{title =} \StringTok{"Summary 24"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab24"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab24"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -909,7 +885,6 @@ Record 1978 |      Freq.     Percent        Cum.
 
 
 
-
 (file /Users/miguelportela/Documents/GitHub/prjs/logs/density.pdf written in PD
 > F format)
 
@@ -935,9 +910,13 @@ Record 1978 |      Freq.     Percent        Cum.
              |
        _cons |    3.38917   .7508785     4.51   0.000     1.909552    4.868789
 ------------------------------------------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       lngdp |        857    9.302996    1.200567   5.983335   12.51058
 \end{verbatim}
 
-The mean is \texttt{s\ \$xx} \ldots{}
+The mean log GDP is \ldots{}
 
 \begin{figure}
 \centering
@@ -950,6 +929,9 @@ The mean is \texttt{s\ \$xx} \ldots{}
 \label{tab:stata}
   \input{logs/growth_analysis_frag}
 \end{table}
+
+\hypertarget{use-stata-to-export-statistics-to-excel}{%
+\subsection{Use Stata to export statistics to Excel}\label{use-stata-to-export-statistics-to-excel}}
 
 We now export a set of statistics to an Excel file.
 
@@ -1132,16 +1114,82 @@ Country's first letter:     v
 Country's first letter:     z
 
     Insufficient number of countries; n countries = 2
+
+                            Means of Education
+
+           |                Year of observation
+     first |      1960       1965       1970       1975       1980 |     Total
+-----------+-------------------------------------------------------+----------
+         a |     5.525      5.515      4.914       4.86       5.48 | 5.6781395
+         b | 3.6633333      3.645      3.853  3.9866667      4.265 |  4.540641
+         c | 4.3083333  4.2083333  4.5157143    4.94375    5.35625 | 5.5671429
+         d |      8.95       8.86       8.78       8.95       6.85 |     8.874
+         e |     2.325       2.39      2.725  2.6266667  3.6366667 |      3.83
+         f |      5.41  5.4366667  5.8166667  6.1433333  7.0366667 |      6.96
+         g | 2.2533333  2.4166667     3.1775     3.4575       3.99 | 3.9676471
+         h | 2.3766667       2.44     3.9025     4.1825       4.83 | 4.7079412
+         i |     4.365  4.4533333  4.3657143  4.6642857  5.2542857 | 5.3581967
+         j | 3.5766667       3.82  4.0433333       4.55       4.92 |  5.242963
+         k |       1.2       1.19       1.45       1.54       2.46 | 3.3558333
+         l |      3.14       3.09      1.905      2.265      2.425 |   2.75125
+         m | 1.5533333      1.705  2.4628571  2.7557143  3.1642857 | 3.1424194
+         n | 3.8833333      3.955      4.515      4.945       5.26 | 5.2188889
+         p | 2.8283333  2.9666667  4.0971429       4.38  5.1014286 | 4.9127869
+         r |      5.33       5.63       3.21      4.075      4.195 |  4.758125
+         s | 3.8822222  3.6211111  3.5408333     3.7275  4.3372727 | 4.6570297
+         t |    2.2725      2.018      2.296      2.548      3.296 | 3.4636364
+         u |     5.615     5.5675     5.9325     6.2375       6.88 | 6.7183333
+         v |      2.53       2.47       2.92       3.38       4.93 | 4.1533333
+         z |      1.57       1.75      1.945      2.125       3.02 | 3.1016667
+-----------+-------------------------------------------------------+----------
+     Total | 3.6152564  3.6008861  3.8589474  4.1222917  4.6725773 | 4.7940763
+
+           |           Year of observation
+     first |      1985       1990       1995       2000 |     Total
+-----------+--------------------------------------------+----------
+         a |     5.614      6.006      6.382      6.744 | 5.6781395
+         b | 4.4988889      4.843       5.63  5.9633333 |  4.540641
+         c |   5.77125  6.2666667  6.6366667  6.9211111 | 5.5671429
+         d |      9.42      10.13       9.86      10.09 |     8.874
+         e | 3.9633333      5.565     3.9225  5.3566667 |      3.83
+         f |      7.34  8.1533333       8.48  8.8233333 |      6.96
+         g |    4.3175     4.7575        5.1     5.4225 | 3.9676471
+         h |     5.375     5.7825      6.075     6.2575 | 4.7079412
+         i | 5.6157143  5.9757143  6.4271429  6.8314286 | 5.3581967
+         j | 5.5266667  6.3866667  6.9266667  7.4366667 |  5.242963
+         k |      2.38      4.485       5.02       5.52 | 3.3558333
+         l |     2.645       3.03       3.26      3.365 |   2.75125
+         m | 3.4657143     3.6625  4.3971429  4.6085714 | 3.1424194
+         n | 5.4216667       5.97  6.3866667  6.6333333 | 5.2188889
+         p |      5.34  6.0428571  6.3328571       6.55 | 4.9127869
+         r |      4.42      5.365       5.55       5.77 |  4.758125
+         s | 4.7533333     5.1825  6.0533333  6.3358333 | 4.6570297
+         t |     3.876       4.42      4.916      5.292 | 3.4636364
+         u |    7.0825     7.5025     7.6975       7.95 | 6.7183333
+         v |       5.3       4.89       5.35       5.61 | 4.1533333
+         z |     3.265       4.09      4.995      5.155 | 3.1016667
+-----------+--------------------------------------------+----------
+     Total | 4.9997917  5.4991089  5.9415152  6.2917347 | 4.7940763
+
+
+(note: j = 1960 1965 1970 1975 1980 1985 1990 1995 2000)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      189   ->      21
+Number of variables                   3   ->      10
+j variable (9 values)              year   ->   (dropped)
+xij variables:
+                              education   ->   education1960 education1965 ... 
+> education2000
+-----------------------------------------------------------------------------
+
+
+
+file descriptives.xlsx saved
+
+file descriptives.xlsx saved
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x =}\StringTok{ }\DecValTok{5}  \CommentTok{# radius of a circle}
-\end{Highlighting}
-\end{Shaded}
-
-For a circle with the radius 5,
-its area is 78.5398163.
 
 See Figure \ref{fig:fig-tmp}.
 
@@ -1157,7 +1205,7 @@ See Figure \ref{fig:fig-tmp}.
 \hypertarget{final-remarks}{%
 \section{Final remarks}\label{final-remarks}}
 
-Check: \url{https://github.com/tlamadon/blm-replicate}
+Check the replication package for Bonhomme, Lamadon and Manresa (2019): \url{https://github.com/tlamadon/blm-replicate}
 
 \newpage
 
@@ -1169,7 +1217,7 @@ Check: \url{https://github.com/tlamadon/blm-replicate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{cat}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"#"}\NormalTok{, }\KeywordTok{capture.output}\NormalTok{(}\KeywordTok{sessionInfo}\NormalTok{()), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{collapse =}\StringTok{""}\NormalTok{)) }
+\KeywordTok{cat}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"#"}\NormalTok{, }\KeywordTok{capture.output}\NormalTok{(}\KeywordTok{sessionInfo}\NormalTok{()), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{collapse =}\StringTok{""}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1269,15 +1317,15 @@ To simply attach all the code you used in the PDF file in the appendix see the R
   \KeywordTok{sub}\NormalTok{(}\StringTok{"CODE"}\NormalTok{, code, html)}
 
   \CommentTok{##https://opensource.com/article/19/5/python-3-default-mac}
-  
+
   \KeywordTok{Sys.setenv}\NormalTok{(}\DataTypeTok{RETICULATE_PYTHON =} \StringTok{"/usr/local/bin/python3"}\NormalTok{)}
-  
+
 \CommentTok{##install.packages("reticulate")}
 \KeywordTok{library}\NormalTok{(reticulate)}
 \CommentTok{##use_python("/Library/Frameworks/Python.framework/Versions/3.8/bin/python3")}
-  
+
 \KeywordTok{use_virtualenv}\NormalTok{(}\StringTok{"/Users/miguelportela/.pyenv/version"}\NormalTok{)}
-  
+
 \CommentTok{##knitr::opts_chunk$set(python.reticulate=FALSE)}
 
 \KeywordTok{library}\NormalTok{(JuliaCall)}
@@ -1299,7 +1347,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \CommentTok{## ExPanDaR: Explore Panel Data Interactively}
 
   \KeywordTok{library}\NormalTok{(ExPanDaR)}
-    
+
     \CommentTok{## type ExPanD() in the Console}
 
 \KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}\NormalTok{)}
@@ -1316,10 +1364,10 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \KeywordTok{head}\NormalTok{(nlswork)}
 
 \KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(nls, }
+\KeywordTok{stargazer}\NormalTok{(nls,}
           \DataTypeTok{title =} \StringTok{"Summary statistics"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 
 \KeywordTok{library}\NormalTok{(dplyr)}
@@ -1368,10 +1416,10 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{stats <-}\StringTok{ }\KeywordTok{summary}\NormalTok{(nlswork}\OperatorTok{$}\NormalTok{age)}
 
 \KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(cars, }
+\KeywordTok{stargazer}\NormalTok{(cars,}
           \DataTypeTok{title =} \StringTok{"Summary table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1cars"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab1cars"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \KeywordTok{library}\NormalTok{(stargazer)}
 \NormalTok{model1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(speed }\OperatorTok{~}\StringTok{ }\NormalTok{dist, }\DataTypeTok{data =}\NormalTok{ cars)}
@@ -1379,8 +1427,8 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{model3 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(dist }\OperatorTok{~}\StringTok{ }\NormalTok{speed, }\DataTypeTok{data =}\NormalTok{ cars)}
 \KeywordTok{stargazer}\NormalTok{(model1, model2, model3,}
           \DataTypeTok{title =} \StringTok{"Regression table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab2"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab2"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"H"}\NormalTok{,}
           \DataTypeTok{column.labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"M1"}\NormalTok{, }\StringTok{"M2"}\NormalTok{, }\StringTok{"M3"}\NormalTok{),}
           \DataTypeTok{model.numbers =} \OtherTok{FALSE}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
@@ -1388,11 +1436,11 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{mtcars}\OperatorTok{$}\NormalTok{cyl <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{cyl) }\CommentTok{# Convert cyl to factor}
 \KeywordTok{library}\NormalTok{(ggplot2)}
 \KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{wt, }\DataTypeTok{y=}\NormalTok{mpg, }\DataTypeTok{shape=}\NormalTok{cyl)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Weight (lb/1000)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Miles/(US) gallon"}\NormalTok{, }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Weight (lb/1000)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Miles/(US) gallon"}\NormalTok{,}
        \DataTypeTok{shape=}\StringTok{"Number of }\CharTok{\textbackslash{}n}\StringTok{ Cylinders"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_classic}\NormalTok{()}
 \KeywordTok{library}\NormalTok{(plotly)}
 \NormalTok{p <-}\StringTok{ }\KeywordTok{plot_ly}\NormalTok{(cars, }\DataTypeTok{type =} \StringTok{"scatter"}\NormalTok{, }\DataTypeTok{mode=}\StringTok{"markers"}\NormalTok{,}
-        \DataTypeTok{x=}\OperatorTok{~}\NormalTok{speed, }
+        \DataTypeTok{x=}\OperatorTok{~}\NormalTok{speed,}
         \DataTypeTok{y=}\OperatorTok{~}\NormalTok{dist)}
 \KeywordTok{Sys.setenv}\NormalTok{(}\StringTok{'MAPBOX_TOKEN'}\NormalTok{ =}\StringTok{ '12423423'}\NormalTok{) }\CommentTok{# set arbitrary token}
 \KeywordTok{orca}\NormalTok{(p, }\StringTok{"plotly-plot.pdf"}\NormalTok{)}
@@ -1409,10 +1457,10 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \CommentTok{## INE: https://www.ine.pt/ine/json_indicador/pindica.jsp?}
 \CommentTok{## op=2&varcd=0008074&Dim1=S7A2015&Dim2=200&Dim3=3&lang=PT}
 
-\CommentTok{# api-endpoint }
+\CommentTok{# api-endpoint}
 
 \NormalTok{URL =}\StringTok{ "https://www.ine.pt/ine/json_indicador/pindica.jsp"}
-  
+
 \CommentTok{# define parameters}
 
 \NormalTok{OP=}\StringTok{"2"}
@@ -1423,21 +1471,19 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{LANG=}\StringTok{"PT"}
 
 
-\CommentTok{# defining a params dict for the parameters to be sent to the API }
-\NormalTok{PARAMS =}\StringTok{ }\NormalTok{\{}\StringTok{'op'}\OperatorTok{:}\NormalTok{OP,}\StringTok{'varcd'}\OperatorTok{:}\NormalTok{VARCD,}\StringTok{'Dim1'}\OperatorTok{:}\NormalTok{DIM1,}\StringTok{'Dim2'}\OperatorTok{:}\NormalTok{DIM2,}\StringTok{'Dim3'}\OperatorTok{:}\NormalTok{DIM3,}\StringTok{'lang'}\OperatorTok{:}\NormalTok{LANG\} }
-  
-\CommentTok{# sending get request and saving the response as response object }
-\NormalTok{r =}\StringTok{ }\KeywordTok{requests.get}\NormalTok{(}\DataTypeTok{url =}\NormalTok{ URL,}\DataTypeTok{params=}\NormalTok{PARAMS) }
-  
-\CommentTok{# extracting data in json format }
-\NormalTok{data =}\StringTok{ }\KeywordTok{r.json}\NormalTok{() }
+\CommentTok{# defining a params dict for the parameters to be sent to the API}
+\NormalTok{PARAMS =}\StringTok{ }\NormalTok{\{}\StringTok{'op'}\OperatorTok{:}\NormalTok{OP,}\StringTok{'varcd'}\OperatorTok{:}\NormalTok{VARCD,}\StringTok{'Dim1'}\OperatorTok{:}\NormalTok{DIM1,}\StringTok{'Dim2'}\OperatorTok{:}\NormalTok{DIM2,}\StringTok{'Dim3'}\OperatorTok{:}\NormalTok{DIM3,}\StringTok{'lang'}\OperatorTok{:}\NormalTok{LANG\}}
+
+\CommentTok{# sending get request and saving the response as response object}
+\NormalTok{r =}\StringTok{ }\KeywordTok{requests.get}\NormalTok{(}\DataTypeTok{url =}\NormalTok{ URL,}\DataTypeTok{params=}\NormalTok{PARAMS)}
+
+\CommentTok{# extracting data in json format}
+\NormalTok{data =}\StringTok{ }\KeywordTok{r.json}\NormalTok{()}
 
 \NormalTok{valor =}\StringTok{ }\NormalTok{data[}\DecValTok{0}\NormalTok{][}\StringTok{'Dados'}\NormalTok{][}\StringTok{'2015'}\NormalTok{][}\DecValTok{0}\NormalTok{][}\StringTok{'valor'}\NormalTok{]}
 
 \NormalTok{valor}
 
-\NormalTok{x =}\StringTok{ }\DecValTok{42} \OperatorTok{*}\StringTok{ }\DecValTok{2}
-\KeywordTok{print}\NormalTok{(x) }
 \NormalTok{  cd }\OperatorTok{/}\NormalTok{Users}\OperatorTok{/}\NormalTok{miguelportela}\OperatorTok{/}\NormalTok{Documents}\OperatorTok{/}\NormalTok{GitHub}\OperatorTok{/}\NormalTok{prjs}\OperatorTok{/}\NormalTok{pdfs}
 \NormalTok{    find . }\OperatorTok{-}\NormalTok{name }\StringTok{'*.pdf'} \OperatorTok{-}\NormalTok{print0 }\OperatorTok{|}\StringTok{ }\NormalTok{xargs }\DecValTok{-0} \OperatorTok{-}\NormalTok{n1 pdfsandwich }\OperatorTok{-}\NormalTok{gray}
 \NormalTok{    find . }\OperatorTok{-}\NormalTok{name }\StringTok{'*ocr.pdf'} \OperatorTok{-}\NormalTok{print0 }\OperatorTok{|}\StringTok{ }\NormalTok{xargs }\DecValTok{-0} \OperatorTok{-}\NormalTok{n1 pdftotext}
@@ -1505,7 +1551,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
     \KeywordTok{print}\NormalTok{(line)}
 
     \KeywordTok{print}\NormalTok{(}\StringTok{"   "}\NormalTok{)}
-    
+
     \KeywordTok{print}\NormalTok{(}\StringTok{"FILE: "}\NormalTok{, file[}\DecValTok{46}\OperatorTok{:-}\DecValTok{4}\NormalTok{])}
 
     \ControlFlowTok{for}\NormalTok{ num, word }\ControlFlowTok{in} \KeywordTok{enumerate}\NormalTok{(line)}\OperatorTok{:}
@@ -1553,7 +1599,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
                             \CommentTok{##word.sub(" e o ", " e a ",1)}
                             \KeywordTok{print}\NormalTok{(word)}
                             \KeywordTok{linha.append}\NormalTok{(num)}
-                            
+
                             \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{word.find}\NormalTok{(}\StringTok{" e o "}\NormalTok{) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)}\OperatorTok{:}
 \StringTok{                                }\KeywordTok{print}\NormalTok{(}\StringTok{"11111"}\NormalTok{)}
                                 \KeywordTok{output.append}\NormalTok{((}\KeywordTok{word.split}\NormalTok{(}\StringTok{"re a"}\NormalTok{, }\DecValTok{1}\NormalTok{)[}\DecValTok{1}\NormalTok{])}\KeywordTok{.split}\NormalTok{(}\StringTok{" e o "}\NormalTok{, }\DecValTok{-1}\NormalTok{)[}\OperatorTok{-}\DecValTok{2}\NormalTok{])}
@@ -1573,21 +1619,9 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \KeywordTok{df.to_csv}\NormalTok{(}\StringTok{'data/PE.csv'}\NormalTok{, }\DataTypeTok{index=}\NormalTok{False)}
 \KeywordTok{df.to_stata}\NormalTok{(}\StringTok{'data/PE.dta'}\NormalTok{, }\DataTypeTok{write_index =}\NormalTok{ False)}
 
-\NormalTok{import os}
-\NormalTok{import pandas as pd}
-\NormalTok{import re}
-
-\CommentTok{# Create list with .txt files for the specified folder}
-\NormalTok{files_list =}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (dirpath, dirnames, filenames) }\ControlFlowTok{in} \KeywordTok{os.walk}\NormalTok{(}\StringTok{'/Users/miguelportela/Documents/GitHub/prjs/pdfs'}\NormalTok{)}\OperatorTok{:}
-\StringTok{    }\NormalTok{files_list }\OperatorTok{+}\ErrorTok{=}\StringTok{ }\NormalTok{[}\KeywordTok{os.path.join}\NormalTok{(dirpath, file) }\ControlFlowTok{for}\NormalTok{ file }\ControlFlowTok{in}\NormalTok{ filenames }\ControlFlowTok{if} \KeywordTok{file.endswith}\NormalTok{(}\StringTok{'.txt'}\NormalTok{)]}
-    
-
-\NormalTok{nipc =}\StringTok{ }\NormalTok{[]}
-
 
 \NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
-\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv"}\NormalTok{, }\KeywordTok{encoding}\NormalTok{(ISO}\DecValTok{-8859-2}\NormalTok{) clear }
+\NormalTok{quiet import delimited }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv"}\NormalTok{, }\KeywordTok{encoding}\NormalTok{(ISO}\DecValTok{-8859-2}\NormalTok{) clear}
 \NormalTok{tab source}
 
 
@@ -1613,9 +1647,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \CommentTok{## The julia display will follow immediately after the corresponding command}
 \CommentTok{## just as the R code in R Markdown.}
 
-\NormalTok{a =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{);}
-\NormalTok{a =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)}
-
 \NormalTok{using ReadStat}
 \NormalTok{using StatFiles}
 \NormalTok{using StatsBase}
@@ -1632,8 +1663,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \KeywordTok{regtable}\NormalTok{(results_hdfe1,results_hdfe2; }\DataTypeTok{renderSettings =} \KeywordTok{latexOutput}\NormalTok{(}\StringTok{"logs/hdfe_output.tex"}\NormalTok{))}
 
 \KeywordTok{library}\NormalTok{(JuliaCall)}
-
-\KeywordTok{julia_eval}\NormalTok{(}\StringTok{"a"}\NormalTok{)}
 
   \KeywordTok{julia_eval}\NormalTok{(}\StringTok{"results_hdfe2"}\NormalTok{)}
 
@@ -1683,17 +1712,17 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 \NormalTok{nls<-}\KeywordTok{data.frame}\NormalTok{(nlswork)}
 
-\KeywordTok{stargazer}\NormalTok{(nls, }\DataTypeTok{summary.stat =} \KeywordTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"p75"}\NormalTok{, }\StringTok{"sd"}\NormalTok{), }\DataTypeTok{summary.logical =} \OtherTok{FALSE}\NormalTok{, }
+\KeywordTok{stargazer}\NormalTok{(nls, }\DataTypeTok{summary.stat =} \KeywordTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"p75"}\NormalTok{, }\StringTok{"sd"}\NormalTok{), }\DataTypeTok{summary.logical =} \OtherTok{FALSE}\NormalTok{,}
           \DataTypeTok{title =} \StringTok{"Summary table"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab23"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab23"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 
 
 \KeywordTok{stargazer}\NormalTok{(regs1, regs2, regs3,}
           \DataTypeTok{title =} \StringTok{"Regression table with stargazer"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab3"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab3"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{,}
           \DataTypeTok{column.labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"M1"}\NormalTok{, }\StringTok{"M2"}\NormalTok{, }\StringTok{"M3"}\NormalTok{),}
           \DataTypeTok{model.numbers =} \OtherTok{FALSE}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{,}\DataTypeTok{keep=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{))}
@@ -1707,17 +1736,15 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \CommentTok{# plot(y=price,x=mpg)}
 
 \KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(cars, }
+\KeywordTok{stargazer}\NormalTok{(cars,}
           \DataTypeTok{title =} \StringTok{"Summary 24"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab24"}\NormalTok{, }
-          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{, }
+          \DataTypeTok{label=}\StringTok{"tab24"}\NormalTok{,}
+          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{,}
           \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
 \NormalTok{quiet sysuse auto}
 \NormalTok{sum price}
 
 \NormalTok{tab rep78}
-
-\NormalTok{global xx =}\StringTok{ }\KeywordTok{r}\NormalTok{(N)}
 
 \NormalTok{quiet cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
 
@@ -1766,12 +1793,15 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \StringTok{                }\ErrorTok{*/}\StringTok{ }\KeywordTok{ctitle}\NormalTok{(}\StringTok{""}\NormalTok{,}\StringTok{"Full model"}\NormalTok{) }\OperatorTok{/}\ErrorTok{*}
 \StringTok{                }\ErrorTok{*/}\StringTok{ }\NormalTok{nodisplay varlabels }\KeywordTok{bdec}\NormalTok{(}\DecValTok{1}\NormalTok{) se }\KeywordTok{starlevels}\NormalTok{(}\DecValTok{10} \DecValTok{5} \DecValTok{1}\NormalTok{) }\KeywordTok{starloc}\NormalTok{(}\DecValTok{1}\NormalTok{) }\KeywordTok{summstat}\NormalTok{(r2\textbackslash{}rmse \textbackslash{} N) }\KeywordTok{summtitle}\NormalTok{(}\StringTok{"R2"}\NormalTok{\textbackslash{}}\StringTok{"RMSE"}\NormalTok{ \textbackslash{} }\StringTok{"N"}\NormalTok{)}
 
-
+\NormalTok{sum lngdp}
+\NormalTok{global mean_lngdp =}\StringTok{ }\KeywordTok{r}\NormalTok{(mean)}
 \NormalTok{version}
 \OperatorTok{/}\ErrorTok{/}\NormalTok{ado describe}
 
 \NormalTok{findfile xtabond2.ado}
 \NormalTok{checksum }\StringTok{"/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"}
+
+\OperatorTok{/}\ErrorTok{/}\StringTok{ }\NormalTok{PUTEXCEL}
 
 \NormalTok{cd }\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}
 
@@ -1822,14 +1852,25 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{            \}}
             
 \NormalTok{        restore}
-    
-\NormalTok{    \}}
+\NormalTok{\}}
 
-\NormalTok{x =}\StringTok{ }\DecValTok{5}  \CommentTok{# radius of a circle}
+\OperatorTok{/}\ErrorTok{/}\StringTok{ }\NormalTok{tabulate, }\KeywordTok{summarize}\NormalTok{() }\OperatorTok{--}\StringTok{ }\NormalTok{EXAMPLE}
+
+\NormalTok{tabulate first year, }\KeywordTok{summarize}\NormalTok{(education) nost nof noob}
+
+\KeywordTok{collapse}\NormalTok{ (mean) education,}\KeywordTok{by}\NormalTok{(first year)}
+
+\NormalTok{reshape wide education,}\KeywordTok{i}\NormalTok{(first) }\KeywordTok{j}\NormalTok{(year)}
+\NormalTok{mkmat education}\OperatorTok{*}\NormalTok{,}\KeywordTok{matrix}\NormalTok{(mean_educ) }\KeywordTok{rownames}\NormalTok{(first)}
+
+\NormalTok{putexcel set descriptives.xlsx, }\KeywordTok{sheet}\NormalTok{(}\StringTok{"Mean Education"}\NormalTok{) modify}
+
+\NormalTok{    putexcel C2=}\StringTok{"1960"}\NormalTok{ D2=}\StringTok{"1965"}\NormalTok{ E2=}\StringTok{"1970"}\NormalTok{ F2=}\StringTok{"1975"}\NormalTok{ G2=}\StringTok{"1980"}\NormalTok{ H2=}\StringTok{"1985"}\NormalTok{ I2=}\StringTok{"1990"}\NormalTok{ J2=}\StringTok{"1995"}\NormalTok{ K2=}\StringTok{"2000"}
+\NormalTok{    putexcel B3 =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(mean_educ), rownames }\KeywordTok{nformat}\NormalTok{(number_d2) right}
 \KeywordTok{plot}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ mpg, }\DataTypeTok{y =}\NormalTok{ price,}
      \DataTypeTok{pch =} \DecValTok{16}\NormalTok{, }\DataTypeTok{frame =} \OtherTok{FALSE}\NormalTok{,}
      \DataTypeTok{xlab =} \StringTok{"wt"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"mpg"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"#2E9FDF"}\NormalTok{)}
-\KeywordTok{cat}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"#"}\NormalTok{, }\KeywordTok{capture.output}\NormalTok{(}\KeywordTok{sessionInfo}\NormalTok{()), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{collapse =}\StringTok{""}\NormalTok{)) }
+\KeywordTok{cat}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"#"}\NormalTok{, }\KeywordTok{capture.output}\NormalTok{(}\KeywordTok{sessionInfo}\NormalTok{()), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{collapse =}\StringTok{""}\NormalTok{))}
   \CommentTok{# or use message() instead of cat()}
 \end{Highlighting}
 \end{Shaded}

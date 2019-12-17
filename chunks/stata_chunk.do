@@ -80,7 +80,24 @@ gen first = substr(country,1,1)
 			}
 			
 		restore
-	
+}
+
+// tabulate, summarize() -- EXAMPLE
+
+tabulate first year, summarize(education) nost nof noob
+
+collapse (mean) education,by(first year)
+
+reshape wide education,i(first) j(year)
+mkmat education*,matrix(mean_educ) rownames(first)
+
+putexcel set descriptives.xlsx, sheet("Mean Education") modify
+
+	putexcel C2="1960" D2="1965" E2="1970" F2="1975" G2="1980" H2="1985" I2="1990" J2="1995" K2="2000"
+	putexcel B3 = matrix(mean_educ), rownames nformat(number_d2) right
+
+				
+						
 // RD
 
 clear all

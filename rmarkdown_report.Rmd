@@ -1,7 +1,7 @@
 ---
 title: |
   |
-  | 
+  |
   | \vspace{1cm}Literate programming with Python, R, Julia and Stata*^[*Corresponding address: miguel.portela@eeg.uminho.pt.]\vspace{0.5cm}
   |
 author: |
@@ -10,7 +10,7 @@ author: |
   | Minho University
   |
 date: |
-  |       
+  |
   |
   | `r gsub("^0", "", format(Sys.time(), "%d %B, %Y"))`
   |
@@ -49,15 +49,15 @@ rinline <- function(code){
   sub("CODE", code, html)
 
   ##https://opensource.com/article/19/5/python-3-default-mac
-  
+
   Sys.setenv(RETICULATE_PYTHON = "/usr/local/bin/python3")
-  
+
 ##install.packages("reticulate")
 library(reticulate)
 ##use_python("/Library/Frameworks/Python.framework/Versions/3.8/bin/python3")
-  
+
 use_virtualenv("/Users/miguelportela/.pyenv/version")
-  
+
 ##knitr::opts_chunk$set(python.reticulate=FALSE)
 
 library(JuliaCall)
@@ -100,12 +100,12 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 I start by exploring the data **NLSWORK** (National Longitudinal Survey.  Young Women 14-26 years of age in 1968).
 
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 
 ## ExPanDaR: Explore Panel Data Interactively
 
   library(ExPanDaR)
-    
+
     ## type ExPanD() in the Console
 
 setwd("/Users/miguelportela/Documents/GitHub/prjs/logs")
@@ -122,10 +122,10 @@ attach(nlswork)
 head(nlswork)
 
 library(stargazer)
-stargazer(nls, 
+stargazer(nls,
           title = "Summary statistics",
-          label="tab1", 
-          table.placement = "ht", 
+          label="tab1",
+          table.placement = "ht",
           header=FALSE)
 
 ```
@@ -187,15 +187,15 @@ Producing good tables and referencing these tables within a R Markdown PDF has b
 
 ## stargazer(): Summary and regression tables
 
-Table \@ref(tab1) shows summary stats of your data.^[To reference the table where you set the identifier in the stargazer function you only need to use the actual label, i.e., Â´tab1Â´.] I normally use `stargazer()` [@hlavac2013stargazer] which offers extreme flexibility regarding table output (see `?stargazer`). 
+Table \@ref(tab1) shows summary stats of your data.^[To reference the table where you set the identifier in the stargazer function you only need to use the actual label, i.e., Â´tab1Â´.] I normally use `stargazer()` [@hlavac2013stargazer] which offers extreme flexibility regarding table output (see `?stargazer`).
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
-stargazer(cars, 
+stargazer(cars,
           title = "Summary table with stargazer",
-          label="tab1cars", 
-          table.placement = "H", 
+          label="tab1cars",
+          table.placement = "H",
           header=FALSE)
 ```
 
@@ -208,8 +208,8 @@ model2 <- lm(speed ~ dist, data = cars)
 model3 <- lm(dist ~ speed, data = cars)
 stargazer(model1, model2, model3,
           title = "Regression table with stargazer",
-          label="tab2", 
-          table.placement = "H", 
+          label="tab2",
+          table.placement = "H",
           column.labels = c("M1", "M2", "M3"),
           model.numbers = FALSE,
           header=FALSE)
@@ -222,9 +222,9 @@ Inserting figures can be slightly more complicated. Ideally, we would produce an
 
 ```{r fig-1, fig.align="center", fig.cap="Scatterplot of Speed and Distance", fig.pos="H", message=FALSE, warning=FALSE, paged.print=FALSE}
 plot(cars$speed, cars$dist)
-``` 
+```
 
-But it turns out that it doesn't always work so well. 
+But it turns out that it doesn't always work so well.
 
 ## ggplot2 graphs
 Same is true for ggplot2 as you can see in Figure \@ref(fig:fig-2).
@@ -233,17 +233,17 @@ Same is true for ggplot2 as you can see in Figure \@ref(fig:fig-2).
 mtcars$cyl <- as.factor(mtcars$cyl) # Convert cyl to factor
 library(ggplot2)
 ggplot(mtcars, aes(x=wt, y=mpg, shape=cyl)) + geom_point() +
-  labs(x="Weight (lb/1000)", y = "Miles/(US) gallon", 
+  labs(x="Weight (lb/1000)", y = "Miles/(US) gallon",
        shape="Number of \n Cylinders") + theme_classic()
-``` 
+```
 
 ## Plotly graphs
-Plotly is a popular graph engine that let's you also produce interactive graphs that you can embed in html webpages or documents (e.g., see [here](https://paulcbauer.shinyapps.io/visualizing-causal-scenarios/)). I am a big fan. For some time there was no easy, automatic way to insert high resolution Plotly graphs into your R Markdown PDF. However, this changed since Plotly provided Orca, a command line application for generating static images from Plotly graphs. The installation is a bit tricky (see here: https://github.com/plotly/orca#installation) but once you get it running you can produce beautiful graphs and include them in your RMarkdown PDF using some simple latex as shown below in Figure \@ref(fig:fig-3). Potentially, in case you did not install the command line application this part may fail. If so simply exclude the chunk and the latex code. 
+Plotly is a popular graph engine that let's you also produce interactive graphs that you can embed in html webpages or documents (e.g., see [here](https://paulcbauer.shinyapps.io/visualizing-causal-scenarios/)). I am a big fan. For some time there was no easy, automatic way to insert high resolution Plotly graphs into your R Markdown PDF. However, this changed since Plotly provided Orca, a command line application for generating static images from Plotly graphs. The installation is a bit tricky (see here: https://github.com/plotly/orca#installation) but once you get it running you can produce beautiful graphs and include them in your RMarkdown PDF using some simple latex as shown below in Figure \@ref(fig:fig-3). Potentially, in case you did not install the command line application this part may fail. If so simply exclude the chunk and the latex code.
 
 ```{r fig-3, message=FALSE, warning=FALSE}
 library(plotly)
 p <- plot_ly(cars, type = "scatter", mode="markers",
-        x=~speed, 
+        x=~speed,
         y=~dist)
 Sys.setenv('MAPBOX_TOKEN' = '12423423') # set arbitrary token
 orca(p, "plotly-plot.pdf")
@@ -279,10 +279,10 @@ import pandas as pd
 ## INE: https://www.ine.pt/ine/json_indicador/pindica.jsp?
 ## op=2&varcd=0008074&Dim1=S7A2015&Dim2=200&Dim3=3&lang=PT
 
-# api-endpoint 
+# api-endpoint
 
 URL = "https://www.ine.pt/ine/json_indicador/pindica.jsp"
-  
+
 # define parameters
 
 OP="2"
@@ -293,14 +293,14 @@ DIM3="3"
 LANG="PT"
 
 
-# defining a params dict for the parameters to be sent to the API 
-PARAMS = {'op':OP,'varcd':VARCD,'Dim1':DIM1,'Dim2':DIM2,'Dim3':DIM3,'lang':LANG} 
-  
-# sending get request and saving the response as response object 
-r = requests.get(url = URL,params=PARAMS) 
-  
-# extracting data in json format 
-data = r.json() 
+# defining a params dict for the parameters to be sent to the API
+PARAMS = {'op':OP,'varcd':VARCD,'Dim1':DIM1,'Dim2':DIM2,'Dim3':DIM3,'lang':LANG}
+
+# sending get request and saving the response as response object
+r = requests.get(url = URL,params=PARAMS)
+
+# extracting data in json format
+data = r.json()
 
 valor = data[0]['Dados']['2015'][0]['valor']
 
@@ -385,7 +385,7 @@ for file in files_list:
     print(line)
 
     print("   ")
-    
+
     print("FILE: ", file[46:-4])
 
     for num, word in enumerate(line):
@@ -433,7 +433,7 @@ for file in files_list:
                             ##word.sub(" e o ", " e a ",1)
                             print(word)
                             linha.append(num)
-                            
+
                             if (word.find(" e o ") > 0):
                                 print("11111")
                                 output.append((word.split("re a", 1)[1]).split(" e o ", -1)[-2])
@@ -457,28 +457,13 @@ df.to_stata('data/PE.dta', write_index = False)
 
 
 
-```{python,eval=FALSE,echo=FALSE}
-import os
-import pandas as pd
-import re
-
-# Create list with .txt files for the specified folder
-files_list = list()
-for (dirpath, dirnames, filenames) in os.walk('/Users/miguelportela/Documents/GitHub/prjs/pdfs'):
-    files_list += [os.path.join(dirpath, file) for file in filenames if file.endswith('.txt')]
-    
-
-nipc = []
-
-```
-
 
 And now we use Stata to explore the data.
 
 ```{stata, echo=TRUE,message=FALSE}
 
 quiet cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
-quiet import delimited "/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv", encoding(ISO-8859-2) clear 
+quiet import delimited "/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv", encoding(ISO-8859-2) clear
 tab source
 
 ```
@@ -514,9 +499,6 @@ tab nipc
 ## The julia display will follow immediately after the corresponding command
 ## just as the R code in R Markdown.
 
-a = sqrt(2);
-a = sqrt(2)
-
 using ReadStat
 using StatFiles
 using StatsBase
@@ -534,24 +516,24 @@ regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("logs/hdfe_ou
 
 ```
 
-\vspace{0.3cm}
-
-The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model has an $R^2$ of `r round(r2,4)`. 
-
-\vspace{0.3cm}
-
 ## Grab results in R
 
 ```{r , echo=FALSE}
 library(JuliaCall)
-
-julia_eval("a")
 
   julia_eval("results_hdfe2")
 
 betas <- julia_eval("coef(results_hdfe2)")
 r2 <- julia_eval("r2(results_hdfe2)")
 ```
+
+
+\vspace{0.3cm}
+
+The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model has an $R^2$ of `r round(r2,4)`.
+
+\vspace{0.3cm}
+
 
 ```{stata}
 use /Users/miguelportela/Documents/GitHub/prjs/data/data_short, clear
@@ -573,7 +555,6 @@ system.time(est_hdfe <- felm(data_short$lnrealwage ~ data_short$education + data
 
 summary(est_hdfe)
 ```
-
 
 
 ## Output Julia's table for HDFE
@@ -652,17 +633,17 @@ regs6 <- lm(ln_wage ~ union + collgrad + age)
 
 nls<-data.frame(nlswork)
 
-stargazer(nls, summary.stat = c("n", "p75", "sd"), summary.logical = FALSE, 
+stargazer(nls, summary.stat = c("n", "p75", "sd"), summary.logical = FALSE,
           title = "Summary table",
-          label="tab23", 
-          table.placement = "ht", 
+          label="tab23",
+          table.placement = "ht",
           header=FALSE)
 
 
 stargazer(regs1, regs2, regs3,
           title = "Regression table with stargazer",
-          label="tab3", 
-          table.placement = "ht", 
+          label="tab3",
+          table.placement = "ht",
           column.labels = c("M1", "M2", "M3"),
           model.numbers = FALSE,
           header=FALSE,keep=c(0,1,2,3))
@@ -681,10 +662,10 @@ vis_miss(nlswork)
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
-stargazer(cars, 
+stargazer(cars,
           title = "Summary 24",
-          label="tab24", 
-          table.placement = "ht", 
+          label="tab24",
+          table.placement = "ht",
           header=FALSE)
 ```
 
@@ -752,7 +733,7 @@ sum lngdp
 global mean_lngdp = r(mean)
 ```
 
-The mean log GDP is `r $mean_lngdp`.
+The mean log GDP is ...
 
 ![Wage density](logs/density.pdf)
 
@@ -763,6 +744,8 @@ The mean log GDP is `r $mean_lngdp`.
   \input{logs/growth_analysis_frag}
 \end{table}
 
+## Use Stata to export statistics to Excel
+
 We now export a set of statistics to an Excel file.
 
 ```{stata, echo=FALSE,message=FALSE}
@@ -771,6 +754,8 @@ version
 
 findfile xtabond2.ado
 checksum "/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"
+
+// PUTEXCEL
 
 cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
 
@@ -821,9 +806,21 @@ gen first = substr(country,1,1)
 			}
 			
 		restore
-	
-	}
+}
 
+// tabulate, summarize() -- EXAMPLE
+
+tabulate first year, summarize(education) nost nof noob
+
+collapse (mean) education,by(first year)
+
+reshape wide education,i(first) j(year)
+mkmat education*,matrix(mean_educ) rownames(first)
+
+putexcel set descriptives.xlsx, sheet("Mean Education") modify
+
+	putexcel C2="1960" D2="1965" E2="1970" F2="1975" G2="1980" H2="1985" I2="1990" J2="1995" K2="2000"
+	putexcel B3 = matrix(mean_educ), rownames nformat(number_d2) right
 ```
 
 
@@ -834,7 +831,7 @@ See Figure \@ref(fig:fig-tmp).
 plot(x = mpg, y = price,
      pch = 16, frame = FALSE,
      xlab = "wt", ylab = "mpg", col = "#2E9FDF")
-``` 
+```
 
 
 # Final remarks
@@ -843,12 +840,12 @@ Check the replication package for Bonhomme, Lamadon and Manresa (2019): https://
 
 \newpage
 
-# Appendix 
+# Appendix
 
 ## Software versioning
 
 ```{r fig-versioning, echo=TRUE}
-cat(paste("#", capture.output(sessionInfo()), "\n", collapse ="")) 
+cat(paste("#", capture.output(sessionInfo()), "\n", collapse =""))
   # or use message() instead of cat()
 ```
 
