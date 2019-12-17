@@ -469,11 +469,13 @@ tab source
 
 ```
 
+## Run a Python script to read a PDF using the shell to run the commands wget, pdfsandwich and pdftotext
+
 ```{bash}
 python3 /Users/miguelportela/Documents/GitHub/prjs/chunks/python_chunk.py
 ```
 
-
+## Use Stata to list the fiscal numbers (read the data produced with Python)
 
 ```{stata, echo=TRUE,message=FALSE}
 
@@ -488,7 +490,7 @@ drop if nipc == .
 format %12.0f nipc
 }
 
-codebook nipc
+//codebook nipc
 
 tab nipc
 ```
@@ -531,6 +533,7 @@ betas <- julia_eval("coef(results_hdfe2)")
 r2 <- julia_eval("r2(results_hdfe2)")
 ```
 
+## Insert Julia's results
 
 \vspace{0.3cm}
 
@@ -538,6 +541,7 @@ The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model ha
 
 \vspace{0.3cm}
 
+## Computation time: run the HDFE with Stata and R and compare to Julia
 
 ```{stata, echo=TRUE,message=FALSE}
 
@@ -737,6 +741,7 @@ outreg, clear
 sum lngdp
 ```
 
+## Grab Stata's output
 
 ```{stata , collectcode=TRUE} 
 use /Users/miguelportela/Documents/GitHub/prjs/data/data_full, clear
@@ -829,7 +834,7 @@ gen first = substr(country,1,1)
 			}
 			
 			if r(unique) <= 5 {
-				di _new(2) "	Insufficient number of countries; n countries = " r(unique) _new(1)
+				// di _new(2) "	Insufficient number of countries; n countries = " r(unique) _new(1)
 			}
 			
 		restore
