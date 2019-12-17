@@ -12,3 +12,5 @@ using FixedEffectModels
 
 using RegressionTables
 regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("/Users/miguelportela/Documents/GitHub/prjs/logs/hdfe_output.tex"))
+
+versioninfo()

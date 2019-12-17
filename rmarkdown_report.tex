@@ -373,14 +373,14 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
         \DataTypeTok{x=}\OperatorTok{~}\NormalTok{speed,}
         \DataTypeTok{y=}\OperatorTok{~}\NormalTok{dist)}
 \KeywordTok{Sys.setenv}\NormalTok{(}\StringTok{'MAPBOX_TOKEN'}\NormalTok{ =}\StringTok{ '12423423'}\NormalTok{) }\CommentTok{# set arbitrary token}
-\KeywordTok{orca}\NormalTok{(p, }\StringTok{"plotly-plot.pdf"}\NormalTok{)}
+\KeywordTok{orca}\NormalTok{(p, }\StringTok{"logs/plotly-plot.pdf"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}[ht]
 \centering
 \caption{An plotly plot that was exported as PDF with orca before}\label{fig:fig-3}
-        \includegraphics[width=0.9\linewidth]{plotly-plot.pdf}
+        \includegraphics[width=0.9\linewidth]{logs/plotly-plot.pdf}
 \begin{flushleft}
 \end{flushleft}
 \end{figure}
@@ -531,7 +531,7 @@ sample_text_v5 |          1       16.67      100.00
 \KeywordTok{quietly}\NormalTok{\{}
 \NormalTok{cd /Users/miguelportela/Documents/GitHub/prjs/chunks}
 
-\KeywordTok{use}\NormalTok{ nipcs, }\KeywordTok{clear}
+\KeywordTok{use}\NormalTok{ /Users/miguelportela/Documents/GitHub/prjs/}\KeywordTok{data}\NormalTok{/nipcs, }\KeywordTok{clear}
 \KeywordTok{compress}
 \KeywordTok{contract}\NormalTok{ nipc}
 \KeywordTok{drop}\NormalTok{ _freq}
@@ -600,6 +600,10 @@ nipc                                                                (unlabeled)
 
 \hypertarget{computations}{%
 \subsection{Computations}\label{computations}}
+
+\begin{verbatim}
+v"1.2.0"
+\end{verbatim}
 
 \hypertarget{grab-results-in-r}{%
 \subsection{Grab results in R}\label{grab-results-in-r}}
@@ -679,7 +683,7 @@ Absorbed degrees of freedom:
 ? = number of redundant parameters may be higher
 
 
-   1:     13.81 /        1 =      13.8140
+   1:     15.25 /        1 =      15.2530
 \end{verbatim}
 
 \begin{Shaded}
@@ -1203,6 +1207,9 @@ Check the replication package for Bonhomme, Lamadon and Manresa (2019): \url{htt
 \hypertarget{software-versioning}{%
 \subsection{Software versioning}\label{software-versioning}}
 
+\hypertarget{r-1}{%
+\subsubsection{R}\label{r-1}}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"#"}\NormalTok{, }\KeywordTok{capture.output}\NormalTok{(}\KeywordTok{sessionInfo}\NormalTok{()), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{collapse =}\StringTok{""}\NormalTok{))}
@@ -1288,6 +1295,40 @@ Check the replication package for Bonhomme, Lamadon and Manresa (2019): \url{htt
   \CommentTok{# or use message() instead of cat()}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{python-1}{%
+\subsubsection{Python}\label{python-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ sys}
+\BuiltInTok{print}\NormalTok{(sys.version)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+3.8.0 (v3.8.0:fa919fdf25, Oct 14 2019, 10:23:27) 
+[Clang 6.0 (clang-600.0.57)]
+\end{verbatim}
+
+\hypertarget{julia}{%
+\subsubsection{Julia}\label{julia}}
+
+\begin{verbatim}
+v"1.2.0"
+\end{verbatim}
+
+\hypertarget{stata}{%
+\subsubsection{Stata}\label{stata}}
+
+\begin{verbatim}
+version 15.1
+
+/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado
+
+Checksum for /Users/miguelportela/Library/Application Support/Stata/ado/plus/x/
+> xtabond2.ado = 616966544, size = 39434
+\end{verbatim}
 
 \hypertarget{all-the-code-in-the-paper}{%
 \subsection{All the code in the paper}\label{all-the-code-in-the-paper}}
@@ -1431,7 +1472,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
         \DataTypeTok{x=}\OperatorTok{~}\NormalTok{speed,}
         \DataTypeTok{y=}\OperatorTok{~}\NormalTok{dist)}
 \KeywordTok{Sys.setenv}\NormalTok{(}\StringTok{'MAPBOX_TOKEN'}\NormalTok{ =}\StringTok{ '12423423'}\NormalTok{) }\CommentTok{# set arbitrary token}
-\KeywordTok{orca}\NormalTok{(p, }\StringTok{"plotly-plot.pdf"}\NormalTok{)}
+\KeywordTok{orca}\NormalTok{(p, }\StringTok{"logs/plotly-plot.pdf"}\NormalTok{)}
 \NormalTok{import sys}
 \KeywordTok{print}\NormalTok{(sys.version)}
 
@@ -1617,7 +1658,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{quietly\{}
 \NormalTok{cd }\OperatorTok{/}\NormalTok{Users}\OperatorTok{/}\NormalTok{miguelportela}\OperatorTok{/}\NormalTok{Documents}\OperatorTok{/}\NormalTok{GitHub}\OperatorTok{/}\NormalTok{prjs}\OperatorTok{/}\NormalTok{chunks}
 
-\NormalTok{use nipcs, clear}
+\NormalTok{use }\OperatorTok{/}\NormalTok{Users}\OperatorTok{/}\NormalTok{miguelportela}\OperatorTok{/}\NormalTok{Documents}\OperatorTok{/}\NormalTok{GitHub}\OperatorTok{/}\NormalTok{prjs}\OperatorTok{/}\NormalTok{data}\OperatorTok{/}\NormalTok{nipcs, clear}
 \NormalTok{compress}
 \NormalTok{contract nipc}
 \NormalTok{drop _freq}
@@ -1644,11 +1685,10 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 \OperatorTok{@}\NormalTok{time results_hdfe2 =}\StringTok{ }\KeywordTok{reg}\NormalTok{(}\KeywordTok{DataFrame}\NormalTok{(}\KeywordTok{load}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta"}\NormalTok{)), }\OperatorTok{@}\KeywordTok{formula}\NormalTok{(lnrealwage }\OperatorTok{~}\StringTok{ }\NormalTok{education }\OperatorTok{+}\StringTok{ }\NormalTok{lnsales }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(workerid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(firmid) }\OperatorTok{+}\StringTok{ }\KeywordTok{fe}\NormalTok{(year)));}
 
-
-
 \NormalTok{using RegressionTables}
 \KeywordTok{regtable}\NormalTok{(results_hdfe1,results_hdfe2; }\DataTypeTok{renderSettings =} \KeywordTok{latexOutput}\NormalTok{(}\StringTok{"logs/hdfe_output.tex"}\NormalTok{))}
 
+\NormalTok{VERSION}
 \KeywordTok{library}\NormalTok{(JuliaCall)}
 
   \KeywordTok{julia_eval}\NormalTok{(}\StringTok{"results_hdfe2"}\NormalTok{)}
@@ -1866,6 +1906,14 @@ To simply attach all the code you used in the PDF file in the appendix see the R
      \DataTypeTok{xlab =} \StringTok{"wt"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"mpg"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"#2E9FDF"}\NormalTok{)}
 \KeywordTok{cat}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"#"}\NormalTok{, }\KeywordTok{capture.output}\NormalTok{(}\KeywordTok{sessionInfo}\NormalTok{()), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{collapse =}\StringTok{""}\NormalTok{))}
   \CommentTok{# or use message() instead of cat()}
+\NormalTok{import sys}
+\KeywordTok{print}\NormalTok{(sys.version)}
+\NormalTok{VERSION}
+\NormalTok{version}
+\OperatorTok{/}\ErrorTok{/}\NormalTok{ado describe}
+
+\NormalTok{findfile xtabond2.ado}
+\NormalTok{checksum }\StringTok{"/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"}
 \end{Highlighting}
 \end{Shaded}
 

@@ -246,14 +246,14 @@ p <- plot_ly(cars, type = "scatter", mode="markers",
         x=~speed,
         y=~dist)
 Sys.setenv('MAPBOX_TOKEN' = '12423423') # set arbitrary token
-orca(p, "plotly-plot.pdf")
+orca(p, "logs/plotly-plot.pdf")
 ```
 
 
 \begin{figure}[ht]
 \centering
 \caption{An plotly plot that was exported as PDF with orca before}\label{fig:fig-3}
-		\includegraphics[width=0.9\linewidth]{plotly-plot.pdf}
+		\includegraphics[width=0.9\linewidth]{logs/plotly-plot.pdf}
 \begin{flushleft}
 \end{flushleft}
 \end{figure}
@@ -480,7 +480,7 @@ python3 /Users/miguelportela/Documents/GitHub/prjs/chunks/python_chunk.py
 quietly{
 cd /Users/miguelportela/Documents/GitHub/prjs/chunks
 
-use nipcs, clear
+use /Users/miguelportela/Documents/GitHub/prjs/data/nipcs, clear
 compress
 contract nipc
 drop _freq
@@ -504,8 +504,6 @@ tab nipc
 ## The julia display will follow immediately after the corresponding command
 ## just as the R code in R Markdown.
 
-versioninfo()
-
 using ReadStat
 using StatFiles
 using StatsBase
@@ -516,11 +514,10 @@ using FixedEffectModels
 
 @time results_hdfe2 = reg(DataFrame(load("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(firmid) + fe(year)));
 
-
-
 using RegressionTables
 regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("logs/hdfe_output.tex"))
 
+VERSION
 ```
 
 ## Grab results in R
@@ -874,20 +871,27 @@ Check the replication package for Bonhomme, Lamadon and Manresa (2019): https://
 
 ## Software versioning
 
+### R
+
 ```{r fig-versioning, echo=TRUE}
 cat(paste("#", capture.output(sessionInfo()), "\n", collapse =""))
   # or use message() instead of cat()
 ```
 
-```{julia echo=FALSE}
-verioninfo()
-```
+### Python
 
-```{python py,eval=TRUE,echo=TRUE}
+```{python py2,eval=TRUE,echo=TRUE}
 import sys
 print(sys.version)
 ```
 
+### Julia
+
+```{julia echo=FALSE}
+VERSION
+```
+
+### Stata
 
 ```{stata, echo=FALSE,message=FALSE}
 version

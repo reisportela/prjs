@@ -44,4 +44,5 @@ for file in files_list:
 
 df = pd.DataFrame({'nipc': nipc})
 
-df.to_stata('nipcs.dta', write_index = False)
+df.to_stata('/Users/miguelportela/Documents/GitHub/prjs/data/nipcs.dta',
+            write_index=False)
