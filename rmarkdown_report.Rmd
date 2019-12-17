@@ -311,6 +311,7 @@ valor
 The criminal rate is `r py$valor`\%o.
 
 \vspace{0.3cm}
+
 ## Import data from PDF files
 
 ```{bash,eval=FALSE}
@@ -468,6 +469,12 @@ tab source
 
 ```
 
+```{bash}
+python3 /Users/miguelportela/Documents/GitHub/prjs/chunks/python_chunk.py
+```
+
+
+
 ```{stata, echo=TRUE,message=FALSE}
 
 quietly{
@@ -496,6 +503,8 @@ tab nipc
 ## so is JuliaCall package.
 ## The julia display will follow immediately after the corresponding command
 ## just as the R code in R Markdown.
+
+versioninfo()
 
 using ReadStat
 using StatFiles
@@ -744,7 +753,11 @@ file write myfile `"`r(mean)'"'
 file close myfile
 ```
 
+\vspace{0.3cm}
+
 The mean log GDP is `r format(as.numeric(readLines('example.txt')), digits = 2)`.
+
+\vspace{0.3cm}
 
 ```{r cleanup, include=FALSE} 
 unlink("example.txt")
@@ -864,6 +877,24 @@ Check the replication package for Bonhomme, Lamadon and Manresa (2019): https://
 ```{r fig-versioning, echo=TRUE}
 cat(paste("#", capture.output(sessionInfo()), "\n", collapse =""))
   # or use message() instead of cat()
+```
+
+```{julia echo=FALSE}
+verioninfo()
+```
+
+```{python py,eval=TRUE,echo=TRUE}
+import sys
+print(sys.version)
+```
+
+
+```{stata, echo=FALSE,message=FALSE}
+version
+//ado describe
+
+findfile xtabond2.ado
+checksum "/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"
 ```
 
 ## All the code in the paper
