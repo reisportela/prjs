@@ -468,7 +468,7 @@ tab source
 
 ```
 
-```{stata}
+```{stata, echo=TRUE,message=FALSE}
 
 quietly{
 cd /Users/miguelportela/Documents/GitHub/prjs/chunks
@@ -484,8 +484,6 @@ format %12.0f nipc
 codebook nipc
 
 tab nipc
-
-
 ```
 
 # Julia experiments
@@ -535,7 +533,8 @@ The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model ha
 \vspace{0.3cm}
 
 
-```{stata}
+```{stata, echo=TRUE,message=FALSE}
+
 use /Users/miguelportela/Documents/GitHub/prjs/data/data_short, clear
 
 timer on 1
@@ -547,7 +546,7 @@ timer list 1
 timer clear 1
 ```
 
-```{r,eval=FALSE}
+```{r,eval=FALSE,echo=TRUE}
 library(lfe)
 data_short <- read_dta("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")
 
@@ -730,10 +729,28 @@ outreg, clear
 				*/ nodisplay varlabels bdec(1) se starlevels(10 5 1) starloc(1) summstat(r2\rmse \ N) summtitle("R2"\"RMSE" \ "N")
 
 sum lngdp
-global mean_lngdp = r(mean)
 ```
 
-The mean log GDP is ...
+
+```{stata , collectcode=TRUE} 
+use /Users/miguelportela/Documents/GitHub/prjs/data/data_full, clear
+		quiet generate lngdp = ln(rgdpwok)
+      summarize lngdp
+```
+		
+```{stata for_inline, include=FALSE} 
+file open myfile using example.txt, write replace
+file write myfile `"`r(mean)'"'
+file close myfile
+```
+
+The mean log GDP is `r format(as.numeric(readLines('example.txt')), digits = 2)`.
+
+```{r cleanup, include=FALSE} 
+unlink("example.txt")
+```
+
+See https://www.ssc.wisc.edu/~hemken/Stataworkshops/stata.html#stata-and-r-markdown-the-statamarkdown-package
 
 ![Wage density](logs/density.pdf)
 

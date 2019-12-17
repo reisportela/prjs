@@ -160,29 +160,6 @@ Minho University\\}
 
 I start by exploring the data \textbf{NLSWORK} (National Longitudinal Survey. Young Women 14-26 years of age in 1968).
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{## ExPanDaR: Explore Panel Data Interactively}
-
-  \KeywordTok{library}\NormalTok{(ExPanDaR)}
-
-    \CommentTok{## type ExPanD() in the Console}
-
-\KeywordTok{setwd}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/logs"}\NormalTok{)}
-
-\KeywordTok{library}\NormalTok{(haven)}
-\KeywordTok{library}\NormalTok{(ggplot2)}
-
-\NormalTok{nlswork <-}\StringTok{ }\KeywordTok{read_dta}\NormalTok{(}\StringTok{"/Users/miguelportela/Documents/GitHub/prjs/data/nlswork.dta"}\NormalTok{)}
-
-\NormalTok{nls<-}\KeywordTok{data.frame}\NormalTok{(nlswork)}
-
-\KeywordTok{attach}\NormalTok{(nlswork)}
-
-\KeywordTok{head}\NormalTok{(nlswork)}
-\end{Highlighting}
-\end{Shaded}
-
 \hypertarget{a-tibble-6-x-21}{%
 \section{A tibble: 6 x 21}\label{a-tibble-6-x-21}}
 
@@ -197,17 +174,6 @@ idcode year birth\_yr age race msp nev\_mar grade collgrad not\_smsa
 \# \ldots{} with 11 more variables: c\_city , south , ind\_code ,
 \# occ\_code , union , wks\_ue , ttl\_exp , tenure ,
 \# hours , wks\_work , ln\_wage
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(stargazer)}
-\KeywordTok{stargazer}\NormalTok{(nls,}
-          \DataTypeTok{title =} \StringTok{"Summary statistics"}\NormalTok{,}
-          \DataTypeTok{label=}\StringTok{"tab1"}\NormalTok{,}
-          \DataTypeTok{table.placement =} \StringTok{"ht"}\NormalTok{,}
-          \DataTypeTok{header=}\OtherTok{FALSE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{table}[ht] \centering 
   \caption{Summary statistics} 
@@ -410,10 +376,6 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 \KeywordTok{orca}\NormalTok{(p, }\StringTok{"plotly-plot.pdf"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-[93721:1217/010113.178151:ERROR:gles2_cmd_decoder.cc(17766)] [.RenderCompositor-0x7f97d301ce00]GL ERROR :GL_INVALID_OPERATION : glBindTexImage2DCHROMIUM: no image found with the given ID
-\end{verbatim}
 
 \begin{figure}[ht]
 \centering
@@ -661,6 +623,7 @@ The estimated return to education is 0.2\%. The model has an \(R^2\) of 0.9782.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+
 \KeywordTok{use}\NormalTok{ /Users/miguelportela/Documents/GitHub/prjs/}\KeywordTok{data}\NormalTok{/data_short, }\KeywordTok{clear}
 
 \KeywordTok{timer} \KeywordTok{on}\NormalTok{ 1}
@@ -710,7 +673,7 @@ Absorbed degrees of freedom:
 ? = number of redundant parameters may be higher
 
 
-   1:     15.87 /        1 =      15.8650
+   1:     14.26 /        1 =      14.2560
 \end{verbatim}
 
 \begin{Shaded}
@@ -916,7 +879,26 @@ Record 1978 |      Freq.     Percent        Cum.
        lngdp |        857    9.302996    1.200567   5.983335   12.51058
 \end{verbatim}
 
-The mean log GDP is \ldots{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{use}\NormalTok{ /Users/miguelportela/Documents/GitHub/prjs/}\KeywordTok{data}\NormalTok{/data_full, }\KeywordTok{clear}
+\NormalTok{        quiet }\KeywordTok{generate}\NormalTok{ lngdp = }\FunctionTok{ln}\NormalTok{(rgdpwok)}
+      \KeywordTok{summarize}\NormalTok{ lngdp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ command window is unrecognized
+r(199);
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       lngdp |        857    9.302996    1.200567   5.983335   12.51058
+\end{verbatim}
+
+The mean log GDP is 9.302996.
+
+See \url{https://www.ssc.wisc.edu/~hemken/Stataworkshops/stata.html\#stata-and-r-markdown-the-statamarkdown-package}
 
 \begin{figure}
 \centering
@@ -936,10 +918,6 @@ The mean log GDP is \ldots{}
 We now export a set of statistics to an Excel file.
 
 \begin{verbatim}
- command window is unrecognized
-r(199);
-
-
 version 15.1
 
 /Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado
@@ -1639,8 +1617,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \NormalTok{codebook nipc}
 
 \NormalTok{tab nipc}
-
-
 \CommentTok{## This is a julia language chunk.}
 \CommentTok{## In julia, the command without ending semicolon will trigger the display}
 \CommentTok{## so is JuliaCall package.}
@@ -1668,6 +1644,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 \NormalTok{betas <-}\StringTok{ }\KeywordTok{julia_eval}\NormalTok{(}\StringTok{"coef(results_hdfe2)"}\NormalTok{)}
 \NormalTok{r2 <-}\StringTok{ }\KeywordTok{julia_eval}\NormalTok{(}\StringTok{"r2(results_hdfe2)"}\NormalTok{)}
+
 \NormalTok{use }\OperatorTok{/}\NormalTok{Users}\OperatorTok{/}\NormalTok{miguelportela}\OperatorTok{/}\NormalTok{Documents}\OperatorTok{/}\NormalTok{GitHub}\OperatorTok{/}\NormalTok{prjs}\OperatorTok{/}\NormalTok{data}\OperatorTok{/}\NormalTok{data_short, clear}
 
 \NormalTok{timer on }\DecValTok{1}
@@ -1794,7 +1771,13 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \StringTok{                }\ErrorTok{*/}\StringTok{ }\NormalTok{nodisplay varlabels }\KeywordTok{bdec}\NormalTok{(}\DecValTok{1}\NormalTok{) se }\KeywordTok{starlevels}\NormalTok{(}\DecValTok{10} \DecValTok{5} \DecValTok{1}\NormalTok{) }\KeywordTok{starloc}\NormalTok{(}\DecValTok{1}\NormalTok{) }\KeywordTok{summstat}\NormalTok{(r2\textbackslash{}rmse \textbackslash{} N) }\KeywordTok{summtitle}\NormalTok{(}\StringTok{"R2"}\NormalTok{\textbackslash{}}\StringTok{"RMSE"}\NormalTok{ \textbackslash{} }\StringTok{"N"}\NormalTok{)}
 
 \NormalTok{sum lngdp}
-\NormalTok{global mean_lngdp =}\StringTok{ }\KeywordTok{r}\NormalTok{(mean)}
+\NormalTok{use }\OperatorTok{/}\NormalTok{Users}\OperatorTok{/}\NormalTok{miguelportela}\OperatorTok{/}\NormalTok{Documents}\OperatorTok{/}\NormalTok{GitHub}\OperatorTok{/}\NormalTok{prjs}\OperatorTok{/}\NormalTok{data}\OperatorTok{/}\NormalTok{data_full, clear}
+\NormalTok{        quiet generate lngdp =}\StringTok{ }\KeywordTok{ln}\NormalTok{(rgdpwok)}
+\NormalTok{      summarize lngdp}
+\NormalTok{file open myfile using example.txt, write replace}
+\NormalTok{file write myfile }\StringTok{`}\DataTypeTok{"}\StringTok{`}\KeywordTok{r}\NormalTok{(mean)}\StringTok{'"'}
+\NormalTok{file close myfile}
+\KeywordTok{unlink}\NormalTok{(}\StringTok{"example.txt"}\NormalTok{)}
 \NormalTok{version}
 \OperatorTok{/}\ErrorTok{/}\NormalTok{ado describe}
 
