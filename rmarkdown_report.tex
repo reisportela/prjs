@@ -133,17 +133,17 @@
 \usepackage{makecell}
 \usepackage{xcolor}
 
-\title{\vspace{1cm}Literate programming with Python, R, Julia and Stata*\footnote{*Corresponding address: \href{mailto:miguel.portela@eeg.uminho.pt}{\nolinkurl{miguel.portela@eeg.uminho.pt}}.}\vspace{0.5cm}\\}
+\title{\vspace{1cm}Literate programming with Python, R, Julia and Stata*\footnote{*Corresponding address: \href{mailto:miguel.portela@eeg.uminho.pt}{\nolinkurl{miguel.portela@eeg.uminho.pt}}. The current template adapts part of the Rmd code by \href{https://github.com/paulcbauer/Writing_a_reproducable_paper_in_rmarkdown}{Paul C. Bauer}, Mannheim Centre for European Social Research.}\vspace{0.5cm}\\}
 \author{Miguel Portela\\
 ~\\
 Minho University\\}
-\date{17 December, 2019\\
+\date{22 December, 2019\\
 ~\\}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-\noindent\setstretch{1}In this presentation I will discuss how we can enhance the workflow by using literate programming to combine key features of different statistical packages, namely Stata, R, Julia and Python, on the one hand, and Latex as the typesetting system on the other. The goal is to demonstrate and share a template aiming at producing a highly automated report, or research paper, within the same framework. The tasks will run from exploratory data analysis to regression analysis, where the output, from summary to regression tables and figures, is seamlessly included in the final document. Furthermore, important elements of Latex editing, such as automatic referencing, will be highlighted. We aim at freeing the researcher form repetitive tasks to focus on critical and creative writing. Efficiency and replicability will be at the core of the discussion. RStudio will be used to edit and compile R Markdown. The focus will be on producing PDF outputs. In the presentation I will make use of packages such as bookdown, knitr, stargazer, dlookr, ggplot2, plotly, Statamarkdown, reticulate, JuliaCall, pandas, numpy, matplotlib or FixedEffectModels. The current code is an adaptation of the Rmd by Paul C. Bauer, Mannheim Centre for European Social Research.\vspace{.8cm}
+\noindent\setstretch{1}In this presentation I will discuss how we can enhance the workflow by using literate programming to combine key features of different statistical packages, namely Stata, R, Julia and Python, on the one hand, and Latex as the typesetting system on the other. The goal is to demonstrate and share a template aiming at producing a highly automated report, or research paper, within the same framework. The tasks will run from exploratory data analysis to regression analysis, where the output, from summary to regression tables and figures, is seamlessly included in the final document. Furthermore, important elements of Latex editing, such as automatic referencing, will be highlighted. We aim at freeing the researcher form repetitive tasks to focus on critical and creative writing. Efficiency and replicability will be at the core of the discussion. RStudio will be used to edit and compile R Markdown. The focus will be on producing PDF outputs. In the presentation I will make use of packages such as bookdown, knitr, stargazer, dlookr, ggplot2, plotly, Statamarkdown, reticulate, JuliaCall, pandas, numpy, matplotlib or FixedEffectModels.\vspace{.8cm}
 \end{abstract}
 
 \setstretch{1.2}
@@ -230,12 +230,12 @@ The average age in our data is 29.
 \hypertarget{sec:tables}{%
 \section{Tables}\label{sec:tables}}
 
-Producing good tables and referencing these tables within a R Markdown PDF has been a hassle but got much better. Examples that you may use are shown below. The way you reference tables is slightly different, e.g., for \texttt{stargazer} the label is contained in the function, for \texttt{kable} it's contained in the chunk name.
+R Markdown PDF is now able to produce good tables with our output. For \texttt{stargazer} the label is contained in the function, while for \texttt{kable} it's contained in the chunk name.
 
 \hypertarget{stargazer-summary-and-regression-tables}{%
 \subsection{stargazer(): Summary and regression tables}\label{stargazer-summary-and-regression-tables}}
 
-Table \ref{tab1} shows summary stats of your data.\footnote{To reference the table where you set the identifier in the stargazer function you only need to use the actual label, i.e., Â´tab1Â´.} I normally use \texttt{stargazer()} (Hlavac \protect\hyperlink{ref-hlavac2013stargazer}{2013}) which offers extreme flexibility regarding table output (see \texttt{?stargazer}).
+Table \ref{tab1} shows data's summary statistics.\footnote{You can reference the table as \ref{tab1cars}.} \texttt{stargazer()} is and excellent solution to export outputs.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -262,7 +262,7 @@ dist & 50 & 42.980 & 25.769 & 2 & 26 & 56 & 120 \\
 \end{tabular} 
 \end{table}
 
-Table \ref{tab2} shows the output for a regression table. Make sure you name all your models and explicitly refer to model names (M1, M2 etc.) in the text.
+Table \ref{tab2} reports regression outputs. Name the models as you can refer to their names in the text (M1, M2, M3).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -315,10 +315,10 @@ F Statistic (df = 1; 48) & 89.567$^{***}$ & 89.567$^{***}$ & 89.567$^{***}$ \\
 \hypertarget{figures}{%
 \section{Figures}\label{figures}}
 
-\hypertarget{r-base-graphs}{%
-\subsection{R base graphs}\label{r-base-graphs}}
+\hypertarget{graphs-with-r}{%
+\subsection{Graphs with R}\label{graphs-with-r}}
 
-Inserting figures can be slightly more complicated. Ideally, we would produce and insert them directly in the \texttt{.rmd} file. It's relatively simple to insert R base graphs as you can see in Figure \ref{fig:fig-1}.
+You can insert figures like this. One would like to produce and insert them on the fly in the \texttt{.rmd} file. Figure \ref{fig:fig-1} is such an example.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -335,12 +335,12 @@ Inserting figures can be slightly more complicated. Ideally, we would produce an
 \caption{Scatterplot of Speed and Distance}\label{fig:fig-1}
 \end{figure}
 
-But it turns out that it doesn't always work so well.
+However, in some cases it does not work.
 
-\hypertarget{ggplot2-graphs}{%
-\subsection{ggplot2 graphs}\label{ggplot2-graphs}}
+\hypertarget{example-ggplot2-graphs}{%
+\subsection{Example: ggplot2 graphs}\label{example-ggplot2-graphs}}
 
-Same is true for ggplot2 as you can see in Figure \ref{fig:fig-2}.
+See the \texttt{ggplot2} output reported in Figure \ref{fig:fig-2}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -361,10 +361,10 @@ Same is true for ggplot2 as you can see in Figure \ref{fig:fig-2}.
 \caption{Miles per gallon according to the weight}\label{fig:fig-2}
 \end{figure}
 
-\hypertarget{plotly-graphs}{%
-\subsection{Plotly graphs}\label{plotly-graphs}}
+\hypertarget{another-example-using-plotly}{%
+\subsection{Another example using Plotly}\label{another-example-using-plotly}}
 
-Plotly is a popular graph engine that let's you also produce interactive graphs that you can embed in html webpages or documents (e.g., see \href{https://paulcbauer.shinyapps.io/visualizing-causal-scenarios/}{here}). I am a big fan. For some time there was no easy, automatic way to insert high resolution Plotly graphs into your R Markdown PDF. However, this changed since Plotly provided Orca, a command line application for generating static images from Plotly graphs. The installation is a bit tricky (see here: \url{https://github.com/plotly/orca\#installation}) but once you get it running you can produce beautiful graphs and include them in your RMarkdown PDF using some simple latex as shown below in Figure \ref{fig:fig-3}. Potentially, in case you did not install the command line application this part may fail. If so simply exclude the chunk and the latex code.
+With \texttt{Plotly} we can produce interactive graphs which play well, for example, once can embeded in html webpages (drop by \href{https://paulcbauer.shinyapps.io/visualizing-causal-scenarios/}{here} for an example). One can insert this type of graphs in R Markdown PDF using \texttt{Orca} (it generates static images from Plotly graphs). Go \href{https://github.com/plotly/orca\#installation}{here} to check how to install it. See Figure \ref{fig:fig-3} for an example.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -379,7 +379,7 @@ Plotly is a popular graph engine that let's you also produce interactive graphs 
 
 \begin{figure}[ht]
 \centering
-\caption{An plotly plot that was exported as PDF with orca before}\label{fig:fig-3}
+\caption{Example: export a Plotly figure using `orca`}\label{fig:fig-3}
         \includegraphics[width=0.9\linewidth]{logs/plotly-plot.pdf}
 \begin{flushleft}
 \end{flushleft}
@@ -678,7 +678,7 @@ Absorbed degrees of freedom:
 ? = number of redundant parameters may be higher
 
 
-   1:     19.12 /        1 =      19.1250
+   1:     13.82 /        1 =      13.8160
 \end{verbatim}
 
 \begin{Shaded}
@@ -1893,8 +1893,5 @@ Arellano, Manuel and Olympia Bover. 1995. ``Another Look at the Instrumental Var
 
 \leavevmode\hypertarget{ref-bb98}{}%
 Blundell, Richard and Stephen Bond. 1998. ``Initial Conditions and Moment Restrictions in Dynamic Panel Data Models.'' \emph{Journal of Econometrics} 87(1):115--43.
-
-\leavevmode\hypertarget{ref-hlavac2013stargazer}{}%
-Hlavac, Marek. 2013. ``Stargazer: LaTeX Code and Ascii Text for Well-Formatted Regression and Summary Statistics Tables.'' \emph{URL: Http://CRAN. R-Project. Org/Package= Stargazer}.
 
 \end{document}
