@@ -180,7 +180,7 @@ vignettes/*.pdf
 # Commercial statistical software: http://www.stata.com
 
 # Stata dataset and output files
-*.dta
+##*.dta
 *.gph
 *.log
 *.smcl
