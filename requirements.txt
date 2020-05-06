@@ -1,0 +1,10 @@
+matplotlib
+numpy
+sympy
+pandas
+scipy
+seaborn
+statsmodels
+plotly
+bokeh
+scrapy
