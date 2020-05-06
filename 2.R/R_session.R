@@ -9,6 +9,11 @@ version
 ## 1. libraries
 library(haven)
 
-## data
+## 2. data
 nlsw88 <- read_dta("data/nlsw88.dta")
+nlswwork <- read_dta("data/nlswork.dta")
+
+## 3. statistics
+summary(nlswwork)
+
 
