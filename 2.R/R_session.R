@@ -56,7 +56,7 @@ freq
 prop.table(freq)
 prop.table(table(union))
 
-## check
+## check: 123
 
 hist(ln_wage)
 png(filename = 'wage_density.png')
