@@ -22,7 +22,12 @@ library(tidyverse)
 library(dlookr)
 library(plm)
 library(stargazer)
-
+library(lme4)
+library(glmer)
+library(bife)
+library(margins)
+library(tidyverse)
+    
 ## 2. Read data
 
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
@@ -85,6 +90,20 @@ summary(re1)
 
 stargazer(ols1,fe1,re1,type="text")
 
+## DISCRETE CHOICE MODELS
 
+reprobit <- glmer(union~south+(1|idcode),family=binomial)
+
+stargazer(mm,type="text")
+
+felogit <- bife(union~south|idcode)
+
+print(felogit)
+
+## https://www.brodrigues.co/blog/2017-10-26-margins_r/
+
+probit <- glm(union~south,family = "binomial")
+
+print(margins(probit))
 
 #sink()
