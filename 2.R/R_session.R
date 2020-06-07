@@ -89,4 +89,6 @@ summary(re1)
 
 stargazer(ols1,fe1,re1,type="text")
 
+
+
 #sink()
