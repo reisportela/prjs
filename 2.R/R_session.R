@@ -10,9 +10,9 @@ version
 setwd("/home/jovyan/2.R")
 
 <<<<<<< HEAD
-  getwd()
-=======
 getwd()
+=======
+  getwd()
 >>>>>>> 6f41961b6783785a7920115ca59643270b970f6b
 
 ## 1. Libraries
