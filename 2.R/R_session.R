@@ -9,8 +9,6 @@ version
 
 setwd("/home/jovyan/2.R")
 
-
-
   getwd()
 
 ## 1. Libraries
