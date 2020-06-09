@@ -7,3 +7,4 @@ dvipng
 ghostscript
 poppler-utils
 parallel
+ocrmypdf
