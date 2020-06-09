@@ -8,3 +8,5 @@ ghostscript
 poppler-utils
 parallel
 ocrmypdf
+tesseract-ocr-por
+vim
