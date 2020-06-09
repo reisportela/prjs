@@ -5,6 +5,5 @@ texlive-latex-extra
 texlive-fonts-recommended
 dvipng
 ghostscript
-pdfimages
-pdftotext
+poppler-utils
 parallel
