@@ -50,29 +50,29 @@ rinline <- function(code){
 
   ##https://opensource.com/article/19/5/python-3-default-mac
 
-  Sys.setenv(RETICULATE_PYTHON = "/usr/local/bin/python3")
+  Sys.setenv(RETICULATE_PYTHON = "C:/Users/mangelo.EEG/AppData/Local/Microsoft/WindowsApps/python3")
 
 ##install.packages("reticulate")
 library(reticulate)
 ##use_python("/Library/Frameworks/Python.framework/Versions/3.8/bin/python3")
 
-use_virtualenv("/Users/miguelportela/.pyenv/version")
+use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 
 ##knitr::opts_chunk$set(python.reticulate=FALSE)
 
 library(JuliaCall)
 
 library(Statamarkdown)
-stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+stataexe <- "C:/Program Files/Stata16/stata-mp"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
 }
 ```
 
 ```{r,echo=FALSE}
-Sys.setenv(RETICULATE_PYTHON = "/usr/local/bin/python3")
+Sys.setenv(RETICULATE_PYTHON = "C:/Users/mangelo.EEG/AppData/Local/Microsoft/WindowsApps/python3")
 library(reticulate)
-use_virtualenv("/Users/miguelportela/.pyenv/version")
+use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 ```
 
 
