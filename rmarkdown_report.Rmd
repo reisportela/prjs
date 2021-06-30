@@ -60,6 +60,9 @@ use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 
 ##knitr::opts_chunk$set(python.reticulate=FALSE)
 
+# library(devtools) # before this you may need to install devtools
+# install_github("hemken/Statamarkdown")
+
 library(JuliaCall)
 
 library(Statamarkdown)
@@ -70,7 +73,7 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 ```
 
 ```{r,echo=FALSE}
-Sys.setenv(RETICULATE_PYTHON = "C:/Users/mangelo.EEG/AppData/Local/Microsoft/WindowsApps/python3")
+Sys.setenv(RETICULATE_PYTHON = "C:/Program Files/Python39/python.exe")
 library(reticulate)
 use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 ```
@@ -80,9 +83,12 @@ use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
 library(Statamarkdown)
-stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+stataexe <- "C:/Program Files/Stata16/StataMP-64.exe"
+# stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
-
+library(JuliaCall)
+options(JULIA_HOME = "C:/Users/mangelo.EEG/AppData/Local/Programs/Julia-1.6.1/bin")
+julia_setup()
 ```
 
 \clearpage
@@ -108,12 +114,12 @@ I start by exploring the data **NLSWORK** (National Longitudinal Survey.  Young 
 
     ## type ExPanD() in the Console
 
-setwd("/Users/miguelportela/Documents/GitHub/prjs/logs")
+setwd("C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs")
 
 library(haven)
 library(ggplot2)
 
-nlswork <- read_dta("/Users/miguelportela/Documents/GitHub/prjs/data/nlswork.dta")
+nlswork <- read_dta("C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/nlswork.dta")
 
 nls<-data.frame(nlswork)
 
@@ -137,7 +143,7 @@ library(dplyr)
 library(dlookr)
 library(ggplot2)
 
-##eda_report(nlswork,output_dir = "/Users/miguelportela/Documents/GitHub/prjs/reports/",output_file = "eda_report.pdf")
+##eda_report(nlswork,output_dir = "C:/Users/mangelo.EEG/Documents/GitHub/prjs/reports/",output_file = "eda_report.pdf")
 
 ## The data
 
@@ -245,8 +251,8 @@ library(plotly)
 p <- plot_ly(cars, type = "scatter", mode="markers",
         x=~speed,
         y=~dist)
-Sys.setenv('MAPBOX_TOKEN' = '12423423') # set arbitrary token
-orca(p, "logs/plotly-plot.pdf")
+#Sys.setenv('MAPBOX_TOKEN' = '12423423') # set arbitrary token
+#orca(p, "logs/plotly-plot.pdf")
 ```
 
 
@@ -315,7 +321,7 @@ The criminal rate is `r py$valor`\%o.
 ## Import data from PDF files
 
 ```{bash,eval=FALSE}
-  cd /Users/miguelportela/Documents/GitHub/prjs/pdfs
+  cd C:/Users/mangelo.EEG/Documents/GitHub/prjs/pdfs
 	find . -name '*.pdf' -print0 | xargs -0 -n1 pdfsandwich -gray
 	find . -name '*ocr.pdf' -print0 | xargs -0 -n1 pdftotext
 ```
@@ -463,8 +469,8 @@ And now we use Stata to explore the data.
 
 ```{stata, echo=TRUE,message=FALSE}
 
-quiet cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
-quiet import delimited "/Users/miguelportela/Documents/GitHub/prjs/data/PE.csv", encoding(ISO-8859-2) clear
+quiet cd "C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs"
+quiet import delimited "C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/PE.csv", encoding(ISO-8859-2) clear
 tab source
 
 ```
@@ -472,7 +478,7 @@ tab source
 ## Run a Python script to read a PDF using the shell to run the commands wget, pdfsandwich and pdftotext
 
 ```{bash}
-python3 /Users/miguelportela/Documents/GitHub/prjs/chunks/python_chunk.py
+python "C:/Users/mangelo.EEG/Documents/GitHub/prjs/chunks/python_chunk.py"
 ```
 
 ## Use Stata to list the fiscal numbers (read the data produced with Python)
@@ -480,9 +486,9 @@ python3 /Users/miguelportela/Documents/GitHub/prjs/chunks/python_chunk.py
 ```{stata, echo=TRUE,message=FALSE}
 
 quietly{
-cd /Users/miguelportela/Documents/GitHub/prjs/chunks
+cd C:/Users/mangelo.EEG/Documents/GitHub/prjs/chunks
 
-use /Users/miguelportela/Documents/GitHub/prjs/data/nipcs, clear
+use C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/nipcs, clear
 compress
 contract nipc
 drop _freq
@@ -512,9 +518,9 @@ using StatsBase
 using DataFrames
 using FixedEffectModels
 
-@time results_hdfe1 = reg(DataFrame(load("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(year)));
+@time results_hdfe1 = reg(DataFrame(load("C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(year)));
 
-@time results_hdfe2 = reg(DataFrame(load("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(firmid) + fe(year)));
+@time results_hdfe2 = reg(DataFrame(load("C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/data_short.dta")), @formula(lnrealwage ~ education + lnsales + fe(workerid) + fe(firmid) + fe(year)));
 
 using RegressionTables
 regtable(results_hdfe1,results_hdfe2; renderSettings = latexOutput("logs/hdfe_output.tex"))
@@ -545,7 +551,7 @@ The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model ha
 
 ```{stata, echo=TRUE,message=FALSE}
 
-use /Users/miguelportela/Documents/GitHub/prjs/data/data_short, clear
+use C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/data_short, clear
 
 timer on 1
 
@@ -558,7 +564,7 @@ timer clear 1
 
 ```{r,eval=FALSE,echo=TRUE}
 library(lfe)
-data_short <- read_dta("/Users/miguelportela/Documents/GitHub/prjs/data/data_short.dta")
+data_short <- read_dta("C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/data_short.dta")
 
 system.time(est_hdfe <- felm(data_short$lnrealwage ~ data_short$education + data_short$lnsales | data_short$workerid + data_short$firmid + data_short$year))
 
@@ -618,7 +624,7 @@ library(Statamarkdown)
 stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
-setwd("/Users/miguelportela/Documents/GitHub/prjs/logs")
+setwd("C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs")
 rm(list = ls())
 library(haven)
 nlswork <- read_dta("../data/nlswork.dta")
@@ -691,13 +697,13 @@ sum price
 
 tab rep78
 
-quiet cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
+quiet cd "C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs"
 
 quiet use ../data/nlswork, clear
 
 twoway (kdensity ln_wage if collgrad == 0) || (kdensity ln_wage if collgrad == 1), scheme(sj) graphregion(color(white)) legend(label(1 "No College") label(2 "College")) legend(region(lwidth(none))) ytitle("Density")
 
-graph export "/Users/miguelportela/Documents/GitHub/prjs/logs/density.pdf", replace
+graph export "C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs/density.pdf", replace
 
 use ../data/data_full, clear
 		quiet generate lngdp = ln(rgdpwok)
@@ -744,7 +750,7 @@ sum lngdp
 ## Grab Stata's output
 
 ```{stata , collectcode=TRUE} 
-use /Users/miguelportela/Documents/GitHub/prjs/data/data_full, clear
+use C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/data_full, clear
 		quiet generate lngdp = ln(rgdpwok)
       summarize lngdp
 ```
@@ -789,7 +795,7 @@ checksum "/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtab
 
 // PUTEXCEL
 
-cd "/Users/miguelportela/Documents/GitHub/prjs/logs"
+cd "C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs"
 
 quiet use ../data/graph_data, clear
 	codebook, compact
@@ -915,6 +921,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 ## Exploratory data analysis report
 
-[//]: # \includepdf[pages=-]{/Users/miguelportela/Documents/GitHub/prjs/reports/eda_report.pdf}
+[//]: # \includepdf[pages=-]{C:/Users/mangelo.EEG/Documents/GitHub/prjs/reports/eda_report.pdf}
 
 # References
