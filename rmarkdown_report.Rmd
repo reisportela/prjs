@@ -66,7 +66,7 @@ use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 library(JuliaCall)
 
 library(Statamarkdown)
-stataexe <- "C:/Program Files/Stata16/stata-mp"
+stataexe <- "C:/Program Files/Stata16/StataMP-64.exe"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
 }
@@ -84,7 +84,7 @@ use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 library(stargazer)
 library(Statamarkdown)
 stataexe <- "C:/Program Files/Stata16/StataMP-64.exe"
-# stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+#stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 library(JuliaCall)
 options(JULIA_HOME = "C:/Users/mangelo.EEG/AppData/Local/Programs/Julia-1.6.1/bin")
@@ -341,7 +341,7 @@ import re
 
 # Create list with .txt files for the specified folder
 files_list = list()
-for (dirpath, dirnames, filenames) in os.walk('/Users/miguelportela/Documents/bte/pdfs_teste/'):
+for (dirpath, dirnames, filenames) in os.walk('C:/Users/mangelo.EEG/Documents/GitHub/prjs/pdfs/'):
     files_list += [os.path.join(dirpath, file)
                    for file in filenames if file.endswith('.txt')]
 
@@ -478,7 +478,7 @@ tab source
 ## Run a Python script to read a PDF using the shell to run the commands wget, pdfsandwich and pdftotext
 
 ```{bash}
-python "C:/Users/mangelo.EEG/Documents/GitHub/prjs/chunks/python_chunk.py"
+python3 "C:/Users/mangelo.EEG/Documents/GitHub/prjs/chunks/python_chunk.py"
 ```
 
 ## Use Stata to list the fiscal numbers (read the data produced with Python)
@@ -590,23 +590,25 @@ Example of an equation
 
 $$\int_0^{2\pi} \sin x~dx$$
 
-Example of a matrix
+<!-- Example of a matrix -->
 
 
-$$\mathbf{X} = \left[\begin{array}
-{rrr}
-1 & 2 & 3 \\
-4 & 5 & 6 \\
-7 & 8 & 9
-\end{array}\right]
-$$
+<!-- $$\mathbf{X} = \left[\begin{array} -->
+<!-- {rrr} -->
+<!-- 1 & 2 & 3 \\ -->
+<!-- 4 & 5 & 6 \\ -->
+<!-- 7 & 8 & 9 -->
+<!-- \end{array}\right] -->
+<!-- $$ -->
 
 
-\begin{equation}
-f\left(k\right)=\binom{n}{k}p^k\left(1-p\right)^{n-k} \label{eq:binom}
-\end{equation}
+<!-- \begin{equation} -->
+<!-- f\left(k\right)=\binom{n}{k}p^k\left(1-p\right)^{n-k} \label{eq:binom} -->
+<!-- \end{equation} -->
 
-$$
+<!-- $$ -->
+
+
 
 See Equation \@ref(eq:binom).
 
@@ -621,7 +623,7 @@ y_{ijt} = \beta x_{ijt} + \eta_i + \gamma_j + \lambda_t + \varepsilon_{ijt}
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
 library(Statamarkdown)
-stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+stataexe <- "C:/Program Files/Stata16/StataMP-64.exe"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
 setwd("C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs")
@@ -791,7 +793,7 @@ version
 //ado describe
 
 findfile xtabond2.ado
-checksum "/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"
+checksum "c:/ado/plus/x/xtabond2.ado"
 
 // PUTEXCEL
 
@@ -909,7 +911,7 @@ version
 //ado describe
 
 findfile xtabond2.ado
-checksum "/Users/miguelportela/Library/Application Support/Stata/ado/plus/x/xtabond2.ado"
+checksum "c:/ado/plus/x/xtabond2.ado"
 ```
 
 ## All the code in the paper
@@ -921,6 +923,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
 ## Exploratory data analysis report
 
-[//]: # \includepdf[pages=-]{C:/Users/mangelo.EEG/Documents/GitHub/prjs/reports/eda_report.pdf}
+<!-- [//]: # \includepdf[pages=-]{C:/Users/mangelo.EEG/Documents/GitHub/prjs/reports/eda_report.pdf} -->
 
 # References
