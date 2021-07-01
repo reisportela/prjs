@@ -119,6 +119,7 @@
 \usepackage{dcolumn}
 \usepackage{color}
 \usepackage{pdfpages}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -162,7 +163,7 @@
 \vspace{1cm}Literate programming with Python, R, Julia and Stata*\footnote{*Corresponding address: \href{mailto:miguel.portela@eeg.uminho.pt}{\nolinkurl{miguel.portela@eeg.uminho.pt}}. The current template adapts part of the Rmd code by \href{https://github.com/paulcbauer/Writing_a_reproducable_paper_in_rmarkdown}{Paul C. Bauer}, Mannheim Centre for European Social Research.}\vspace{0.5cm}\\}
 \author{Miguel Portela\\
 ~\\
-Minho University\\}
+Universidade do Minho\\}
 \date{\hfill\break
 \hfill\break
 1 julho, 2021\\
@@ -243,7 +244,7 @@ ln\_wage & 28,534 & 1.675 & 0.478 & 0.000 & 1.361 & 1.964 & 5.264 \\
 [19] "hours"    "wks_work" "ln_wage" 
 \end{verbatim}
 
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-1.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-2.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-3.pdf}
+\includegraphics{RMarkdown_Report_files/figure-latex/Stats-1.pdf} \includegraphics{RMarkdown_Report_files/figure-latex/Stats-2.pdf} \includegraphics{RMarkdown_Report_files/figure-latex/Stats-3.pdf}
 
 \begin{verbatim}
  num [1:28534] 1.45 1.03 1.59 1.78 1.78 ...
@@ -251,7 +252,7 @@ ln\_wage & 28,534 & 1.675 & 0.478 & 0.000 & 1.361 & 1.964 & 5.264 \\
  - attr(*, "format.stata")= chr "%9.0g"
 \end{verbatim}
 
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-4.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-5.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-6.pdf} \includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-4-7.pdf}
+\includegraphics{RMarkdown_Report_files/figure-latex/Stats-4.pdf} \includegraphics{RMarkdown_Report_files/figure-latex/Stats-5.pdf} \includegraphics{RMarkdown_Report_files/figure-latex/Stats-6.pdf} \includegraphics{RMarkdown_Report_files/figure-latex/Stats-7.pdf}
 
 The average age in our data is 29.
 
@@ -356,11 +357,11 @@ You can insert figures like this. One would like to produce and insert them on t
 
 \begin{figure}[H]
 
-{\centering \includegraphics{rmarkdown_report_files/figure-latex/fig-1-1} 
+{\centering \includegraphics{RMarkdown_Report_files/figure-latex/Figures 1, fig-1-1} 
 
 }
 
-\caption{Scatterplot of Speed and Distance}\label{fig:fig-1}
+\caption{Scatterplot of Speed and Distance}(\#fig:Figures 1, fig-1)
 \end{figure}
 
 However, in some cases it does not work.
@@ -382,11 +383,11 @@ See the \texttt{ggplot2} output reported in Figure \ref{fig:fig-2}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{rmarkdown_report_files/figure-latex/fig-2-1} 
+{\centering \includegraphics{RMarkdown_Report_files/figure-latex/Fig-2-1} 
 
 }
 
-\caption{Miles per gallon according to the weight}\label{fig:fig-2}
+\caption{Miles per gallon according to the weight}\label{fig:Fig-2}
 \end{figure}
 
 \hypertarget{another-example-using-plotly}{%
@@ -669,7 +670,7 @@ Absorbed degrees of freedom:
 ? = number of redundant parameters may be higher
 
 
-   1:     18.09 /        1 =      18.0930
+   1:     20.90 /        1 =      20.9040
 \end{verbatim}
 
 \begin{Shaded}
@@ -702,6 +703,23 @@ Table \ref{tab3} \ldots{} See Section \ref{sec:stata}
 Example of an equation
 
 \[\int_0^{2\pi} \sin x~dx\]
+
+\emph{Example of a matrix}
+
+\[
+\mathbf{X} = \left[\begin{array}
+{rrr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{array}\right]
+\]
+
+or
+
+\begin{equation}
+f\left(k\right)=\binom{n}{k}p^k\left(1-p\right)^{n-k} \label{eq:binom}
+\end{equation}
 
 See Equation \eqref{eq:binom}.
 
@@ -774,7 +792,7 @@ F Statistic & 14.740$^{***}$ (df = 2; 71) & 12.437$^{***}$ (df = 3; 65) & 9.654$
 \end{tabular} 
 \end{table}
 
-\includegraphics{rmarkdown_report_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{RMarkdown_Report_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -875,7 +893,7 @@ Record 1978 |      Freq.     Percent        Cum.
 
 \vspace{0.3cm}
 
-The mean log GDP is 9.3.
+The mean ln GDP is 9.3.
 
 \vspace{0.3cm}
 
@@ -1088,7 +1106,7 @@ See Figure \ref{fig:fig-tmp}.
 
 \begin{figure}[ht]
 
-{\centering \includegraphics{rmarkdown_report_files/figure-latex/fig-tmp-1} 
+{\centering \includegraphics{RMarkdown_Report_files/figure-latex/fig-tmp-1} 
 
 }
 
@@ -1102,8 +1120,29 @@ Check the replication package for Bonhomme, Lamadon and Manresa (2019): \url{htt
 
 \newpage
 
-\hypertarget{appendix}{%
-\section{Appendix}\label{appendix}}
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-arellano2003panel}{}%
+Arellano, Manuel. 2003. \emph{Panel Data Econometrics}. Oxford University Press.
+
+\leavevmode\hypertarget{ref-arellano1991some}{}%
+Arellano, Manuel and Stephen Bond. 1991. {``Some Tests of Specification for Panel Data: Monte Carlo Evidence and an Application to Employment Equations.''} \emph{The Review of Economic Studies} 58(2):277--97.
+
+\leavevmode\hypertarget{ref-arellano1995another}{}%
+Arellano, Manuel and Olympia Bover. 1995. {``Another Look at the Instrumental Variable Estimation of Error-Components Models.''} \emph{Journal of Econometrics} 68(1):29--51.
+
+\leavevmode\hypertarget{ref-bb98}{}%
+Blundell, Richard and Stephen Bond. 1998. {``Initial Conditions and Moment Restrictions in Dynamic Panel Data Models.''} \emph{Journal of Econometrics} 87(1):115--43.
+
+\end{CSLReferences}
+
+\hypertarget{appendix-chunk-options}{%
+\section*{Appendix: Chunk options}\label{appendix-chunk-options}}
+\addcontentsline{toc}{section}{Appendix: Chunk options}
 
 \hypertarget{software-versioning}{%
 \subsection{Software versioning}\label{software-versioning}}
@@ -1535,7 +1574,7 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 
                             \FunctionTok{palavra.append}\NormalTok{(p5)}
                             \FunctionTok{source.append}\NormalTok{(file[}\DecValTok{46}\SpecialCharTok{:{-}}\DecValTok{4}\NormalTok{])}
-\DocumentationTok{\#\# o parágrafo tem de estar na mesma linha e temos de ter \textquotesingle{}e a\textquotesingle{} em vez de \textquotesingle{}e o\textquotesingle{}}
+\DocumentationTok{\#\# o paragrafo tem de estar na mesma linha e temos de ter \textquotesingle{}e a\textquotesingle{} em vez de \textquotesingle{}e o\textquotesingle{}}
 \NormalTok{df }\OtherTok{=} \FunctionTok{pd.DataFrame}\NormalTok{(\{}\StringTok{\textquotesingle{}linha\textquotesingle{}}\SpecialCharTok{:}\NormalTok{ linha, }\StringTok{\textquotesingle{}output\textquotesingle{}}\SpecialCharTok{:}\NormalTok{ output,}
                    \StringTok{\textquotesingle{}outra\textquotesingle{}}\SpecialCharTok{:}\NormalTok{ other, }\StringTok{\textquotesingle{}source\textquotesingle{}}\SpecialCharTok{:}\NormalTok{ source\})}
 \FunctionTok{print}\NormalTok{(df)}
@@ -1812,27 +1851,5 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exploratory-data-analysis-report}{%
-\subsection{Exploratory data analysis report}\label{exploratory-data-analysis-report}}
-
-\hypertarget{references}{%
-\section*{References}\label{references}}
-\addcontentsline{toc}{section}{References}
-
-\hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\hypertarget{ref-arellano2003panel}{}%
-Arellano, Manuel. 2003. \emph{Panel Data Econometrics}. Oxford University Press.
-
-\leavevmode\hypertarget{ref-arellano1991some}{}%
-Arellano, Manuel and Stephen Bond. 1991. {``Some Tests of Specification for Panel Data: Monte Carlo Evidence and an Application to Employment Equations.''} \emph{The Review of Economic Studies} 58(2):277--97.
-
-\leavevmode\hypertarget{ref-arellano1995another}{}%
-Arellano, Manuel and Olympia Bover. 1995. {``Another Look at the Instrumental Variable Estimation of Error-Components Models.''} \emph{Journal of Econometrics} 68(1):29--51.
-
-\leavevmode\hypertarget{ref-bb98}{}%
-Blundell, Richard and Stephen Bond. 1998. {``Initial Conditions and Moment Restrictions in Dynamic Panel Data Models.''} \emph{Journal of Econometrics} 87(1):115--43.
-
-\end{CSLReferences}
 
 \end{document}

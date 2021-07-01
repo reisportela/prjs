@@ -7,7 +7,7 @@ title: |
 author: |
   | Miguel Portela
   |
-  | Minho University
+  | Universidade do Minho
   |
 date: |
   |
@@ -25,6 +25,7 @@ output:
     includes:
     toc: no
     keep_tex: true
+    latex_engine: xelatex
 mainfont: Times New Roman
 sansfont: Times New Roman
 fontsize: 12pt
@@ -36,10 +37,11 @@ header-includes:
    - \usepackage{dcolumn}
    - \usepackage{color}
    - \usepackage{pdfpages}
+   - \usepackage{amsmath}
 ---
 
 
-```{r setup, include=FALSE}
+```{r Setup, include=FALSE}
 knitr::opts_chunk$set(cache = FALSE)
 # Use chache = TRUE if you want to speed up compilation
 
@@ -72,7 +74,7 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 }
 ```
 
-```{r,echo=FALSE}
+```{r RETICULATE,echo=FALSE}
 Sys.setenv(RETICULATE_PYTHON = "C:/Program Files/Python39/python.exe")
 library(reticulate)
 use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
@@ -80,7 +82,7 @@ use_virtualenv("C:/Users/mangelo.EEG/Documents/python")
 
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+```{r Libraries Stata and Julia, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
 library(Statamarkdown)
 stataexe <- "C:/Program Files/Stata16/StataMP-64.exe"
@@ -106,7 +108,7 @@ julia_setup()
 I start by exploring the data **NLSWORK** (National Longitudinal Survey.  Young Women 14-26 years of age in 1968).
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+```{r ExPanDaR, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 
 ## ExPanDaR: Explore Panel Data Interactively
 
@@ -138,7 +140,7 @@ stargazer(nls,
 
 
 
-```{r echo=FALSE, message=FALSE}
+```{r Stats, echo=FALSE, message=FALSE}
 library(dplyr)
 library(dlookr)
 library(ggplot2)
@@ -196,7 +198,7 @@ R Markdown PDF is now able to produce good tables with our output. For `stargaze
 Table \@ref(tab1) shows data's summary statistics.^[You can reference the table as \@ref(tab1cars).] `stargazer()` is and excellent solution to export outputs.
 
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+```{r Export Stats, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
 stargazer(cars,
           title = "Summary table with stargazer",
@@ -207,7 +209,7 @@ stargazer(cars,
 
 Table \@ref(tab2) reports regression outputs. Name the models as you can refer to their names in the text (M1, M2, M3).
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+```{r Export Regressions, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
 library(stargazer)
 model1 <- lm(speed ~ dist, data = cars)
 model2 <- lm(speed ~ dist, data = cars)
@@ -226,7 +228,7 @@ stargazer(model1, model2, model3,
 ## Graphs with R
 You can insert figures like this. One would like to produce and insert them on the fly in the `.rmd` file. Figure \@ref(fig:fig-1) is such an example.
 
-```{r fig-1, fig.align="center", fig.cap="Scatterplot of Speed and Distance", fig.pos="H", message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r Figures 1, fig-1, fig.align="center", fig.cap="Scatterplot of Speed and Distance", fig.pos="H", message=FALSE, warning=FALSE, paged.print=FALSE}
 plot(cars$speed, cars$dist)
 ```
 
@@ -235,7 +237,7 @@ However, in some cases it does not work.
 ## Example: ggplot2 graphs
 See the `ggplot2` output reported in Figure \@ref(fig:fig-2).
 
-```{r fig-2, fig.align="center", fig.cap="Miles per gallon according to the weight", fig.pos="H", fig.width=6, fig.height=3, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r Fig-2, fig.align="center", fig.cap="Miles per gallon according to the weight", fig.pos="H", fig.width=6, fig.height=3, message=FALSE, warning=FALSE, paged.print=FALSE}
 mtcars$cyl <- as.factor(mtcars$cyl) # Convert cyl to factor
 library(ggplot2)
 ggplot(mtcars, aes(x=wt, y=mpg, shape=cyl)) + geom_point() +
@@ -246,7 +248,7 @@ ggplot(mtcars, aes(x=wt, y=mpg, shape=cyl)) + geom_point() +
 ## Another example using Plotly
 With `Plotly` we can produce interactive graphs which play well, for example, once can embeded in html webpages (drop by  [here](https://paulcbauer.shinyapps.io/visualizing-causal-scenarios/) for an example). One can insert this type of graphs in R Markdown PDF using `Orca` (it generates static images from Plotly graphs). Go [here](https://github.com/plotly/orca#installation) to check how to install it. See Figure \@ref(fig:fig-3) for an example.
 
-```{r fig-3, message=FALSE, warning=FALSE}
+```{r Fig-3, message=FALSE, warning=FALSE}
 library(plotly)
 p <- plot_ly(cars, type = "scatter", mode="markers",
         x=~speed,
@@ -271,7 +273,7 @@ p <- plot_ly(cars, type = "scatter", mode="markers",
 
 ## API data download using Python
 
-```{python py,eval=TRUE,echo=TRUE}
+```{python Py,eval=TRUE,echo=TRUE}
 import sys
 print(sys.version)
 
@@ -320,14 +322,14 @@ The criminal rate is `r py$valor`\%o.
 
 ## Import data from PDF files
 
-```{bash,eval=FALSE}
+```{bash Bash,eval=FALSE}
   cd C:/Users/mangelo.EEG/Documents/GitHub/prjs/pdfs
 	find . -name '*.pdf' -print0 | xargs -0 -n1 pdfsandwich -gray
 	find . -name '*ocr.pdf' -print0 | xargs -0 -n1 pdftotext
 ```
 
 
-```{python eval=TRUE,echo=FALSE}
+```{python Python 2, eval=TRUE,echo=FALSE}
 import os
 import numpy as np
 import pandas as pd
@@ -452,7 +454,7 @@ for file in files_list:
 
                             palavra.append(p5)
                             source.append(file[46:-4])
-## o parágrafo tem de estar na mesma linha e temos de ter 'e a' em vez de 'e o'
+## o paragrafo tem de estar na mesma linha e temos de ter 'e a' em vez de 'e o'
 df = pd.DataFrame({'linha': linha, 'output': output,
                    'outra': other, 'source': source})
 print(df)
@@ -467,7 +469,7 @@ df.to_stata('data/PE.dta', write_index = False)
 
 And now we use Stata to explore the data.
 
-```{stata, echo=TRUE,message=FALSE}
+```{stata Stata Import CSV, echo=TRUE,message=FALSE}
 
 quiet cd "C:/Users/mangelo.EEG/Documents/GitHub/prjs/logs"
 quiet import delimited "C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/PE.csv", encoding(ISO-8859-2) clear
@@ -477,13 +479,13 @@ tab source
 
 ## Run a Python script to read a PDF using the shell to run the commands wget, pdfsandwich and pdftotext
 
-```{bash}
+```{bash Bash 2}
 python3 "C:/Users/mangelo.EEG/Documents/GitHub/prjs/chunks/python_chunk.py"
 ```
 
 ## Use Stata to list the fiscal numbers (read the data produced with Python)
 
-```{stata, echo=TRUE,message=FALSE}
+```{stata Codebook, echo=TRUE,message=FALSE}
 
 quietly{
 cd C:/Users/mangelo.EEG/Documents/GitHub/prjs/chunks
@@ -505,7 +507,7 @@ tab nipc
 
 ## Computations
 
-```{julia echo=FALSE}
+```{julia Julia experiments, echo=FALSE}
 ## This is a julia language chunk.
 ## In julia, the command without ending semicolon will trigger the display
 ## so is JuliaCall package.
@@ -530,7 +532,7 @@ VERSION
 
 ## Grab results in R
 
-```{r , echo=FALSE}
+```{r Grab results in R, echo=FALSE}
 library(JuliaCall)
 
   julia_eval("results_hdfe2")
@@ -549,7 +551,7 @@ The estimated return to education is `r round(betas[1:1]*100,1)`\%. The model ha
 
 ## Computation time: run the HDFE with Stata and R and compare to Julia
 
-```{stata, echo=TRUE,message=FALSE}
+```{stata HDFE with Stata, echo=TRUE,message=FALSE}
 
 use C:/Users/mangelo.EEG/Documents/GitHub/prjs/data/data_short, clear
 
@@ -590,23 +592,23 @@ Example of an equation
 
 $$\int_0^{2\pi} \sin x~dx$$
 
-<!-- Example of a matrix -->
+*Example of a matrix*
 
 
-<!-- $$\mathbf{X} = \left[\begin{array} -->
-<!-- {rrr} -->
-<!-- 1 & 2 & 3 \\ -->
-<!-- 4 & 5 & 6 \\ -->
-<!-- 7 & 8 & 9 -->
-<!-- \end{array}\right] -->
-<!-- $$ -->
+$$
+\mathbf{X} = \left[\begin{array}
+{rrr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{array}\right]
+$$
 
+or
 
-<!-- \begin{equation} -->
-<!-- f\left(k\right)=\binom{n}{k}p^k\left(1-p\right)^{n-k} \label{eq:binom} -->
-<!-- \end{equation} -->
-
-<!-- $$ -->
+\begin{equation}
+f\left(k\right)=\binom{n}{k}p^k\left(1-p\right)^{n-k} \label{eq:binom}
+\end{equation}
 
 
 
@@ -765,7 +767,7 @@ file close myfile
 
 \vspace{0.3cm}
 
-The mean log GDP is `r format(as.numeric(readLines('example.txt')), digits = 2)`.
+The mean ln GDP is `r format(as.numeric(readLines('example.txt')), digits = 2)`.
 
 \vspace{0.3cm}
 
@@ -880,7 +882,13 @@ Check the replication package for Bonhomme, Lamadon and Manresa (2019): https://
 
 \newpage
 
-# Appendix
+# References {-}
+
+
+<div id="refs"></div>
+
+
+# Appendix: Chunk options {-}
 
 ## Software versioning
 
@@ -921,8 +929,6 @@ To simply attach all the code you used in the PDF file in the appendix see the R
 ```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
 ```
 
-## Exploratory data analysis report
+<!-- ## Exploratory data analysis report -->
 
 <!-- [//]: # \includepdf[pages=-]{C:/Users/mangelo.EEG/Documents/GitHub/prjs/reports/eda_report.pdf} -->
-
-# References
