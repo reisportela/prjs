@@ -1,0 +1,135 @@
+---
+title: |
+  |
+  |
+  | \vspace{1cm}Literate programming with Python, R, Julia and Stata*^[*Corresponding address: miguel.portela@eeg.uminho.pt. The current template adapts part of the Rmd code by [Paul C. Bauer](https://github.com/paulcbauer/Writing_a_reproducable_paper_in_rmarkdown), Mannheim Centre for European Social Research.]\vspace{0.5cm}
+  |
+author: |
+  | Miguel Portela
+  |
+  | Minho University
+  |
+date: |
+  |
+  |
+  | `r gsub("^0", "", format(Sys.time(), "%d %B, %Y"))`
+  |
+  |
+linestretch: 1.2
+colorlinks: true
+abstract: \noindent\setstretch{1}In this presentation I will discuss how we can enhance the workflow by using literate programming to combine key features of different statistical packages, namely Stata, R, Julia and Python, on the one hand, and Latex as the typesetting system on the other. The goal is to demonstrate and share a template aiming at producing a highly automated report, or research paper, within the same framework. The tasks will run from exploratory data analysis to regression analysis, where the output, from summary to regression tables and figures, is seamlessly included in the final document. Furthermore, important elements of Latex editing, such as automatic referencing, will be highlighted. We aim at freeing the researcher form repetitive tasks to focus on critical and creative writing. Efficiency and replicability will be at the core of the discussion. RStudio will be used to edit and compile R Markdown. The focus will be on producing PDF outputs. In the presentation I will make use of packages such as bookdown, knitr, stargazer, dlookr, ggplot2, plotly, Statamarkdown, reticulate, JuliaCall, pandas, numpy, matplotlib or FixedEffectModels.\vspace{.8cm}
+bibliography: references.bib
+csl: american-sociological-association.csl
+output:
+  bookdown::pdf_document2:
+    includes:
+    toc: no
+    keep_tex: true
+mainfont: Times New Roman
+sansfont: Times New Roman
+fontsize: 12pt
+link-citations: true
+documentclass: article
+geometry: margin=1in
+always_allow_html: yes
+header-includes:
+   - \usepackage{dcolumn}
+   - \usepackage{color}
+   - \usepackage{pdfpages}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = FALSE)
+# Use chache = TRUE if you want to speed up compilation
+
+# A function to allow for showing some of the inline code
+rinline <- function(code){
+  html <- '<code  class="r">``` `r CODE` ```</code>'
+  sub("CODE", code, html)
+
+  ##https://opensource.com/article/19/5/python-3-default-mac
+
+  Sys.setenv(RETICULATE_PYTHON = "/opt/homebrew/Caskroom/miniforge/base/bin/python3")
+
+##install.packages("reticulate")
+library(reticulate)
+##use_python("/Library/Frameworks/Python.framework/Versions/3.8/bin/python3")
+
+use_virtualenv("/opt/homebrew/Caskroom/miniforge/base/bin/python3")
+
+##knitr::opts_chunk$set(python.reticulate=FALSE)
+
+library(JuliaCall)
+# library(devtools)
+# install_github("hemken/Statamarkdown")
+
+library(Statamarkdown)
+stataexe <- "/Applications/Stata//StataMP.app/Contents/MacOS/StataMP"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+
+}
+```
+
+```{r,echo=FALSE}
+  Sys.setenv(RETICULATE_PYTHON = "/opt/homebrew/Caskroom/miniforge/base/bin/python3")
+library(reticulate)
+use_virtualenv("/opt/homebrew/Caskroom/miniforge/base/bin/python3")
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+library(stargazer)
+library(Statamarkdown)
+stataexe <- "/Applications/Stata15/StataMP.app/Contents/MacOS//stata-mp"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+
+```
+
+\clearpage
+
+\renewcommand{\baselinestretch}{0.5}\normalsize
+[//]: # \tableofcontents
+\renewcommand{\baselinestretch}{1.1}\normalsize
+
+\clearpage
+
+
+
+# Exploratory data analysis
+
+I start by exploring the data **NLSWORK** (National Longitudinal Survey.  Young Women 14-26 years of age in 1968).
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, results="asis"}
+
+## ExPanDaR: Explore Panel Data Interactively
+
+  library(ExPanDaR)
+
+    ## type ExPanD() in the Console
+
+setwd("/Users/miguelportela/Documents/GitHub/prjs/logs")
+
+library(haven)
+library(ggplot2)
+
+nlswork <- read_dta("/Users/miguelportela/Documents/GitHub/prjs/data/nlswork.dta")
+
+nls<-data.frame(nlswork)
+
+attach(nlswork)
+
+head(nlswork)
+
+library(stargazer)
+stargazer(nls,
+          title = "Summary statistics",
+          label="tab1",
+          table.placement = "ht",
+          header=FALSE)
+
+```
+
+
